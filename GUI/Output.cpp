@@ -139,6 +139,38 @@ void Output::DrawAND2(GraphicsInfo r_GfxInfo, bool selected) const
 
 //TODO: Add similar functions to draw all components
 
+void Output::DrawOR2(GraphicsInfo r_GfxInfo, bool selected) const
+{
+	string GateImage;
+	if (selected)
+		GateImage="Images\\Gates\\Gate_OR2_Hi.jpg";
+	else 
+		GateImage = "Images\\Gates\\Gate_OR2.jpg";
+
+	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
+}
+
+void Output::DrawNAND2(GraphicsInfo r_GfxInfo, bool selected) const
+{
+	string GateImage;
+	if (selected)
+		GateImage="Images\\Gates\\Gate_NAND2_Hi.jpg";
+	else 
+		GateImage = "Images\\Gates\\Gate_NAND2.jpg";
+
+	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
+}
+
+void Output::DrawSWITCH(GraphicsInfo r_GfxInfo, bool selected) const
+{
+	string GateImage;
+	if (selected)
+		GateImage="Images\\Gates\\Gate_SWITCH_Hi.jpg";
+	else 
+		GateImage = "Images\\Gates\\Gate_SWITCH.jpg";
+
+	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
+}
 
 void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected) const
 {
