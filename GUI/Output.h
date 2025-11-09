@@ -23,10 +23,11 @@ public:
 	
 	// Draws 2-input AND gate
 	void DrawAND2(GraphicsInfo r_GfxInfo, bool selected = false) const;
-	void DrawOR2(GraphicsInfo r_GfxInfo, bool selected = false) const;
 
 	///TODO: Make similar functions for drawing all other gates, switch, and LED, .. etc
-	void DrawAND3(GraphicsInfo r_GfxInfo, bool selected = false) const;
+	void DrawOR2(GraphicsInfo r_GfxInfo, bool selected = false) const;
+	void DrawNAND2(GraphicsInfo r_GfxInfo, bool selected = false) const;
+	void DrawSWITCH(GraphicsInfo r_GfxInfo, bool selected = false) const;
 
 	// Draws Connection
 	void DrawConnection(GraphicsInfo r_GfxInfo, bool selected = false) const;

@@ -129,7 +129,7 @@ void Output::DrawAND2(GraphicsInfo r_GfxInfo, bool selected) const
 	string GateImage;
 	if(selected)	//use image in the highlighted case
 		GateImage="Images\\Gates\\Gate_AND2_Hi.jpg";
-	else  
+	else 
 		GateImage = "Images\\Gates\\Gate_AND2.jpg";
 
 	//Draw AND2 Gate at Gfx_Info (1st corner)
