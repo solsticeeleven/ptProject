@@ -235,8 +235,6 @@ void Output::DrawSWITCH(GraphicsInfo r_GfxInfo, bool selected) const
 
 void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected) const
 {
-	pWind->SetPen(RED, 1);
-	pWind->DrawLine(100, 200, 150, 250);
 	//TODO: Add code to draw connection
 }
 
