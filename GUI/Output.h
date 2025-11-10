@@ -30,6 +30,11 @@ public:
 	void DrawNOR2(GraphicsInfo r_GfxInfo, bool selected = false) const;
 	void DrawXOR2(GraphicsInfo r_GfxInfo, bool selected = false) const;
 	void DrawXNOR2(GraphicsInfo r_GfxInfo, bool selected = false) const;
+
+	void DrawAND3(GraphicsInfo r_GfxInfo, bool selected = false) const;
+	void DrawNOR3(GraphicsInfo r_GfxInfo, bool selected = false) const;
+	void DrawXOR3(GraphicsInfo r_GfxInfo, bool selected = false) const;
+
 	void DrawSWITCH(GraphicsInfo r_GfxInfo, bool selected = false) const;
 
 	// Draws Connection
