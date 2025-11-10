@@ -106,6 +106,7 @@ int main()
 	pOut->PrintMsg("Drawing connections, Normal, Highlighted, straight, and broken,  Click to continue");
 	
 	///TODO: Add code to draw connections, Normal, Highlighted, straight, and broken (all combinations) 
+	pOut->DrawConnection(GfxInfo);
 
 	pIn->GetPointClicked(x,y);	//Wait for any click
 	pOut->ClearDrawingArea();
@@ -210,7 +211,6 @@ int main()
 	pOut->PrintMsg("Action: EXIT, test is finished, click anywhere to exit");
 	pIn->GetPointClicked(x,y);
 
-	
 	delete pIn;
 	delete pOut;	
 	return 0;
