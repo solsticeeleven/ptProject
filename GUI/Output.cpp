@@ -218,7 +218,7 @@ void Output::DrawXOR3(GraphicsInfo r_GfxInfo, bool selected) const
 	if (selected)
 		GateImage="Images\\Gates\\Gate_XOR3_Hi.jpg";
 	else 
-		GateImage = "Images\\Gates\\Gate_XOR3.jpg"; // dfjhfghghg
+		GateImage = "Images\\Gates\\Gate_XOR3.jpg"; 
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
 }
 
