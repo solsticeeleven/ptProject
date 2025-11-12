@@ -71,15 +71,15 @@ enum DsgnMenuItem //The items of the design menu (you should add more items)
 	ITM_NAND2,		//done
 	ITM_NOR2,		//done
 	ITM_XOR2,		//done
-	ITM_XNOR2,		//XNOR 2-input gate
-	ITM_AND3,		//AND 3-input gate
-	ITM_NOR3,		//NOR 3-input gate
-	ITM_XOR3,		//XOR 3-input gate
-	ITM_Buff,		//Buffer
-	ITM_INV,		//Inverter
-	ITM_SWITCH,		//Switch
-	ITM_LED,		//LED
-	ITM_CONNECTION,	//Wire connection
+	ITM_XNOR2,		//done
+	ITM_AND3,		//done
+	ITM_NOR3,		//done
+	ITM_XOR3,		//done
+	ITM_Buff,		//donneee
+	ITM_INV,		//doneee
+	ITM_SWITCH,		//donee
+	ITM_LED,		//DONe
+	ITM_CONNECTION,	//DONE
 
 	ITM_LABEL,		//Add label
 	ITM_EDIT,		//Edit label

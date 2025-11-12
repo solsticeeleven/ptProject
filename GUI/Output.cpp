@@ -1,4 +1,11 @@
 #include "Output.h"
+#include <windows.h>
+#include <string>
+
+static inline bool FileExists(const std::string &path) {
+    DWORD attrs = GetFileAttributesA(path.c_str());
+    return (attrs != INVALID_FILE_ATTRIBUTES) && ((attrs & FILE_ATTRIBUTE_DIRECTORY) == 0);
+}
 
 Output::Output()
 {
@@ -100,18 +107,50 @@ void Output::CreateDesignToolBar() const
 	MenuItemImages[ITM_AND3]  = "images\\Menu\\Menu_AND3.jpg";
 	MenuItemImages[ITM_NOR3]  = "images\\Menu\\Menu_NOR3.jpg";
 	MenuItemImages[ITM_XOR3]  = "images\\Menu\\Menu_XOR3.jpg";
+	MenuItemImages[ITM_Buff] = "images\\Menu\\Menu_Buff.jpg";        // Buffer gate
+	MenuItemImages[ITM_INV] = "images\\Menu\\Menu_INV.jpg";         // Inverter
+	MenuItemImages[ITM_SWITCH] = "images\\Menu\\Menu_SWITCH.jpg";      // Switch
+	MenuItemImages[ITM_LED] = "images\\Menu\\Menu_LED.jpg";         // LED
+	MenuItemImages[ITM_CONNECTION] = "images\\Menu\\Menu_CONNECTION.jpg";  // Wire connection
+	MenuItemImages[ITM_LABEL] = "images\\Menu\\Menu_Label.jpg";
+	MenuItemImages[ITM_EDIT] = "images\\Menu\\Menu_Edit.jpg";
+	MenuItemImages[ITM_DEL] = "images\\Menu\\Menu_Del.jpg";
+	MenuItemImages[ITM_MOVE] = "images\\Menu\\Menu_Move.jpg";
+	MenuItemImages[ITM_SAVE] = "images\\Menu\\Menu_Save.jpg";
+	MenuItemImages[ITM_LOAD] = "images\\Menu\\Menu_Load.jpg";
+	MenuItemImages[ITM_SIM_MODE] = "images\\Menu\\Menu_SimMode.jpg";
 	MenuItemImages[ITM_EXIT]  = "images\\Menu\\Menu_Exit.jpg";
 
+	// Compute per-item layout using UI.ToolItemWidth (now computed to fit all items)
+	int itemWidth = UI.ToolItemWidth;
+	int itemHeight = UI.ToolBarHeight;
+
 	// Draw menu item one image at a time.
-	// Guard against empty paths (prevents constructing an image with an empty filename).
 	for (int i = 0; i < ITM_DSN_CNT; ++i) {
-		if (!MenuItemImages[i].empty()) {
-			pWind->DrawImage(MenuItemImages[i], i * UI.ToolItemWidth, 0, UI.ToolItemWidth, UI.ToolBarHeight);
+		const string &path = MenuItemImages[i];
+
+		// scale the image to 80% of the slot so there is padding
+		int imgW = (itemWidth * 80) / 100;
+		int imgH = (itemHeight * 80) / 100;
+		int xPos = i * itemWidth + (itemWidth - imgW) / 2;
+		int yPos = (itemHeight - imgH) / 2;
+
+		if (!path.empty() && FileExists(path)) {
+			// constructing the temporary image can throw (missing file / load error).
+			// guard with try/catch so a missing or bad image doesn't crash the app.
+			try {
+				pWind->DrawImage(path, xPos, yPos, imgW, imgH);
+			} catch (...) {
+				// draw placeholder background so separators are visible
+				pWind->SetPen(UI.BkGrndColor);
+				pWind->SetBrush(UI.BkGrndColor);
+				pWind->DrawRectangle(i * itemWidth, 0, (i + 1) * itemWidth, UI.ToolBarHeight);
+			}
 		} else {
-			// Optional: draw background placeholder so separators are visible
+			// draw placeholder background so separators are visible
 			pWind->SetPen(UI.BkGrndColor);
 			pWind->SetBrush(UI.BkGrndColor);
-			pWind->DrawRectangle(i * UI.ToolItemWidth, 0, (i + 1) * UI.ToolItemWidth, UI.ToolBarHeight);
+			pWind->DrawRectangle(i * itemWidth, 0, (i + 1) * itemWidth, UI.ToolBarHeight);
 		}
 	}
 
