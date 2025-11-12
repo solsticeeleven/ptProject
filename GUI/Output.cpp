@@ -89,26 +89,41 @@ void Output::CreateDesignToolBar() const
 {
 	UI.AppMode = DESIGN;	//Design Mode
 
-	//You can draw the tool bar icons in any way you want.
-
-	//First prepare List of images for each menu item
+	// Prepare list of images for each menu item
 	string MenuItemImages[ITM_DSN_CNT];
-	MenuItemImages[ITM_AND2] = "images\\Menu\\Menu_AND2.jpg";
-	MenuItemImages[ITM_OR2]  = "images\\Menu\\Menu_OR2.jpg";
+	MenuItemImages[ITM_AND2]  = "images\\Menu\\Menu_AND2.jpg";
+	MenuItemImages[ITM_OR2]   = "images\\Menu\\Menu_OR2.jpg";
 	MenuItemImages[ITM_NAND2] = "images\\Menu\\Menu_NAND2.jpg";
-	MenuItemImages[ITM_XOR2] = "images\\Menu\\Menu_XOR2.jpg";
-	MenuItemImages[ITM_NOR2] = "images\\Menu\\Menu_NOR2.jpg";
-	MenuItemImages[ITM_EXIT] = "images\\Menu\\Menu_Exit.jpg";
+	MenuItemImages[ITM_XOR2]  = "images\\Menu\\Menu_XOR2.jpg";
+	MenuItemImages[ITM_NOR2]  = "images\\Menu\\Menu_NOR2.jpg";
+	MenuItemImages[ITM_XNOR2]  = "images\\Menu\\Menu_XNOR2.jpg";
+	MenuItemImages[ITM_AND3]  = "images\\Menu\\Menu_AND3.jpg";
+	MenuItemImages[ITM_NOR3]  = "images\\Menu\\Menu_NOR3.jpg";
+	MenuItemImages[ITM_XOR3]  = "images\\Menu\\Menu_XOR3.jpg";
+	MenuItemImages[ITM_EXIT]  = "images\\Menu\\Menu_Exit.jpg";
 
-	//TODO: Prepare image for each menu item and add it to the list
+	// Draw menu item one image at a time.
+	// Guard against empty paths (prevents constructing an image with an empty filename).
+	for (int i = 0; i < ITM_DSN_CNT; ++i) {
+		if (!MenuItemImages[i].empty()) {
+			pWind->DrawImage(MenuItemImages[i], i * UI.ToolItemWidth, 0, UI.ToolItemWidth, UI.ToolBarHeight);
+		} else {
+			// Optional: draw background placeholder so separators are visible
+			pWind->SetPen(UI.BkGrndColor);
+			pWind->SetBrush(UI.BkGrndColor);
+			pWind->DrawRectangle(i * UI.ToolItemWidth, 0, (i + 1) * UI.ToolItemWidth, UI.ToolBarHeight);
+		}
+	}
 
-	//Draw menu item one image at a time
-	for(int i=0; i<ITM_DSN_CNT; i++)
-		pWind->DrawImage(MenuItemImages[i],i*UI.ToolItemWidth,0,UI.ToolItemWidth, UI.ToolBarHeight);
+	// Draw vertical red separators between buttons
+	pWind->SetPen(RED, 1);
+	for (int s = 1; s < ITM_DSN_CNT; ++s) {
+		int x = s * UI.ToolItemWidth;
+		pWind->DrawLine(x, 0, x, UI.ToolBarHeight);
+	}
 
-
-	//Draw a line under the toolbar
-	pWind->SetPen(RED,3);
+	// Draw a line under the toolbar (unchanged)
+	pWind->SetPen(RED, 3);
 	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);	
 
 }

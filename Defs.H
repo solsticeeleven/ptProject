@@ -1,6 +1,6 @@
 #ifndef CONST_H
 #define CONST_H
-
+#pragma once
 //This header file contains some defenitions to be used all over the application
 
 //All possible actions
@@ -69,8 +69,8 @@ enum DsgnMenuItem //The items of the design menu (you should add more items)
 	ITM_AND2,		//done
 	ITM_OR2,		//done
 	ITM_NAND2,		//done
-	ITM_NOR2,		//NOR 2-input gate
-	ITM_XOR2,		//XOR 2-input gate
+	ITM_NOR2,		//done
+	ITM_XOR2,		//done
 	ITM_XNOR2,		//XNOR 2-input gate
 	ITM_AND3,		//AND 3-input gate
 	ITM_NOR3,		//NOR 3-input gate
