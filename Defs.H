@@ -28,6 +28,9 @@ enum ActionType
 
 	Change_Switch,		//Change Switch Status in Simulation Mode
 
+	// New action for the "Simulate" button in the simulation toolbar
+	SIMULATE,
+
 	SELECT,		//Select a Component, a Connection
 	DEL,		//Delete a Component, a Connection
 	MOVE,		//Move a Component, a Connection

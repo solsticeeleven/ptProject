@@ -99,7 +99,52 @@ ActionType Input::GetUserAction() const
 	}
 	else	//Application is in Simulation mode
 	{
-		return SIM_MODE;	//This should be changed after creating the complete simulation bar 
+		// Top DSN image (centered) and left-column simulation icons (stacked)
+		int topH = UI.ToolBarHeight;
+		int bottomY = UI.height - UI.StatusBarHeight - UI.ToolBarHeight;
+
+		// DSN image area (same sizing logic used in CreateSimulationToolBar)
+		int dsImgW = UI.ToolItemWidth * 2;
+		if (dsImgW > UI.width) dsImgW = (UI.width * 80) / 100;
+		int dsImgH = (topH * 80) / 100;
+		int dsX = (UI.width - dsImgW) / 2;
+		int dsY = (topH - dsImgH) / 2;
+
+		// If click in top bar inside DSN image -> return to design
+		if (y >= 0 && y < topH && x >= dsX && x < dsX + dsImgW)
+		{
+			return DSN_MODE;
+		}
+
+		// Left column detection for simulation icons
+		int leftX = 0;
+		int leftW = UI.ToolItemWidth;
+		int leftTopY = topH;
+		int leftBottomY = bottomY;
+		int verticalArea = leftBottomY - leftTopY;
+		const int leftCount = 4; // ITM_SIM, ITM_TRUTH, ITM_CHANGE_SWITCH, ITM_EXIT_SIM
+		if (x >= leftX && x < leftX + leftW && y >= leftTopY && y < leftBottomY && verticalArea > 0)
+		{
+			int slotV = verticalArea / leftCount;
+			int clicked = (y - leftTopY) / slotV;
+			switch (clicked)
+			{
+			case 0: return SIMULATE;          // ITM_SIM
+			case 1: return Create_TruthTable; // ITM_TRUTH
+			case 2: return Change_Switch;     // ITM_CHANGE_SWITCH
+			case 3: return EXIT;              // ITM_EXIT_SIM
+			default: return DSN_TOOL;
+			}
+		}
+
+		// Click in main drawing area while in simulation
+		if (y >= topH && y < UI.height - UI.StatusBarHeight)
+		{
+			return SELECT;
+		}
+
+		// Click on the status bar
+		return STATUS_BAR;
 	}
 }
 

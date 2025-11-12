@@ -97,6 +97,11 @@ void Output::CreateDesignToolBar() const
 {
 	UI.AppMode = DESIGN;	//Design Mode
 
+	// Ensure any pending mouse events are discarded so the next click is fresh.
+	pWind->FlushMouseQueue();
+	// If double-buffering is on this will copy the buffer to screen; harmless otherwise.
+	pWind->UpdateBuffer();
+
 	// Prepare list of images for each menu item (matches DsgnMenuItem order)
 	string MenuItemImages[ITM_DSN_CNT];
 	MenuItemImages[ITM_AND2]  = "images\\Menu\\Menu_AND2.jpg";
@@ -120,8 +125,13 @@ void Output::CreateDesignToolBar() const
 	MenuItemImages[ITM_MOVE]  = "images\\Menu\\Menu_Move.jpg";
 	MenuItemImages[ITM_SAVE]  = "images\\Menu\\Menu_Save.jpg";
 	MenuItemImages[ITM_LOAD]  = "images\\Menu\\Menu_Load.jpg";
-	MenuItemImages[ITM_SIM_MODE] = "images\\Menu\\Menu_SimMode.jpg";
+	MenuItemImages[ITM_SIM_MODE] = "images\\Menu\\Menu_SIM_MODE.jpg";
 	MenuItemImages[ITM_EXIT]  = "images\\Menu\\Menu_Exit.jpg";
+
+	// Clear possible simulation left-column area so old sim icons disappear when switching back
+	pWind->SetPen(UI.BkGrndColor);
+	pWind->SetBrush(UI.BkGrndColor);
+	pWind->DrawRectangle(0, UI.ToolBarHeight, UI.ToolItemWidth, UI.height - UI.StatusBarHeight);
 
 	// split ranges: top = LABEL..EXIT, bottom = AND2..CONNECTION
 	const int topStart = ITM_LABEL;
@@ -202,23 +212,9 @@ void Output::CreateDesignToolBar() const
 		}
 	}
 
-	// Draw separators for top row
-	pWind->SetPen(RED, 1);
-	for (int s = 1; s < topCount; ++s) {
-		int x = s * topSlotW;
-		pWind->DrawLine(x, topY, x, topY + slotH);
-	}
-
-	// Draw separators for bottom row
-	for (int s = 1; s < bottomCount; ++s) {
-		int x = s * bottomSlotW;
-		pWind->DrawLine(x, bottomY, x, bottomY + slotH);
-	}
-
-	// Draw guiding lines under top row and above bottom row
+	// Draw a line under the toolbar (unchanged)
 	pWind->SetPen(RED, 3);
-	pWind->DrawLine(0, topY + slotH, UI.width, topY + slotH);
-	pWind->DrawLine(0, bottomY, UI.width, bottomY);
+	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);	
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -227,11 +223,88 @@ void Output::CreateSimulationToolBar() const
 {
 	UI.AppMode = SIMULATION;	//Simulation Mode
 
-	//TODO: Write code to draw the simualtion toolbar (similar to that of design toolbar drawing)
+	// Ensure any pending mouse events are discarded so the next click is fresh.
+	pWind->FlushMouseQueue();
+	// Force buffer update (harmless if no double-buffering)
+	pWind->UpdateBuffer();
 
+	// Simulation images (SimMenuItem order)
+	string SimMenuItemImages[ITM_SIM_CNT];
+	SimMenuItemImages[ITM_SIM] = "images\\Menu\\Menu_Simulate.jpg";      // Start/Run Simulation
+	SimMenuItemImages[ITM_TRUTH] = "images\\Menu\\Menu_Truth.jpg";         // Show Truth Table
+	SimMenuItemImages[ITM_CHANGE_SWITCH] = "images\\Menu\\Menu_ChangeSwitch.jpg";  // Toggle Switch Status
+	SimMenuItemImages[ITM_DSN_MODE] = "images\\Menu\\Menu_Design.jpg";        // Return to Design Mode
+	SimMenuItemImages[ITM_EXIT_SIM] = "images\\Menu\\Menu_Exit.jpg";          // Exit Application
 
+	// Clear design areas that might conflict
+	pWind->SetPen(UI.BkGrndColor);
+	pWind->SetBrush(UI.BkGrndColor);
+	// Clear top row and left strip used by simulation icons
+	int slotH = UI.ToolBarHeight;
+	int bottomY = UI.height - UI.StatusBarHeight - UI.ToolBarHeight;
+	pWind->DrawRectangle(0, 0, UI.width, slotH); // top
+	pWind->DrawRectangle(0, slotH, UI.ToolItemWidth, bottomY - slotH + slotH); // left column area
+
+	// Draw the DSN_MODE image centered on the top row (this replaces the top row label icons while in simulation)
+	int dsImgW = UI.ToolItemWidth * 2;
+	if (dsImgW > UI.width) dsImgW = (UI.width * 80) / 100;
+	int dsImgH = (slotH * 80) / 100;
+	int dsX = (UI.width - dsImgW) / 2;
+	int dsY = (slotH - dsImgH) / 2;
+	if (FileExists(SimMenuItemImages[ITM_DSN_MODE])) {
+		try {
+			pWind->DrawImage(SimMenuItemImages[ITM_DSN_MODE], dsX, dsY, dsImgW, dsImgH);
+		} catch (...) {
+			pWind->SetPen(UI.BkGrndColor);
+			pWind->SetBrush(UI.BkGrndColor);
+			pWind->DrawRectangle(dsX, dsY, dsX + dsImgW, dsY + dsImgH);
+		}
+	} else {
+		pWind->SetPen(UI.BkGrndColor);
+		pWind->SetBrush(UI.BkGrndColor);
+		pWind->DrawRectangle(dsX, dsY, dsX + dsImgW, dsY + dsImgH);
+	}
+
+	// Draw simulation icons vertically on the left (exclude the DSN_MODE, which is top-center)
+	int leftIndices[] = { ITM_SIM, ITM_TRUTH, ITM_CHANGE_SWITCH, ITM_EXIT_SIM };
+	int leftCount = sizeof(leftIndices) / sizeof(leftIndices[0]);
+	int leftX = 0;
+	int leftW = UI.ToolItemWidth;
+	int leftTopY = slotH;
+	int leftBottomY = bottomY;
+	int verticalArea = leftBottomY - leftTopY;
+	int slotV = (leftCount > 0) ? (verticalArea / leftCount) : verticalArea;
+
+	for (int i = 0; i < leftCount; ++i) {
+		int simIndex = leftIndices[i];
+		const string &path = SimMenuItemImages[simIndex];
+
+		int imgW = (leftW * 80) / 100;
+		int imgH = (slotV * 80) / 100;
+		int xPos = leftX + (leftW - imgW) / 2;
+		int yPos = leftTopY + i * slotV + (slotV - imgH) / 2;
+
+		if (!path.empty() && FileExists(path)) {
+			try {
+				pWind->DrawImage(path, xPos, yPos, imgW, imgH);
+			} catch (...) {
+				pWind->SetPen(UI.BkGrndColor);
+				pWind->SetBrush(UI.BkGrndColor);
+				pWind->DrawRectangle(leftX, leftTopY + i * slotV, leftX + leftW, leftTopY + (i + 1) * slotV);
+			}
+		} else {
+			pWind->SetPen(UI.BkGrndColor);
+			pWind->SetBrush(UI.BkGrndColor);
+			pWind->DrawRectangle(leftX, leftTopY + i * slotV, leftX + leftW, leftTopY + (i + 1) * slotV);
+		}
+	}
+
+	// Guiding lines (kept only to separate tool area from drawing area)
+	pWind->SetPen(RED, 3);
+	pWind->DrawLine(0, slotH, UI.width, slotH);   // under top row
+	pWind->DrawLine(0, leftBottomY, UI.width, leftBottomY); // line above bottom toolbar region
 }
-
+//////////////////////////////////////////////////////////////////////////////////////////
 //======================================================================================//
 //								Components Drawing Functions							//
 //======================================================================================//
@@ -248,8 +321,6 @@ void Output::DrawAND2(GraphicsInfo r_GfxInfo, bool selected) const
 	//Set the Image Width & Height by AND2 Image Parameter in UI_Info
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
 }
-
-//TODO: Add similar functions to draw all components
 
 void Output::DrawOR2(GraphicsInfo r_GfxInfo, bool selected) const
 {
@@ -346,8 +417,24 @@ void Output::DrawSWITCH(GraphicsInfo r_GfxInfo, bool selected) const
 
 void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected) const
 {
-	//TODO: Add code to draw connection
+	// Choose color depending on whether it's selected or not
+	color ConnColor = selected ? UI.SelectColor : UI.ConnColor;
+
+	pWind->SetPen(ConnColor, 3);
+
+	// Typically, a connection is drawn as an L-shaped or straight line.
+	// Here we’ll draw an L-shaped wire for clarity (horizontal then vertical).
+
+	int x1 = r_GfxInfo.x1;
+	int y1 = r_GfxInfo.y1;
+	int x2 = r_GfxInfo.x2;
+	int y2 = r_GfxInfo.y2;
+
+	// Draw horizontal then vertical segment (looks like a neat circuit wire)
+	pWind->DrawLine(x1, y1, x2, y1); // horizontal segment
+	pWind->DrawLine(x2, y1, x2, y2); // vertical segment
 }
+
 
 
 Output::~Output()
