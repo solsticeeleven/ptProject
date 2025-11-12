@@ -66,11 +66,33 @@ enum DsgnMenuItem //The items of the design menu (you should add more items)
 {
 	//Note: Items are ordered here as they appear in menu
 	//If you want to change the menu items order, change the order here
-	ITM_AND2,		//AND gate item in menu
-	ITM_OR2,		//OR gate item in menu
-	ITM_NAND2,		//NAND gate item in menu
+	ITM_AND2,		//done
+	ITM_OR2,		//done
+	ITM_NAND2,		//done
+	ITM_NOR2,		//NOR 2-input gate
+	ITM_XOR2,		//XOR 2-input gate
+	ITM_XNOR2,		//XNOR 2-input gate
+	ITM_AND3,		//AND 3-input gate
+	ITM_NOR3,		//NOR 3-input gate
+	ITM_XOR3,		//XOR 3-input gate
+	ITM_Buff,		//Buffer
+	ITM_INV,		//Inverter
+	ITM_SWITCH,		//Switch
+	ITM_LED,		//LED
+	ITM_CONNECTION,	//Wire connection
+
+	ITM_LABEL,		//Add label
+	ITM_EDIT,		//Edit label
+	ITM_DEL,		//Delete component
+	ITM_MOVE,		//Move component
+
+	ITM_SAVE,		//Save circuit
+	ITM_LOAD,		//Load circuit
+
+	ITM_SIM_MODE,	//Switch to Simulation Mode
+	
 	ITM_EXIT,		//Exit item
-	//TODO: Add more items names here
+	//TODO: Add more items names here doneeeeee
 	
 	ITM_DSN_CNT		//no. of design menu items ==> This should be the last line in this enum
 	
@@ -82,8 +104,10 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 	//Note: Items are ordered here as they appear in menu
 	ITM_SIM,	//Simulate menu item
 	ITM_TRUTH,	//Truth table menu item
-	
-	//TODO:Add more items names here
+	ITM_CHANGE_SWITCH,	//Toggle switch status
+	ITM_DSN_MODE,		//Return to Design mode
+	ITM_EXIT_SIM,		//Exit application
+	//TODO:Add more items names here doneeeeeeeeeee
 	
 	ITM_SIM_CNT		//no. of simulation menu items ==> This should be the last line in this enum
 	
