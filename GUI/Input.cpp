@@ -45,8 +45,29 @@ string Input::GetSrting(Output *pOut)
 	//If the user presses "ESCAPE". This function should return an empty string.
 	//"BACKSPACE" should be also supported
 	//User should see what he is typing at the status bar
-
-	return string();
+	char c;
+	string input = " ";
+	pOut->PrintMsg("enter a string");
+		while (true) {
+			c = pWind->WaitKeyPress(c);    // store the key pressed in c
+			if (c == 27) {                // check if c= ESC key 
+				pOut->PrintMsg("");      //  ESC means cancel so we'll clear the status bar
+				return " ";             // return empty string 
+			}
+			else if (c == 13) {            // check if c = enter key 
+				pOut->PrintMsg(input);    // display the final text 
+				return input;
+			}
+			else if (c == 8) {            // check if c= backspace key 
+				if (!input.empty())      // only delete if the string is not empty 
+					input.resize(input.size()-1) ;   // remove last character 
+			}
+			else {
+				input = input + c; 
+			}
+			pOut->PrintMsg(input);    // update the status bar with the current text
+		}
+	return NULL;
 }
 
 //This function reads the position where the user clicks to determine the desired action
