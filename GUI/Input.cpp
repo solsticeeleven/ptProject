@@ -34,7 +34,7 @@ string Input::GetSrting(Output *pOut)
 			}
 			else if (c == 8) {            // check if c= backspace key 
 				if (!input.empty())      // only delete if the string is not empty 
-					input.pop_back();   // remove last character 
+					input.resize(input.size()-1) ;   // remove last character 
 			}
 			else {
 				input = input + c; 
