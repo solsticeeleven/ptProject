@@ -87,203 +87,87 @@ void Output::ClearStatusBar()const
 void Output::ClearDrawingArea() const
 {
 	// Clear the main drawing area (between top toolbar and status bar)
-	pWind->SetPen(RED, 1);
-	pWind->SetBrush(WHITE);
-	pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width, UI.height - UI.StatusBarHeight);
-
-	// --- Ensure bottom toolbar images stay visible ---
-	// Repaint the bottom toolbar area and its images (only bottom row)
-	// This avoids toolbar icons being overwritten by subsequent drawing operations.
-
-	// Prepare list of images for each menu item (matches DsgnMenuItem order)
-	string MenuItemImages[ITM_DSN_CNT];
-	MenuItemImages[ITM_AND2]  = "images\\Menu\\Menu_AND2.jpg";
-	MenuItemImages[ITM_OR2]   = "images\\Menu\\Menu_OR2.jpg";
-	MenuItemImages[ITM_NAND2] = "images\\Menu\\Menu_NAND2.jpg";
-	MenuItemImages[ITM_NOR2]  = "images\\Menu\\Menu_NOR2.jpg";
-	MenuItemImages[ITM_XOR2]  = "images\\Menu\\Menu_XOR2.jpg";
-	MenuItemImages[ITM_XNOR2] = "images\\Menu\\Menu_XNOR2.jpg";
-	MenuItemImages[ITM_AND3]  = "images\\Menu\\Menu_AND3.jpg";
-	MenuItemImages[ITM_NOR3]  = "images\\Menu\\Menu_NOR3.jpg";
-	MenuItemImages[ITM_XOR3]  = "images\\Menu\\Menu_XOR3.jpg";
-	MenuItemImages[ITM_Buff]  = "images\\Menu\\Menu_Buff.jpg";
-	MenuItemImages[ITM_INV]   = "images\\Menu\\Menu_INV.jpg";
-	MenuItemImages[ITM_SWITCH]= "images\\Menu\\Menu_SWITCH.jpg";
-	MenuItemImages[ITM_LED]   = "images\\Menu\\Menu_LED.jpg";
-	MenuItemImages[ITM_CONNECTION] = "images\\Menu\\Menu_CONNECTION.jpg";
-
-	MenuItemImages[ITM_LABEL] = "images\\Menu\\Menu_Label.jpg";
-	MenuItemImages[ITM_EDIT]  = "images\\Menu\\Menu_Edit.jpg";
-	MenuItemImages[ITM_DEL]   = "images\\Menu\\Menu_Del.jpg";
-	MenuItemImages[ITM_MOVE]  = "images\\Menu\\Menu_Move.jpg";
-	MenuItemImages[ITM_SAVE]  = "images\\Menu\\Menu_Save.jpg";
-	MenuItemImages[ITM_LOAD]  = "images\\Menu\\Menu_Load.jpg";
-	MenuItemImages[ITM_SIM_MODE] = "images\\Menu\\Menu_SIM_MODE.jpg";
-	MenuItemImages[ITM_EXIT]  = "images\\Menu\\Menu_Exit.jpg";
-
-	// bottom row indices (AND2 .. CONNECTION)
-	const int bottomStart = ITM_AND2;
-	const int bottomEnd   = ITM_CONNECTION;
-	const int bottomCount = bottomEnd - bottomStart + 1;
-
-	int bottomSlotW = (bottomCount > 0) ? (UI.width / bottomCount) : UI.width;
-	int slotH = UI.ToolBarHeight;
-	int bottomY = UI.height - UI.StatusBarHeight - UI.ToolBarHeight;
-
-	// draw bottom background (overwrite any artifacts)
+	// NOTE: removed code that repainted the bottom toolbar icons.
+	// This prevents AND2..CONNECTION icons from being drawn at the bottom.
 	pWind->SetPen(UI.BkGrndColor);
 	pWind->SetBrush(UI.BkGrndColor);
-	pWind->DrawRectangle(0, bottomY, UI.width, bottomY + slotH);
-
-	// draw bottom row images (AND2 .. CONNECTION)
-	for (int i = 0; i < bottomCount; ++i) {
-		int itemIndex = bottomStart + i;
-		const string &path = MenuItemImages[itemIndex];
-
-		int imgW = (bottomSlotW * 80) / 100;
-		int imgH = (slotH * 80) / 100;
-		int xPos = i * bottomSlotW + (bottomSlotW - imgW) / 2;
-		int yPos = bottomY + (slotH - imgH) / 2;
-
-		if (!path.empty() && FileExists(path)) {
-			try {
-				pWind->DrawImage(path, xPos, yPos, imgW, imgH);
-			} catch (...) {
-				pWind->SetPen(UI.BkGrndColor);
-				pWind->SetBrush(UI.BkGrndColor);
-				pWind->DrawRectangle(i * bottomSlotW, bottomY, (i + 1) * bottomSlotW, bottomY + slotH);
-			}
-		} else {
-			pWind->SetPen(UI.BkGrndColor);
-			pWind->SetBrush(UI.BkGrndColor);
-			pWind->DrawRectangle(i * bottomSlotW, bottomY, (i + 1) * bottomSlotW, bottomY + slotH);
-		}
-	}
+	pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width, UI.height - UI.StatusBarHeight);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 //Draws the menu (toolbar) in the Design mode
 void Output::CreateDesignToolBar() const
 {
-	UI.AppMode = DESIGN;	//Design Mode
+    UI.AppMode = DESIGN;    // Design Mode
 
-	// Ensure any pending mouse events are discarded so the next click is fresh.
-	pWind->FlushMouseQueue();
-	// If double-buffering is on this will copy the buffer to screen; harmless otherwise.
-	pWind->UpdateBuffer();
+    // Flush and update to avoid stale events/artifacts
+    pWind->FlushMouseQueue();
+    pWind->UpdateBuffer();
 
-	// Prepare list of images for each menu item (matches DsgnMenuItem order)
-	string MenuItemImages[ITM_DSN_CNT];
-	MenuItemImages[ITM_AND2]  = "images\\Menu\\Menu_AND2.jpg";
-	MenuItemImages[ITM_OR2]   = "images\\Menu\\Menu_OR2.jpg";
-	MenuItemImages[ITM_NAND2] = "images\\Menu\\Menu_NAND2.jpg";
-	MenuItemImages[ITM_NOR2]  = "images\\Menu\\Menu_NOR2.jpg";
-	MenuItemImages[ITM_XOR2]  = "images\\Menu\\Menu_XOR2.jpg";
-	MenuItemImages[ITM_XNOR2] = "images\\Menu\\Menu_XNOR2.jpg";
-	MenuItemImages[ITM_AND3]  = "images\\Menu\\Menu_AND3.jpg";
-	MenuItemImages[ITM_NOR3]  = "images\\Menu\\Menu_NOR3.jpg";
-	MenuItemImages[ITM_XOR3]  = "images\\Menu\\Menu_XOR3.jpg";
-	MenuItemImages[ITM_Buff]  = "images\\Menu\\Menu_Buff.jpg";
-	MenuItemImages[ITM_INV]   = "images\\Menu\\Menu_INV.jpg";
-	MenuItemImages[ITM_SWITCH]= "images\\Menu\\Menu_SWITCH.jpg";
-	MenuItemImages[ITM_LED]   = "images\\Menu\\Menu_LED.jpg";
-	MenuItemImages[ITM_CONNECTION] = "images\\Menu\\Menu_CONNECTION.jpg";
+    // Prepare list of images for each menu item (matches DsgnMenuItem order)
+    string MenuItemImages[ITM_DSN_CNT];
+    MenuItemImages[ITM_AND2]  = "images\\Menu\\Menu_AND2.jpg";
+    MenuItemImages[ITM_OR2]   = "images\\Menu\\Menu_OR2.jpg";
+    MenuItemImages[ITM_NAND2] = "images\\Menu\\Menu_NAND2.jpg";
+    MenuItemImages[ITM_NOR2]  = "images\\Menu\\Menu_NOR2.jpg";
+    MenuItemImages[ITM_XOR2]  = "images\\Menu\\Menu_XOR2.jpg";
+    MenuItemImages[ITM_XNOR2] = "images\\Menu\\Menu_XNOR2.jpg";
+    MenuItemImages[ITM_AND3]  = "images\\Menu\\Menu_AND3.jpg";
+    MenuItemImages[ITM_NOR3]  = "images\\Menu\\Menu_NOR3.jpg";
+    MenuItemImages[ITM_XOR3]  = "images\\Menu\\Menu_XOR3.jpg";
+    MenuItemImages[ITM_Buff]  = "images\\Menu\\Menu_Buff.jpg";
+    MenuItemImages[ITM_INV]   = "images\\Menu\\Menu_INV.jpg";
+    MenuItemImages[ITM_SWITCH]= "images\\Menu\\Menu_SWITCH.jpg";
+    MenuItemImages[ITM_LED]   = "images\\Menu\\Menu_LED.jpg";
+    MenuItemImages[ITM_CONNECTION] = "images\\Menu\\Menu_CONNECTION.jpg";
 
-	MenuItemImages[ITM_LABEL] = "images\\Menu\\Menu_Label.jpg";
-	MenuItemImages[ITM_EDIT]  = "images\\Menu\\Menu_Edit.jpg";
-	MenuItemImages[ITM_DEL]   = "images\\Menu\\Menu_Del.jpg";
-	MenuItemImages[ITM_MOVE]  = "images\\Menu\\Menu_Move.jpg";
-	MenuItemImages[ITM_SAVE]  = "images\\Menu\\Menu_Save.jpg";
-	MenuItemImages[ITM_LOAD]  = "images\\Menu\\Menu_Load.jpg";
-	MenuItemImages[ITM_SIM_MODE] = "images\\Menu\\Menu_SIM_MODE.jpg";
-	MenuItemImages[ITM_EXIT]  = "images\\Menu\\Menu_Exit.jpg";
+    MenuItemImages[ITM_LABEL] = "images\\Menu\\Menu_Label.jpg";
+    MenuItemImages[ITM_EDIT]  = "images\\Menu\\Menu_Edit.jpg";
+    MenuItemImages[ITM_DEL]   = "images\\Menu\\Menu_Del.jpg";
+    MenuItemImages[ITM_MOVE]  = "images\\Menu\\Menu_Move.jpg";
+    MenuItemImages[ITM_SAVE]  = "images\\Menu\\Menu_Save.jpg";
+    MenuItemImages[ITM_LOAD]  = "images\\Menu\\Menu_Load.jpg";
+    MenuItemImages[ITM_SIM_MODE] = "images\\Menu\\Menu_SIM_MODE.jpg";
+    MenuItemImages[ITM_EXIT]  = "images\\Menu\\Menu_Exit.jpg";
 
-	// Clear possible simulation left-column area so old sim icons disappear when switching back
-	pWind->SetPen(UI.BkGrndColor);
-	pWind->SetBrush(UI.BkGrndColor);
-	pWind->DrawRectangle(0, UI.ToolBarHeight, UI.ToolItemWidth, UI.height - UI.StatusBarHeight);
+    // Single-row toolbar: all ITM_DSN_CNT items across the top
+    int slotH = UI.ToolBarHeight;
+    int totalItems = ITM_DSN_CNT;
+    int slotW = (totalItems > 0) ? (UI.width / totalItems) : UI.width;
 
-	// split ranges: top = LABEL..EXIT, bottom = AND2..CONNECTION
-	const int topStart = ITM_LABEL;
-	const int topEnd   = ITM_EXIT;
-	const int bottomStart = ITM_AND2;
-	const int bottomEnd   = ITM_CONNECTION;
+    // draw top background (clear toolbar area)
+    pWind->SetPen(UI.BkGrndColor);
+    pWind->SetBrush(UI.BkGrndColor);
+    pWind->DrawRectangle(0, 0, UI.width, slotH);
 
-	const int topCount = topEnd - topStart + 1;
-	const int bottomCount = bottomEnd - bottomStart + 1;
+    // draw all images side-by-side across top
+    for (int i = 0; i < totalItems; ++i) {
+        const string &path = MenuItemImages[i];
 
-	// compute slot sizes per row (so items fit across window)
-	int topSlotW = (topCount > 0) ? (UI.width / topCount) : UI.width;
-	int bottomSlotW = (bottomCount > 0) ? (UI.width / bottomCount) : UI.width;
-	int slotH = UI.ToolBarHeight;
+        int imgW = (slotW * 80) / 100;
+        int imgH = (slotH * 80) / 100;
+        int xPos = i * slotW + (slotW - imgW) / 2;
+        int yPos = (slotH - imgH) / 2;
 
-	// top row coordinates
-	int topY = 0;
-	// bottom row coordinates (just above status bar)
-	int bottomY = UI.height - UI.StatusBarHeight - UI.ToolBarHeight;
+        if (!path.empty() && FileExists(path)) {
+            try {
+                pWind->DrawImage(path, xPos, yPos, imgW, imgH);
+            } catch (...) {
+                // on error: clear the slot
+                pWind->SetPen(UI.BkGrndColor);
+                pWind->SetBrush(UI.BkGrndColor);
+                pWind->DrawRectangle(i * slotW, 0, (i + 1) * slotW, slotH);
+            }
+        } else {
+            // missing image: clear the slot
+            pWind->SetPen(UI.BkGrndColor);
+            pWind->SetBrush(UI.BkGrndColor);
+            pWind->DrawRectangle(i * slotW, 0, (i + 1) * slotW, slotH);
+        }
+    }
 
-	// draw top background
-	pWind->SetPen(UI.BkGrndColor);
-	pWind->SetBrush(UI.BkGrndColor);
-	pWind->DrawRectangle(0, topY, UI.width, topY + slotH);
-
-	// draw top row images (LABEL .. EXIT)
-	for (int i = 0; i < topCount; ++i) {
-		int itemIndex = topStart + i;
-		const string &path = MenuItemImages[itemIndex];
-
-		int imgW = (topSlotW * 80) / 100;
-		int imgH = (slotH * 80) / 100;
-		int xPos = i * topSlotW + (topSlotW - imgW) / 2;
-		int yPos = topY + (slotH - imgH) / 2;
-
-		if (!path.empty() && FileExists(path)) {
-			try {
-				pWind->DrawImage(path, xPos, yPos, imgW, imgH);
-			} catch (...) {
-				pWind->SetPen(UI.BkGrndColor);
-				pWind->SetBrush(UI.BkGrndColor);
-				pWind->DrawRectangle(i * topSlotW, topY, (i + 1) * topSlotW, topY + slotH);
-			}
-		} else {
-			pWind->SetPen(UI.BkGrndColor);
-			pWind->SetBrush(UI.BkGrndColor);
-			pWind->DrawRectangle(i * topSlotW, topY, (i + 1) * topSlotW, topY + slotH);
-		}
-	}
-
-	// draw bottom background
-	pWind->SetPen(UI.BkGrndColor);
-	pWind->SetBrush(UI.BkGrndColor);
-	pWind->DrawRectangle(0, bottomY, UI.width, bottomY + slotH);
-
-	// draw bottom row images (AND2 .. CONNECTION)
-	for (int i = 0; i < bottomCount; ++i) {
-		int itemIndex = bottomStart + i;
-		const string &path = MenuItemImages[itemIndex];
-
-		int imgW = (bottomSlotW * 80) / 100;
-		int imgH = (slotH * 80) / 100;
-		int xPos = i * bottomSlotW + (bottomSlotW - imgW) / 2;
-		int yPos = bottomY + (slotH - imgH) / 2;
-
-		if (!path.empty() && FileExists(path)) {
-			try {
-				pWind->DrawImage(path, xPos, yPos, imgW, imgH);
-			} catch (...) {
-				pWind->SetPen(UI.BkGrndColor);
-				pWind->SetBrush(UI.BkGrndColor);
-				pWind->DrawRectangle(i * bottomSlotW, bottomY, (i + 1) * bottomSlotW, bottomY + slotH);
-			}
-		} else {
-			pWind->SetPen(UI.BkGrndColor);
-			pWind->SetBrush(UI.BkGrndColor);
-			pWind->DrawRectangle(i * bottomSlotW, bottomY, (i + 1) * bottomSlotW, bottomY + slotH);
-		}
-	}
-
-	// Draw a line under the toolbar (unchanged)
-	pWind->SetPen(RED, 3);
-	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);	
+    // draw bottom line under toolbar (unchanged)
+    pWind->SetPen(RED, 3);
+    pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);	
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////
