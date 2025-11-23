@@ -131,7 +131,6 @@ void Output::CreateDesignToolBar() const
 
     // draw all images side-by-side across top
     for (int i = 0; i < ITM_DSN_CNT; ++i) {
-		cout << UI.ToolItemWidth;
 		pWind->DrawImage(MenuItemImages[i], i * UI.ToolItemWidth, 0, UI.ToolItemWidth, UI.ToolBarHeight);
     }
 
@@ -323,6 +322,36 @@ void Output::DrawXOR3(GraphicsInfo r_GfxInfo, bool selected) const
 		GateImage="Images\\Gates\\Gate_XOR3_Hi.jpg";
 	else 
 		GateImage = "Images\\Gates\\Gate_XOR3.jpg"; 
+	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
+}
+
+void Output::DrawBUFF(GraphicsInfo r_GfxInfo, bool selected) const
+{
+	string GateImage;
+	if (selected)
+		GateImage="Images\\Gates\\Gate_BUFF_Hi.jpg";
+	else 
+		GateImage = "Images\\Gates\\Gate_BUFF.jpg";
+	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
+}
+
+void Output::DrawINV(GraphicsInfo r_GfxInfo, bool selected) const
+{
+	string GateImage;
+	if (selected)
+		GateImage="Images\\Gates\\Gate_INV_Hi.jpg";
+	else 
+		GateImage = "Images\\Gates\\Gate_INV.jpg";
+	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
+}
+
+void Output::DrawLED(GraphicsInfo r_GfxInfo, bool selected) const
+{
+	string GateImage;
+	if (selected)
+		GateImage="Images\\Gates\\Gate_LED_Hi.jpg";
+	else 
+		GateImage = "Images\\Gates\\Gate_LED.jpg";
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
 }
 
