@@ -89,9 +89,28 @@ ActionType Input::GetUserAction() const
 
 			switch (ClickedItemOrder)
 			{
-			case ITM_AND2: return ADD_AND_GATE_2;
-			case ITM_OR2: return ADD_OR_GATE_2;
-			case ITM_EXIT: return EXIT;
+				case ITM_AND2: return ADD_AND_GATE_2;
+				case ITM_OR2: return ADD_OR_GATE_2;
+				case ITM_NAND2: return ADD_NAND_GATE_2;
+				case ITM_NOR2: return ADD_NOR_GATE_2;
+				case ITM_XOR2: return ADD_XOR_GATE_2;
+				case ITM_XNOR2: return ADD_XNOR_GATE_2;
+				case ITM_AND3: return ADD_AND_GATE_3;
+				case ITM_NOR3: return ADD_NOR_GATE_3;
+				case ITM_XOR3: return ADD_XOR_GATE_3;
+				case ITM_Buff: return ADD_Buff;
+				case ITM_INV: return ADD_INV;
+				case ITM_SWITCH: return ADD_Switch;
+				case ITM_LED: return ADD_LED;
+				case ITM_CONNECTION: return ADD_CONNECTION;
+				case ITM_LABEL: return ADD_Label;
+				case ITM_EDIT: return EDIT_Label;
+				case ITM_DEL: return DEL;
+				case ITM_MOVE: return MOVE;
+				case ITM_SAVE: return SAVE;
+				case ITM_LOAD: return LOAD;
+				case ITM_SIM_MODE: return SIM_MODE;
+				case ITM_EXIT: return EXIT;
 
 			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
 			}

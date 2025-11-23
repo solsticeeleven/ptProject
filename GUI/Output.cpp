@@ -129,46 +129,15 @@ void Output::CreateDesignToolBar() const
     MenuItemImages[ITM_SIM_MODE] = "images\\Menu\\Menu_SIM_MODE.jpg";
     MenuItemImages[ITM_EXIT]  = "images\\Menu\\Menu_Exit.jpg";
 
-    // Single-row toolbar: all ITM_DSN_CNT items across the top
-    int slotH = UI.ToolBarHeight;
-    int totalItems = ITM_DSN_CNT;
-    int slotW = (totalItems > 0) ? (UI.width / totalItems) : UI.width;
-
-    // draw top background (clear toolbar area)
-    pWind->SetPen(UI.BkGrndColor);
-    pWind->SetBrush(UI.BkGrndColor);
-    pWind->DrawRectangle(0, 0, UI.width, slotH);
-
     // draw all images side-by-side across top
-    for (int i = 0; i < totalItems; ++i) {
-        const string &path = MenuItemImages[i];
-
-        int imgW = (slotW * 80) / 100;
-        int imgH = (slotH * 80) / 100;
-        int xPos = i * slotW + (slotW - imgW) / 2;
-        int yPos = (slotH - imgH) / 2;
-
-        if (!path.empty() && FileExists(path)) {
-            try {
-                pWind->DrawImage(path, xPos, yPos, imgW, imgH);
-            } catch (...) {
-                // on error: clear the slot
-                pWind->SetPen(UI.BkGrndColor);
-                pWind->SetBrush(UI.BkGrndColor);
-                pWind->DrawRectangle(i * slotW, 0, (i + 1) * slotW, slotH);
-            }
-        } else {
-            // missing image: clear the slot
-            pWind->SetPen(UI.BkGrndColor);
-            pWind->SetBrush(UI.BkGrndColor);
-            pWind->DrawRectangle(i * slotW, 0, (i + 1) * slotW, slotH);
-        }
+    for (int i = 0; i < ITM_DSN_CNT; ++i) {
+		cout << UI.ToolItemWidth;
+		pWind->DrawImage(MenuItemImages[i], i * UI.ToolItemWidth, 0, UI.ToolItemWidth, UI.ToolBarHeight);
     }
 
-    // draw bottom line under toolbar (unchanged)
-    pWind->SetPen(RED, 3);
-    pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);	
-
+	//Draw a line under the toolbar
+	pWind->SetPen(RED, 3);
+	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 //Draws the menu (toolbar) in the simulation mode

@@ -111,11 +111,6 @@ int main()
 	pIn->GetPointClicked(x,y);	//Wait for any click
 	pOut->ClearDrawingArea();
 
-
-
-	
-
-
 	///////////////////////////////////////////////////////////////////////////////////
 	// TEST 3: Read strings from the user
 	///////////////////////////////////////////////////////////////////////////////////
@@ -177,7 +172,42 @@ int main()
 		case ADD_XNOR_GATE_2:
 				pOut->PrintMsg("Action: add 2-input XNOR gate , Click anywhere");
 				break;
-
+		case ADD_AND_GATE_3:
+			pOut->PrintMsg("Action: add 3-input AND gate, Click anywhere");
+			break;
+		case ADD_NOR_GATE_3:
+			pOut->PrintMsg("Action: add 3-input NOR gate, Click anywhere");
+			break;
+		case ADD_XOR_GATE_3:
+			pOut->PrintMsg("Action: add 3-input XOR gate, Click anywhere");
+			break;
+			case ADD_Switch:
+				pOut->PrintMsg("Action: add a Switch , Click anywhere");
+				break;
+			case ADD_LED:
+				pOut->PrintMsg("Action: add an LED , Click anywhere");
+				break;
+			case ADD_CONNECTION:
+				pOut->PrintMsg("Action: add a Connection , Click anywhere");
+				break;
+			case ADD_Label:
+				pOut->PrintMsg("Action: add a Label , Click anywhere");
+				break;
+			case EDIT_Label:
+				pOut->PrintMsg("Action: edit a Label , Click anywhere");
+				break;
+			case MOVE:
+				pOut->PrintMsg("Action: move a component , Click anywhere");
+				break;
+			case DEL:
+				pOut->PrintMsg("Action: delete a component , Click anywhere");
+				break;
+			case SAVE:
+				pOut->PrintMsg("Action: save the circuit to a file , Click anywhere");
+				break;
+			case LOAD:
+				pOut->PrintMsg("Action: load a circuit from a file , Click anywhere");
+				break;
 		case SELECT:
 				pOut->PrintMsg("Action: a click on the Drawing area, Click anywhere");
 				break;
@@ -201,7 +231,7 @@ int main()
 				break;
 
 
-		case EXIT:				
+		case EXIT:	
 				break;
 		}
 	}while(ActType != EXIT);
