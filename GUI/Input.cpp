@@ -132,7 +132,7 @@ ActionType Input::GetUserAction() const
 		{
 			//Check whick Menu item was clicked
 			//==> This assumes that menu items are lined up horizontally <==
-			int ClickedItemOrder = (x / UI.ToolItemWidth);
+			int ClickedItemOrder = (x / UI.SimToolItemWidth);
 			//Divide x coord of the point clicked by the menu item width (int division)
 			//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
 
@@ -144,7 +144,7 @@ ActionType Input::GetUserAction() const
 			case ITM_DSN_MODE: return DSN_MODE;
 			case ITM_EXIT_SIM: return EXIT;
 
-			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
+			default: return SIM_TOOL;	//A click on empty place in desgin toolbar
 			}
 		}
 

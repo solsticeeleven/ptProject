@@ -18,6 +18,7 @@ struct UI_Info	//User Interface Info.
 						wx = 15 , wy = 15,			//Window starting coordinates
 						StatusBarHeight = 50,	//Status Bar Height
 						ToolBarHeight = 80,		//Tool Bar Height (distance from top of window to bottom line of toolbar)
+						SimToolItemWidth = 80,	//Width of each item in simulation toolbar menu
 						ToolItemWidth = 45;		//Width of each item in toolbar menu
 
 	color DrawColor;		//Drawing color

@@ -82,6 +82,13 @@ void Output::ClearStatusBar()const
 	pWind->SetBrush(UI.BkGrndColor);
 	pWind->DrawRectangle(MsgX, UI.height - MsgY, UI.width, UI.height);
 }
+
+void Output::ClearToolBar() const
+{
+	pWind->SetPen(UI.BkGrndColor);
+	pWind->SetBrush(UI.BkGrndColor);
+	pWind->DrawRectangle(0, 0, UI.width, UI.ToolBarHeight);
+}
 //////////////////////////////////////////////////////////////////////////////////////////
 //Clears the drawing (degin) area
 void Output::ClearDrawingArea() const
@@ -98,6 +105,9 @@ void Output::ClearDrawingArea() const
 void Output::CreateDesignToolBar() const
 {
     UI.AppMode = DESIGN;    // Design Mode
+
+
+	ClearToolBar();
 
     // Flush and update to avoid stale events/artifacts
     pWind->FlushMouseQueue();
@@ -142,11 +152,12 @@ void Output::CreateDesignToolBar() const
 //Draws the menu (toolbar) in the simulation mode
 void Output::CreateSimulationToolBar() const
 {
+	
 	UI.AppMode = SIMULATION;	//Simulation Mode
 
-	// Ensure any pending mouse events are discarded so the next click is fresh.
+	ClearToolBar();
+
 	pWind->FlushMouseQueue();
-	// Force buffer update (harmless if no double-buffering)
 	pWind->UpdateBuffer();
 
 	// Simulation images (SimMenuItem order)
@@ -157,73 +168,12 @@ void Output::CreateSimulationToolBar() const
 	SimMenuItemImages[ITM_DSN_MODE] = "images\\Menu\\Menu_Design.jpg";        // Return to Design Mode
 	SimMenuItemImages[ITM_EXIT_SIM] = "images\\Menu\\Menu_Exit.jpg";          // Exit Application
 
-	// Clear design areas that might conflict
-	pWind->SetPen(UI.BkGrndColor);
-	pWind->SetBrush(UI.BkGrndColor);
-	// Clear top row and left strip used by simulation icons
-	int slotH = UI.ToolBarHeight;
-	int bottomY = UI.height - UI.StatusBarHeight - UI.ToolBarHeight;
-	pWind->DrawRectangle(0, 0, UI.width, slotH); // top
-	pWind->DrawRectangle(0, slotH, UI.ToolItemWidth, bottomY - slotH + slotH); // left column area
-
-	// Draw the DSN_MODE image centered on the top row (this replaces the top row label icons while in simulation)
-	int dsImgW = UI.ToolItemWidth * 2;
-	if (dsImgW > UI.width) dsImgW = (UI.width * 80) / 100;
-	int dsImgH = (slotH * 80) / 100;
-	int dsX = (UI.width - dsImgW) / 2;
-	int dsY = (slotH - dsImgH) / 2;
-	if (FileExists(SimMenuItemImages[ITM_DSN_MODE])) {
-		try {
-			pWind->DrawImage(SimMenuItemImages[ITM_DSN_MODE], dsX, dsY, dsImgW, dsImgH);
-		} catch (...) {
-			pWind->SetPen(UI.BkGrndColor);
-			pWind->SetBrush(UI.BkGrndColor);
-			pWind->DrawRectangle(dsX, dsY, dsX + dsImgW, dsY + dsImgH);
-		}
-	} else {
-		pWind->SetPen(UI.BkGrndColor);
-		pWind->SetBrush(UI.BkGrndColor);
-		pWind->DrawRectangle(dsX, dsY, dsX + dsImgW, dsY + dsImgH);
+	for (int i = 0; i < ITM_SIM_CNT; ++i) {
+		pWind->DrawImage(SimMenuItemImages[i], i * UI.SimToolItemWidth, 0, UI.SimToolItemWidth, UI.ToolBarHeight);
 	}
 
-	// Draw simulation icons vertically on the left (exclude the DSN_MODE, which is top-center)
-	int leftIndices[] = { ITM_SIM, ITM_TRUTH, ITM_CHANGE_SWITCH, ITM_EXIT_SIM };
-	int leftCount = sizeof(leftIndices) / sizeof(leftIndices[0]);
-	int leftX = 0;
-	int leftW = UI.ToolItemWidth;
-	int leftTopY = slotH;
-	int leftBottomY = bottomY;
-	int verticalArea = leftBottomY - leftTopY;
-	int slotV = (leftCount > 0) ? (verticalArea / leftCount) : verticalArea;
-
-	for (int i = 0; i < leftCount; ++i) {
-		int simIndex = leftIndices[i];
-		const string &path = SimMenuItemImages[simIndex];
-
-		int imgW = (leftW * 80) / 100;
-		int imgH = (slotV * 80) / 100;
-		int xPos = leftX + (leftW - imgW) / 2;
-		int yPos = leftTopY + i * slotV + (slotV - imgH) / 2;
-
-		if (!path.empty() && FileExists(path)) {
-			try {
-				pWind->DrawImage(path, xPos, yPos, imgW, imgH);
-			} catch (...) {
-				pWind->SetPen(UI.BkGrndColor);
-				pWind->SetBrush(UI.BkGrndColor);
-				pWind->DrawRectangle(leftX, leftTopY + i * slotV, leftX + leftW, leftTopY + (i + 1) * slotV);
-			}
-		} else {
-			pWind->SetPen(UI.BkGrndColor);
-			pWind->SetBrush(UI.BkGrndColor);
-			pWind->DrawRectangle(leftX, leftTopY + i * slotV, leftX + leftW, leftTopY + (i + 1) * slotV);
-		}
-	}
-
-	// Guiding lines (kept only to separate tool area from drawing area)
 	pWind->SetPen(RED, 3);
-	pWind->DrawLine(0, slotH, UI.width, slotH);   // under top row
-	pWind->DrawLine(0, leftBottomY, UI.width, leftBottomY); // line above bottom toolbar region
+	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 //======================================================================================//
@@ -258,8 +208,8 @@ void Output::DrawNAND2(GraphicsInfo r_GfxInfo, bool selected) const
 {
 	string GateImage;
 	if (selected)
-		GateImage="Images\\Gates\\Gate_NAND2_Hi.jpg";
-	else 
+		GateImage = "Images\\Gates\\Gate_NAND2_Hi.jpg";
+	else
 		GateImage = "Images\\Gates\\Gate_NAND2.jpg";
 
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);

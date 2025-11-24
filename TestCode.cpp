@@ -54,7 +54,7 @@ int main()
 
 	///TODO: Add code to draw 2-input NAND gate, Normal and Highlighted
 
-	GfxInfo.x1 = 100;	GfxInfo.y1 = 200;
+	GfxInfo.x1 = 100;	GfxInfo.y1 = 100;
 	pOut->DrawNAND2(GfxInfo);
 
 	GfxInfo.x1 = 100;	GfxInfo.y1 = 200;
@@ -287,7 +287,15 @@ int main()
 				pOut->PrintMsg("Action: Switch to Design Mode, creating Design tool bar");
 				pOut->CreateDesignToolBar();
 				break;
-
+		case SIMULATE:
+				pOut->PrintMsg("Action: Simulate the circuit , Click anywhere");
+				break;
+		case Create_TruthTable:
+			pOut->PrintMsg("Action: Create Truth Table of the circuit , Click anywhere");
+			break;
+		case Change_Switch:
+			pOut->PrintMsg("Action: Change Switch Status , Click anywhere");
+			break;
 
 		case EXIT:	
 				break;
