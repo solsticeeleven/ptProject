@@ -3,9 +3,9 @@
 #include <string>
 
 // helper used to avoid constructing images when files don't exist
-static inline bool FileExists(const std::string &path) {
-    DWORD attrs = GetFileAttributesA(path.c_str());
-    return (attrs != INVALID_FILE_ATTRIBUTES) && ((attrs & FILE_ATTRIBUTE_DIRECTORY) == 0);
+static inline bool FileExists(const std::string& path) {
+	DWORD attrs = GetFileAttributesA(path.c_str());
+	return (attrs != INVALID_FILE_ATTRIBUTES) && ((attrs & FILE_ATTRIBUTE_DIRECTORY) == 0);
 }
 
 Output::Output()
@@ -20,9 +20,9 @@ Output::Output()
 	UI.ConnColor = RED;
 	UI.MsgColor = BLUE;
 	UI.BkGrndColor = WHITE;
-	
+
 	//Create the drawing window
-	pWind = CreateWind(UI.width, UI.height, UI.wx, UI.wy);	
+	pWind = CreateWind(UI.width, UI.height, UI.wx, UI.wy);
 	ChangeTitle("Programming Techniques Project");
 
 	CreateDesignToolBar();	//Create the desgin toolbar
@@ -54,8 +54,8 @@ void Output::ChangeTitle(string Title) const
 //////////////////////////////////////////////////////////////////////////////////
 void Output::CreateStatusBar() const
 {
-	pWind->SetPen(RED,3);
-	pWind->DrawLine(0, UI.height-UI.StatusBarHeight, UI.width, UI.height-UI.StatusBarHeight);
+	pWind->SetPen(RED, 3);
+	pWind->DrawLine(0, UI.height - UI.StatusBarHeight, UI.width, UI.height - UI.StatusBarHeight);
 }
 //////////////////////////////////////////////////////////////////////////////////
 void Output::PrintMsg(string msg) const
@@ -66,8 +66,8 @@ void Output::PrintMsg(string msg) const
 	int MsgY = UI.StatusBarHeight - 10;
 
 	// Print the Message
-    pWind->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial"); 
-	pWind->SetPen(UI.MsgColor); 
+    pWind->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial");
+	pWind->SetPen(UI.MsgColor);
 	pWind->DrawString(MsgX, UI.height - MsgY, msg);
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -104,45 +104,45 @@ void Output::ClearDrawingArea() const
 //Draws the menu (toolbar) in the Design mode
 void Output::CreateDesignToolBar() const
 {
-    UI.AppMode = DESIGN;    // Design Mode
+	UI.AppMode = DESIGN;    // Design Mode
 
 
 	ClearToolBar();
 
-    // Flush and update to avoid stale events/artifacts
-    pWind->FlushMouseQueue();
-    pWind->UpdateBuffer();
+	// Flush and update to avoid stale events/artifacts
+	pWind->FlushMouseQueue();
+	pWind->UpdateBuffer();
 
-    // Prepare list of images for each menu item (matches DsgnMenuItem order)
-    string MenuItemImages[ITM_DSN_CNT];
-    MenuItemImages[ITM_AND2]  = "images\\Menu\\Menu_AND2.jpg";
-    MenuItemImages[ITM_OR2]   = "images\\Menu\\Menu_OR2.jpg";
-    MenuItemImages[ITM_NAND2] = "images\\Menu\\Menu_NAND2.jpg";
-    MenuItemImages[ITM_NOR2]  = "images\\Menu\\Menu_NOR2.jpg";
-    MenuItemImages[ITM_XOR2]  = "images\\Menu\\Menu_XOR2.jpg";
-    MenuItemImages[ITM_XNOR2] = "images\\Menu\\Menu_XNOR2.jpg";
-    MenuItemImages[ITM_AND3]  = "images\\Menu\\Menu_AND3.jpg";
-    MenuItemImages[ITM_NOR3]  = "images\\Menu\\Menu_NOR3.jpg";
-    MenuItemImages[ITM_XOR3]  = "images\\Menu\\Menu_XOR3.jpg";
-    MenuItemImages[ITM_Buff]  = "images\\Menu\\Menu_Buff.jpg";
-    MenuItemImages[ITM_INV]   = "images\\Menu\\Menu_INV.jpg";
-    MenuItemImages[ITM_SWITCH]= "images\\Menu\\Menu_SWITCH.jpg";
-    MenuItemImages[ITM_LED]   = "images\\Menu\\Menu_LED.jpg";
-    MenuItemImages[ITM_CONNECTION] = "images\\Menu\\Menu_CONNECTION.jpg";
+	// Prepare list of images for each menu item (matches DsgnMenuItem order)
+	string MenuItemImages[ITM_DSN_CNT];
+	MenuItemImages[ITM_AND2] = "images\\Menu\\Menu_AND2.jpg";
+	MenuItemImages[ITM_OR2] = "images\\Menu\\Menu_OR2.jpg";
+	MenuItemImages[ITM_NAND2] = "images\\Menu\\Menu_NAND2.jpg";
+	MenuItemImages[ITM_NOR2] = "images\\Menu\\Menu_NOR2.jpg";
+	MenuItemImages[ITM_XOR2] = "images\\Menu\\Menu_XOR2.jpg";
+	MenuItemImages[ITM_XNOR2] = "images\\Menu\\Menu_XNOR2.jpg";
+	MenuItemImages[ITM_AND3] = "images\\Menu\\Menu_AND3.jpg";
+	MenuItemImages[ITM_NOR3] = "images\\Menu\\Menu_NOR3.jpg";
+	MenuItemImages[ITM_XOR3] = "images\\Menu\\Menu_XOR3.jpg";
+	MenuItemImages[ITM_Buff] = "images\\Menu\\Menu_Buff.jpg";
+	MenuItemImages[ITM_INV] = "images\\Menu\\Menu_INV.jpg";
+	MenuItemImages[ITM_SWITCH] = "images\\Menu\\Menu_SWITCH.jpg";
+	MenuItemImages[ITM_LED] = "images\\Menu\\Menu_LED.jpg";
+	MenuItemImages[ITM_CONNECTION] = "images\\Menu\\Menu_CONNECTION.jpg";
 
-    MenuItemImages[ITM_LABEL] = "images\\Menu\\Menu_Label.jpg";
-    MenuItemImages[ITM_EDIT]  = "images\\Menu\\Menu_Edit.jpg";
-    MenuItemImages[ITM_DEL]   = "images\\Menu\\Menu_Del.jpg";
-    MenuItemImages[ITM_MOVE]  = "images\\Menu\\Menu_Move.jpg";
-    MenuItemImages[ITM_SAVE]  = "images\\Menu\\Menu_Save.jpg";
-    MenuItemImages[ITM_LOAD]  = "images\\Menu\\Menu_Load.jpg";
-    MenuItemImages[ITM_SIM_MODE] = "images\\Menu\\Menu_SIM_MODE.jpg";
-    MenuItemImages[ITM_EXIT]  = "images\\Menu\\Menu_Exit.jpg";
+	MenuItemImages[ITM_LABEL] = "images\\Menu\\Menu_Label.jpg";
+	MenuItemImages[ITM_EDIT] = "images\\Menu\\Menu_Edit.jpg";
+	MenuItemImages[ITM_DEL] = "images\\Menu\\Menu_Del.jpg";
+	MenuItemImages[ITM_MOVE] = "images\\Menu\\Menu_Move.jpg";
+	MenuItemImages[ITM_SAVE] = "images\\Menu\\Menu_Save.jpg";
+	MenuItemImages[ITM_LOAD] = "images\\Menu\\Menu_Load.jpg";
+	MenuItemImages[ITM_SIM_MODE] = "images\\Menu\\Menu_SIM_MODE.jpg";
+	MenuItemImages[ITM_EXIT] = "images\\Menu\\Menu_Exit.jpg";
 
-    // draw all images side-by-side across top
-    for (int i = 0; i < ITM_DSN_CNT; ++i) {
+	// draw all images side-by-side across top
+	for (int i = 0; i < ITM_DSN_CNT; ++i) {
 		pWind->DrawImage(MenuItemImages[i], i * UI.ToolItemWidth, 0, UI.ToolItemWidth, UI.ToolBarHeight);
-    }
+	}
 
 	//Draw a line under the toolbar
 	pWind->SetPen(RED, 3);
@@ -152,7 +152,7 @@ void Output::CreateDesignToolBar() const
 //Draws the menu (toolbar) in the simulation mode
 void Output::CreateSimulationToolBar() const
 {
-	
+
 	UI.AppMode = SIMULATION;	//Simulation Mode
 
 	ClearToolBar();
@@ -183,9 +183,9 @@ void Output::CreateSimulationToolBar() const
 void Output::DrawAND2(GraphicsInfo r_GfxInfo, bool selected) const
 {
 	string GateImage;
-	if(selected)	//use image in the highlighted case
-		GateImage="Images\\Gates\\Gate_AND2_Hi.jpg";
-	else 
+	if (selected)	//use image in the highlighted case
+		GateImage = "Images\\Gates\\Gate_AND2_Hi.jpg";
+	else
 		GateImage = "Images\\Gates\\Gate_AND2.jpg";
 
 	//Draw AND2 Gate at Gfx_Info (1st corner)
@@ -197,8 +197,8 @@ void Output::DrawOR2(GraphicsInfo r_GfxInfo, bool selected) const
 {
 	string GateImage;
 	if (selected)
-		GateImage="Images\\Gates\\Gate_OR2_Hi.jpg";
-	else 
+		GateImage = "Images\\Gates\\Gate_OR2_Hi.jpg";
+	else
 		GateImage = "Images\\Gates\\Gate_OR2.jpg";
 
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
@@ -219,8 +219,8 @@ void Output::DrawNOR2(GraphicsInfo r_GfxInfo, bool selected) const
 {
 	string GateImage;
 	if (selected)
-		GateImage="Images\\Gates\\Gate_NOR2_Hi.jpg";
-	else 
+		GateImage = "Images\\Gates\\Gate_NOR2_Hi.jpg";
+	else
 		GateImage = "Images\\Gates\\Gate_NOR2.jpg";
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
 }
@@ -229,7 +229,7 @@ void Output::DrawXOR2(GraphicsInfo r_GfxInfo, bool selected) const
 {
 	string GateImage;
 	if (selected)
-		GateImage="Images\\Gates\\Gate_XOR2_Hi.jpg";
+		GateImage = "Images\\Gates\\Gate_XOR2_Hi.jpg";
 	else
 		GateImage = "Images\\Gates\\Gate_XOR2.jpg";
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
@@ -239,8 +239,8 @@ void Output::DrawXNOR2(GraphicsInfo r_GfxInfo, bool selected) const
 {
 	string GateImage;
 	if (selected)
-		GateImage="Images\\Gates\\Gate_XNOR2_Hi.jpg";
-	else 
+		GateImage = "Images\\Gates\\Gate_XNOR2_Hi.jpg";
+	else
 		GateImage = "Images\\Gates\\Gate_XNOR2.jpg";
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
 }
@@ -249,8 +249,8 @@ void Output::DrawAND3(GraphicsInfo r_GfxInfo, bool selected) const
 {
 	string GateImage;
 	if (selected)
-		GateImage="Images\\Gates\\Gate_AND3_Hi.jpg";
-	else 
+		GateImage = "Images\\Gates\\Gate_AND3_Hi.jpg";
+	else
 		GateImage = "Images\\Gates\\Gate_AND3.jpg";
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
 }
@@ -259,8 +259,8 @@ void Output::DrawNOR3(GraphicsInfo r_GfxInfo, bool selected) const
 {
 	string GateImage;
 	if (selected)
-		GateImage="Images\\Gates\\Gate_NOR3_Hi.jpg";
-	else 
+		GateImage = "Images\\Gates\\Gate_NOR3_Hi.jpg";
+	else
 		GateImage = "Images\\Gates\\Gate_NOR3.jpg";
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
 }
@@ -269,9 +269,9 @@ void Output::DrawXOR3(GraphicsInfo r_GfxInfo, bool selected) const
 {
 	string GateImage;
 	if (selected)
-		GateImage="Images\\Gates\\Gate_XOR3_Hi.jpg";
-	else 
-		GateImage = "Images\\Gates\\Gate_XOR3.jpg"; 
+		GateImage = "Images\\Gates\\Gate_XOR3_Hi.jpg";
+	else
+		GateImage = "Images\\Gates\\Gate_XOR3.jpg";
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
 }
 
@@ -279,8 +279,8 @@ void Output::DrawBUFF(GraphicsInfo r_GfxInfo, bool selected) const
 {
 	string GateImage;
 	if (selected)
-		GateImage="Images\\Gates\\Gate_BUFF_Hi.jpg";
-	else 
+		GateImage = "Images\\Gates\\Gate_BUFF_Hi.jpg";
+	else
 		GateImage = "Images\\Gates\\Gate_BUFF.jpg";
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
 }
@@ -289,8 +289,8 @@ void Output::DrawINV(GraphicsInfo r_GfxInfo, bool selected) const
 {
 	string GateImage;
 	if (selected)
-		GateImage="Images\\Gates\\Gate_INV_Hi.jpg";
-	else 
+		GateImage = "Images\\Gates\\Gate_INV_Hi.jpg";
+	else
 		GateImage = "Images\\Gates\\Gate_INV.jpg";
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
 }
@@ -299,8 +299,8 @@ void Output::DrawLED(GraphicsInfo r_GfxInfo, bool selected) const
 {
 	string GateImage;
 	if (selected)
-		GateImage="Images\\Gates\\Gate_LED_Hi.jpg";
-	else 
+		GateImage = "Images\\Gates\\Gate_LED_Hi.jpg";
+	else
 		GateImage = "Images\\Gates\\Gate_LED.jpg";
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
 }
@@ -309,8 +309,8 @@ void Output::DrawSWITCH(GraphicsInfo r_GfxInfo, bool selected) const
 {
 	string GateImage;
 	if (selected)
-		GateImage="Images\\Gates\\Gate_SWITCH_Hi.jpg";
-	else 
+		GateImage = "Images\\Gates\\Gate_SWITCH_Hi.jpg";
+	else
 		GateImage = "Images\\Gates\\Gate_SWITCH.jpg";
 
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
@@ -321,19 +321,132 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected) const
 	// Choose color depending on whether it's selected or not
 	color ConnColor = selected ? UI.SelectColor : UI.ConnColor;
 
-	pWind->SetPen(ConnColor, 3);
-
-	// Typically, a connection is drawn as an L-shaped or straight line.
-	// Here we’ll draw an L-shaped wire for clarity (horizontal then vertical).
-
+	// Raw coordinates from caller
 	int x1 = r_GfxInfo.x1;
 	int y1 = r_GfxInfo.y1;
 	int x2 = r_GfxInfo.x2;
 	int y2 = r_GfxInfo.y2;
 
-	// Draw horizontal then vertical segment (looks like a neat circuit wire)
-	pWind->DrawLine(x1, y1, x2, y1); // horizontal segment
-	pWind->DrawLine(x2, y1, x2, y2); // vertical segment
+	// Drawable bounds (avoid toolbar/statusbar)
+	const int minX = 0;
+	const int maxX = UI.width - 1;
+	const int minY = UI.ToolBarHeight;
+	const int maxY = UI.height - UI.StatusBarHeight - 1;
+
+	auto clamp = [](int v, int lo, int hi) -> int {
+		if (v < lo) return lo;
+		if (v > hi) return hi;
+		return v;
+	};
+
+	// Clamp coordinates into a safe drawing region to avoid GDI errors (this prevents MoveToEx/LineTo failures)
+	int cx1 = clamp(x1, minX, maxX);
+	int cy1 = clamp(y1, minY, maxY);
+	int cx2 = clamp(x2, minX, maxX);
+	int cy2 = clamp(y2, minY, maxY);
+
+	// If the endpoints collapse to a single point after clamping, nothing to draw
+	if (cx1 == cx2 && cy1 == cy2)
+		return;
+
+	const int offsetStep = 6; // spacing between stacked lines
+	const int kinkSize = 8;   // size of the 90-degree kink
+
+	int dx = cx2 - cx1;
+	int dy = cy2 - cy1;
+
+	// Horizontal-dominant connection: draw horizontal stacked lines
+	if (abs(dx) >= abs(dy)) {
+		int y_base = cy1;
+
+		// Prefer placing stacked lines below the base; if not enough space, place above; otherwise clamp
+		int need = 2 * offsetStep + kinkSize;
+		int spaceBelow = maxY - y_base;
+		int spaceAbove = y_base - minY;
+
+		int y_grey, y_broken;
+		if (spaceBelow >= need) {
+			y_grey = y_base + offsetStep;
+			y_broken = y_base + 2 * offsetStep;
+		} else if (spaceAbove >= need) {
+			y_grey = y_base - offsetStep;
+			y_broken = y_base - 2 * offsetStep;
+		} else {
+			// fallback: try below and clamp into bounds; if that collapses, try above
+			y_grey = clamp(y_base + offsetStep, minY, maxY);
+			y_broken = clamp(y_base + 2 * offsetStep, minY, maxY);
+			if (y_broken == y_base) {
+				y_grey = clamp(y_base - offsetStep, minY, maxY);
+				y_broken = clamp(y_base - 2 * offsetStep, minY, maxY);
+			}
+		}
+
+		// 1) Grey line (same length as main)
+		pWind->SetPen(color(150, 150, 150), 3);
+		pWind->DrawLine(cx1, y_grey, cx2, y_grey);
+
+		// 2) Main straight line
+		pWind->SetPen(ConnColor, 3);
+		pWind->DrawLine(cx1, y_base, cx2, y_base);
+
+		// 3) Broken line (horizontal -> vertical kink -> horizontal)
+		pWind->SetPen(ConnColor, 3);
+		int midX = (cx1 + cx2) / 2;
+		int kinkDir = (y_broken > y_base) ? 1 : -1;
+		int y_kink_end = y_broken + kinkDir * kinkSize;
+
+		// left horizontal to mid
+		pWind->DrawLine(cx1, y_broken, midX, y_broken);
+		// vertical kink
+		pWind->DrawLine(midX, y_broken, midX, y_kink_end);
+		// right horizontal continuing from kink
+		pWind->DrawLine(midX, y_kink_end, cx2, y_kink_end);
+	}
+	else {
+		// Vertical-dominant connection: mirror logic (stack horizontally)
+		int x_base = cx1;
+
+		int need = 2 * offsetStep + kinkSize;
+		int spaceRight = maxX - x_base;
+		int spaceLeft = x_base - minX;
+
+		int x_grey, x_broken;
+		if (spaceRight >= need) {
+			x_grey = x_base + offsetStep;
+			x_broken = x_base + 2 * offsetStep;
+		} else if (spaceLeft >= need) {
+			x_grey = x_base - offsetStep;
+			x_broken = x_base - 2 * offsetStep;
+		} else {
+			x_grey = clamp(x_base + offsetStep, minX, maxX);
+			x_broken = clamp(x_base + 2 * offsetStep, minX, maxX);
+			if (x_broken == x_base) {
+				x_grey = clamp(x_base - offsetStep, minX, maxX);
+				x_broken = clamp(x_base - 2 * offsetStep, minX, maxX);
+			}
+		}
+
+		// 1) Grey vertical line
+		pWind->SetPen(color(150, 150, 150), 3);
+		pWind->DrawLine(x_grey, cy1, x_grey, cy2);
+
+		// 2) Main straight vertical line
+		pWind->SetPen(ConnColor, 3);
+		pWind->DrawLine(x_base, cy1, x_base, cy2);
+
+		// 3) Broken vertical line (vertical -> horizontal kink -> vertical)
+		pWind->SetPen(ConnColor, 3);
+		int midY = (cy1 + cy2) / 2;
+		int kinkDir = (x_broken > x_base) ? 1 : -1;
+		int x_kink_end = x_broken + kinkDir * kinkSize;
+
+		// top vertical to mid
+		pWind->DrawLine(x_broken, cy1, x_broken, midY);
+		// horizontal kink
+		pWind->DrawLine(x_broken, midY, x_kink_end, midY);
+		// bottom vertical continuing from kink
+		pWind->DrawLine(x_kink_end, midY, x_kink_end, cy2);
+	}
 }
 
 
