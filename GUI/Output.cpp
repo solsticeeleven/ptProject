@@ -127,7 +127,6 @@ void Output::CreateDesignToolBar() const
 	MenuItemImages[ITM_Buff] = "images\\Menu\\Menu_Buff.jpg";
 	MenuItemImages[ITM_INV] = "images\\Menu\\Menu_INV.jpg";
 	MenuItemImages[ITM_SWITCH] = "images\\Menu\\Menu_SWITCH.jpg";
-	MenuItemImages[ITM_SWITCHclosed] = "images\\Menu\\Menu_SWITCHclosed.jpg";
 	MenuItemImages[ITM_LED] = "images\\Menu\\Menu_LED.jpg";
 	MenuItemImages[ITM_CONNECTION] = "images\\Menu\\Menu_CONNECTION.jpg";
 

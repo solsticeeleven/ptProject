@@ -146,10 +146,10 @@ int main()
 	pOut->PrintMsg("Drawing Switch and LED, Normal and Highlighted,  Click to continue");
 	
 	///TODO: Add code to draw Switch and LED, Normal and Highlighted for each
-	//GfxInfo.x1 = 100;	GfxInfo.y1 = 100;
-	//pOut->DrawSWITCH(GfxInfo);
-	//GfxInfo.x1 = 100;	GfxInfo.y1 = 200;
-	//pOut->DrawSWITCH(GfxInfo, true);
+	GfxInfo.x1 = 100;	GfxInfo.y1 = 100;
+	pOut->DrawSWITCH(GfxInfo);
+	GfxInfo.x1 = 100;	GfxInfo.y1 = 200;
+	pOut->DrawSWITCH(GfxInfo, true);
 
 	GfxInfo.x1 = 300;	GfxInfo.y1 = 100;
 	pOut->DrawLED(GfxInfo);
