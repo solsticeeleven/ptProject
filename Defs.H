@@ -1,10 +1,9 @@
 #ifndef CONST_H
 #define CONST_H
-
 //This header file contains some defenitions to be used all over the application
 
 //All possible actions
-enum ActionType 
+enum ActionType
 {
 	ADD_Buff,			//Add 1-input Buffer gate
 	ADD_INV,			//Add 1-input Inverter gate
@@ -28,6 +27,9 @@ enum ActionType
 
 	Change_Switch,		//Change Switch Status in Simulation Mode
 
+	// New action for the "Simulate" button in the simulation toolbar
+	SIMULATE,
+
 	SELECT,		//Select a Component, a Connection
 	DEL,		//Delete a Component, a Connection
 	MOVE,		//Move a Component, a Connection
@@ -45,6 +47,7 @@ enum ActionType
 
 	STATUS_BAR,		//A click on the status bar
 	DSN_TOOL,	//A click on an empty place in the design tool bar
+	SIM_TOOL	//A click on an empty place in the simulation tool bar
 
 };
 
@@ -66,14 +69,36 @@ enum DsgnMenuItem //The items of the design menu (you should add more items)
 {
 	//Note: Items are ordered here as they appear in menu
 	//If you want to change the menu items order, change the order here
-	ITM_AND2,		//AND gate item in menu
-	ITM_OR2,		//OR gate item in menu
-	
+	ITM_AND2,		//done
+	ITM_OR2,		//done
+	ITM_NAND2,		//done
+	ITM_NOR2,		//done
+	ITM_XOR2,		//done
+	ITM_XNOR2,		//done
+	ITM_AND3,		//done
+	ITM_NOR3,		//done
+	ITM_XOR3,		//done
+	ITM_Buff,		//donneee
+	ITM_INV,		//doneee
+	ITM_SWITCH,		//donee
+	ITM_LED,		//DONe
+	ITM_CONNECTION,	//DONE
+
+	ITM_LABEL,		//Add label
+	ITM_EDIT,		//Edit label
+	ITM_DEL,		//Delete component
+	ITM_MOVE,		//Move component
+
+	ITM_SAVE,		//Save circuit
+	ITM_LOAD,		//Load circuit
+
+	ITM_SIM_MODE,	//Switch to Simulation Mode
+
 	ITM_EXIT,		//Exit item
-	//TODO: Add more items names here
-	
+	//TODO: Add more items names here doneeeeee
+
 	ITM_DSN_CNT		//no. of design menu items ==> This should be the last line in this enum
-	
+
 };
 
 
@@ -82,11 +107,13 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 	//Note: Items are ordered here as they appear in menu
 	ITM_SIM,	//Simulate menu item
 	ITM_TRUTH,	//Truth table menu item
-	
-	//TODO:Add more items names here
-	
+	ITM_CHANGE_SWITCH,	//Toggle switch status
+	ITM_DSN_MODE,		//Return to Design mode
+	ITM_EXIT_SIM,		//Exit application
+	//TODO:Add more items names here doneeeeeeeeeee
+
 	ITM_SIM_CNT		//no. of simulation menu items ==> This should be the last line in this enum
-	
+
 };
 
 //Maximum number of input pins that can be connected to any output pin
@@ -103,7 +130,7 @@ enum FANOUT
 //this structure can be extended if desired
 struct GraphicsInfo
 {
-	int x1,y1, x2, y2;
+	int x1, y1, x2, y2;
 };
 
 #ifndef NULL
