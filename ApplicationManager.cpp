@@ -1,6 +1,7 @@
 #include "ApplicationManager.h"
 #include "Actions\AddANDgate2.h"
 #include "Actions\AddORgate2.h"
+#include "Actions\Select.h"
 
 
 ApplicationManager::ApplicationManager()
@@ -19,6 +20,20 @@ void ApplicationManager::AddComponent(Component* pComp)
 {
 	CompList[CompCount++] = pComp;		
 }
+/////////////////////////////////////////////////////////////////////
+void ApplicationManager::RemoveComponent(Component* pComp) {
+	for (int i = 0; i < CompCount; i++) {
+		if (CompList[i] == pComp) {
+			Component* temp = CompList[CompCount - 1];
+			delete CompList[i];
+			CompList[i] = temp;
+			CompList[CompCount - 1] = NULL;
+			CompCount--;
+			break;
+		}
+	}
+}
+
 ////////////////////////////////////////////////////////////////////
 
 ActionType ApplicationManager::GetUserAction()
@@ -27,6 +42,18 @@ ActionType ApplicationManager::GetUserAction()
 	return InputInterface->GetUserAction(); 	
 }
 ////////////////////////////////////////////////////////////////////
+
+int ApplicationManager::GetComponentCount()
+{
+	return CompCount;
+}
+////////////////////////////////////////////////////////////////////
+Component* ApplicationManager::GetComponent(int n) const
+{
+	if (n < 0 || n >= CompCount)
+		return NULL;
+	return CompList[n];
+}
 
 void ApplicationManager::ExecuteAction(ActionType ActType)
 {
@@ -42,8 +69,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case ADD_CONNECTION:
 			//TODO: Create AddConection Action here
 			break;
-	
-
+		case SELECT:
+			pAct = new Select(this);
+			break;
 		case EXIT:
 			///TODO: create ExitAction here
 			break;

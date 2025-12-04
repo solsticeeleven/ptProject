@@ -41,6 +41,10 @@ public:
 
 	//Adds a new component to the list of components
 	void AddComponent(Component* pComp);
+	void RemoveComponent(Component* pComp);
+
+	int GetComponentCount(); //get the number of components
+	Component* GetComponent(int n) const;
 
 	//destructor
 	~ApplicationManager();
