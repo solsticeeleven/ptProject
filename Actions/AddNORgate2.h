@@ -1,17 +1,20 @@
-#ifndef _ADD_OR_GATE_2_H
-#define _ADD_OR_GATE_2_H
+#pragma once
+
+#ifndef _ADD_NOR_GATE2_H
+#define _ADD_NOR_GATE2_H
 
 #include "action.h"
-#include "..\Components\OR2.h"
+#include "..\Components\NOR2.h"
 #include "..\ApplicationManager.h"
 
-class AddORgate2 : public Action {
+class AddNORgate2 : public Action
+{
 private:
 	int Cx, Cy;
 	int x1, y1, x2, y2;
 public:
-	AddORgate2(ApplicationManager* pApp);
-	virtual ~AddORgate2(void);
+	AddNORgate2(ApplicationManager* pApp);
+	virtual ~AddNORgate2(void);
 
 	virtual void ReadActionParameters();
 
@@ -20,4 +23,5 @@ public:
 	virtual void Undo();
 	virtual void Redo();
 };
+
 #endif

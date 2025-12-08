@@ -28,10 +28,7 @@ void AND2::Operate()
 void AND2::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	if (isSelected)
-		pOut->DrawAND2(m_GfxInfo, true);
-	else
-		pOut->DrawAND2(m_GfxInfo);
+	pOut->DrawAND2(m_GfxInfo, isSelected);
 }
 
 //returns status of outputpin

@@ -1,17 +1,19 @@
-#ifndef _ADD_OR_GATE_2_H
-#define _ADD_OR_GATE_2_H
+#pragma once
+
+#ifndef _ADD_NAND_GATE_2_H
+#define _ADD_NAND_GATE_2_H
 
 #include "action.h"
-#include "..\Components\OR2.h"
+#include "..\Components\NAND2.h"
 #include "..\ApplicationManager.h"
 
-class AddORgate2 : public Action {
+class AddNANDgate2 : public Action {
 private:
 	int Cx, Cy;
 	int x1, y1, x2, y2;
 public:
-	AddORgate2(ApplicationManager* pApp);
-	virtual ~AddORgate2(void);
+	AddNANDgate2(ApplicationManager* pApp);
+	virtual ~AddNANDgate2(void);
 
 	virtual void ReadActionParameters();
 
@@ -20,4 +22,5 @@ public:
 	virtual void Undo();
 	virtual void Redo();
 };
+
 #endif

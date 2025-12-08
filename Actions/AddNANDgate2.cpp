@@ -1,34 +1,30 @@
-#include "AddORgate2.h"
+#include "AddNANDgate2.h"
 
-AddORgate2::AddORgate2(ApplicationManager* pApp) : Action(pApp)
+AddNANDgate2::AddNANDgate2(ApplicationManager* pApp) : Action(pApp)
 {
 }
 
-AddORgate2::~AddORgate2(void)
+AddNANDgate2::~AddNANDgate2(void)
 {
 }
 
-void AddORgate2::ReadActionParameters() {
+void AddNANDgate2::ReadActionParameters() {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-
-	pOut->PrintMsg("2-Input OR Gate: Click to add the gate");
-
+	pOut->PrintMsg("2-Input NAND Gate: Click to add the gate");
 	pIn->GetPointClicked(Cx, Cy);
 	while (Cy < UI.ToolBarHeight || Cy > UI.height - UI.StatusBarHeight || Cx < 0 || Cx > UI.width)
 	{
 		pOut->PrintMsg("Invalid Location! Click to add the gate within the drawing area");
 		pIn->GetPointClicked(Cx, Cy);
 	}
-
 	pOut->ClearStatusBar();
 }
-
-void AddORgate2::Execute() {
+void AddNANDgate2::Execute() {
 	ReadActionParameters();
 
-	int len = UI.OR2_Width;
-	int wdth = UI.OR2_Height;
+	int len = UI.NAND2_Width;
+	int wdth = UI.NAND2_Height;
 
 	GraphicsInfo GInfo;
 	GInfo.x1 = Cx - len / 2;
@@ -36,13 +32,14 @@ void AddORgate2::Execute() {
 	GInfo.y1 = Cy - wdth / 2;
 	GInfo.y2 = Cy + wdth / 2;
 
-	OR2* pA = new OR2(GInfo, OR2_FANOUT);
+	NAND2* pA = new NAND2(GInfo, NAND2_FANOUT);
 	pManager->AddComponent(pA);
 }
 
-void AddORgate2::Undo()
+void AddNANDgate2::Undo()
 {
 }
-void AddORgate2::Redo()
+
+void AddNANDgate2::Redo()
 {
 }

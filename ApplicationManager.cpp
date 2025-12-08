@@ -1,8 +1,4 @@
 #include "ApplicationManager.h"
-#include "Actions\AddANDgate2.h"
-#include "Actions\AddORgate2.h"
-#include "Actions\Select.h"
-
 
 ApplicationManager::ApplicationManager()
 {
@@ -65,6 +61,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 		case ADD_OR_GATE_2:
 			pAct = new AddORgate2(this);
+			break;
+		case ADD_NOR_GATE_2:
+			pAct = new AddNORgate2(this);
+			break;
+		case ADD_XOR_GATE_2:
+			pAct = new AddXORgate2(this);
 			break;
 		case ADD_CONNECTION:
 			//TODO: Create AddConection Action here

@@ -1,5 +1,4 @@
 #include "Select.h"
-#include "..\ApplicationManager.h"
 
 Select::Select(ApplicationManager* pApp) : Action(pApp)
 {

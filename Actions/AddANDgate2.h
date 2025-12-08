@@ -3,6 +3,7 @@
 
 #include "action.h"
 #include "..\Components\AND2.h"
+#include "..\ApplicationManager.h"
 
 class AddANDgate2 :	public Action
 {

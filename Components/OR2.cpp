@@ -18,10 +18,7 @@ void OR2::Operate() {
 }
 
 void OR2::Draw(Output* pOut) {
-	if (isSelected)
-		pOut->DrawOR2(m_GfxInfo, true);
-	else
-		pOut->DrawOR2(m_GfxInfo);
+	pOut->DrawOR2(m_GfxInfo, isSelected);
 }
 
 int OR2::GetOutPinStatus() {

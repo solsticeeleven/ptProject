@@ -1,17 +1,18 @@
-#ifndef _ADD_OR_GATE_2_H
-#define _ADD_OR_GATE_2_H
+#ifndef _ADD_XOR_GATE_2_H
+#define _ADD_XOR_GATE_2_H
 
 #include "action.h"
-#include "..\Components\OR2.h"
+#include "..\Components\XOR2.h"
 #include "..\ApplicationManager.h"
 
-class AddORgate2 : public Action {
+class AddXORgate2 : public Action
+{
 private:
 	int Cx, Cy;
 	int x1, y1, x2, y2;
 public:
-	AddORgate2(ApplicationManager* pApp);
-	virtual ~AddORgate2(void);
+	AddXORgate2(ApplicationManager* pApp);
+	virtual ~AddXORgate2(void);
 
 	virtual void ReadActionParameters();
 
@@ -20,4 +21,5 @@ public:
 	virtual void Undo();
 	virtual void Redo();
 };
+
 #endif

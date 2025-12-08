@@ -1,5 +1,4 @@
 #include "AddANDgate2.h"
-#include "..\ApplicationManager.h"
 
 AddANDgate2::AddANDgate2(ApplicationManager *pApp):Action(pApp)
 {
@@ -20,6 +19,13 @@ void AddANDgate2::ReadActionParameters()
 
 	//Wait for User Input
 	pIn->GetPointClicked(Cx, Cy);
+
+	//Validate the Clicked Point
+	while (Cy < UI.ToolBarHeight || Cy > UI.height - UI.StatusBarHeight || Cx < 0 || Cx > UI.width)
+	{
+		pOut->PrintMsg("Invalid Location! Click to add the gate within the drawing area");
+		pIn->GetPointClicked(Cx, Cy);
+	}
 
 	//Clear Status Bar
 	pOut->ClearStatusBar();
