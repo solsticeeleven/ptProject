@@ -13,7 +13,7 @@ public:
 	Input(window*);
 	void GetPointClicked(int &, int &);	//Get coordinate where user clicks
 	void GetCurrentPointClicked(int&, int&); //Get current coordinate of the mouse
-	string GetSrting(Output*);		//Returns a string entered by the user
+	string GetString(Output*);		//Returns a string entered by the user
 
 	ActionType GetUserAction() const; //Reads the user click and maps it to an action
 

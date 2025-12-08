@@ -1,6 +1,6 @@
 #include "Component.h"
 
-Component::Component(const GraphicsInfo &r_GfxInfo)
+Component::Component(const GraphicsInfo &r_GfxInfo): isSelected(false)
 {
 	m_GfxInfo = r_GfxInfo;	
 }
@@ -12,6 +12,14 @@ GraphicsInfo Component::GetGraphicsInfo() const
 
 void Component::setSelected(bool s) {
 	isSelected = s;
+}
+
+void Component::setLabel(string label) {
+	m_Label = label;
+}
+
+string Component::getLabel() const {
+	return m_Label;
 }
 
 Component::Component()

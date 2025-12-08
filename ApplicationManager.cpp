@@ -5,7 +5,7 @@ ApplicationManager::ApplicationManager()
 	CompCount = 0;
 
 	for(int i=0; i<MaxCompCount; i++)
-		CompList[i] = NULL;
+		CompList[i] = nullptr;
 
 	//Creates the Input / Output Objects & Initialize the GUI
 	OutputInterface = new Output();
@@ -14,7 +14,8 @@ ApplicationManager::ApplicationManager()
 ////////////////////////////////////////////////////////////////////
 void ApplicationManager::AddComponent(Component* pComp)
 {
-	CompList[CompCount++] = pComp;		
+	if (CompCount < MaxCompCount)
+		CompList[CompCount++] = pComp;		
 }
 /////////////////////////////////////////////////////////////////////
 void ApplicationManager::RemoveComponent(Component* pComp) {
@@ -23,11 +24,25 @@ void ApplicationManager::RemoveComponent(Component* pComp) {
 			Component* temp = CompList[CompCount - 1];
 			delete CompList[i];
 			CompList[i] = temp;
-			CompList[CompCount - 1] = NULL;
+			CompList[CompCount - 1] = nullptr;
 			CompCount--;
 			break;
 		}
 	}
+}
+
+////////////////////////////////////////////////////////////////////
+
+Component* ApplicationManager::GetSelectedComponent() const
+{
+	return selectedComponent;
+}
+
+////////////////////////////////////////////////////////////////////
+
+void ApplicationManager::SetSelectedComponent(Component* pComp)
+{
+	selectedComponent = pComp;
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -71,6 +86,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case ADD_CONNECTION:
 			//TODO: Create AddConection Action here
 			break;
+		case ADD_Label:
+			pAct = new AddLabel(this);
+			break;
 		case SELECT:
 			pAct = new Select(this);
 			break;
@@ -110,8 +128,10 @@ Output* ApplicationManager::GetOutput()
 
 ApplicationManager::~ApplicationManager()
 {
-	for(int i=0; i<CompCount; i++)
+	for (int i = 0; i < CompCount; i++) {
 		delete CompList[i];
+		CompList[i] = nullptr;
+	}
 	delete OutputInterface;
 	delete InputInterface;
 	

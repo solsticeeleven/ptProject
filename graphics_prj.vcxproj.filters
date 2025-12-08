@@ -165,6 +165,7 @@
       <Filter>Actions</Filter>
     </ClCompile>
     <ClCompile Include="Actions\AddNANDgate2.cpp" />
+    <ClCompile Include="Actions\AddLabel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -294,6 +295,7 @@
     <ClInclude Include="Actions\AddNANDgate2.h">
       <Filter>Actions</Filter>
     </ClInclude>
+    <ClInclude Include="Actions\AddLabel.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

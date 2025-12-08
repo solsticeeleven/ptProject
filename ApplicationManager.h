@@ -3,6 +3,8 @@
 #ifndef APPLICATION_MANAGER_H
 #define APPLICATION_MANAGER_H
 
+#include <iostream>
+
 #include "Defs.h"
 #include "GUI\Output.h"
 #include "GUI\Input.h"
@@ -15,6 +17,7 @@
 #include "Actions\AddXORgate2.h"
 #include "Actions\AddNANDgate2.h"
 #include "Actions\Select.h"
+#include "Actions\AddLabel.h"
 
 //Main class that manages everything in the application.
 class ApplicationManager
@@ -25,13 +28,10 @@ class ApplicationManager
 private:
 	int CompCount;		//Actual number of Components
 	Component* CompList[MaxCompCount];	//List of all Components (Array of pointers)
+	Component* selectedComponent; //pointer to the selected component
 
 	Output* OutputInterface; //pointer to the Output Clase Interface
 	Input* InputInterface; //pointer to the Input Clase Interface
-
-
-public:
-
 
 public:	
 	ApplicationManager(); //constructor
@@ -51,6 +51,9 @@ public:
 	//Adds a new component to the list of components
 	void AddComponent(Component* pComp);
 	void RemoveComponent(Component* pComp);
+
+	Component* GetSelectedComponent() const;
+	void SetSelectedComponent(Component* pComp);
 
 	int GetComponentCount(); //get the number of components
 	Component* GetComponent(int n) const;

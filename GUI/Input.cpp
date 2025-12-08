@@ -17,7 +17,7 @@ void Input::GetPointClicked(int &x, int &y)
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
 
-string Input::GetSrting(Output *pOut)
+string Input::GetString(Output *pOut)
 {
 	string str="";
 	char key='\0';
