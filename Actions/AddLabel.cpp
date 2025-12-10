@@ -36,7 +36,7 @@ void AddLabel::Execute() {
 	selectedComponent->setLabel(labelText);
 	pManager->UpdateInterface();
 
-	pOut->PrintMsg("Label added to the selected component.");
+	pOut->PrintMsg("Successfully added the label: " + labelText);
 }
 
 void AddLabel::Undo()

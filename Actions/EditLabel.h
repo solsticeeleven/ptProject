@@ -1,17 +1,17 @@
-#ifndef _SELECT_H
-#define _SELECT_H
+#ifndef _EDIT_LABEL_H
+#define _EDIT_LABEL_H
 
 #include "Action.h"
 #include "../Components/Component.h"
 #include "..\ApplicationManager.h"
 
-class Select : public Action
-{
+class EditLabel : public Action {
 private:
-	int x, y;
+	Component* selectedComponent;
+	string labelText;
 public:
-	Select(ApplicationManager* pApp);
-	virtual ~Select();
+	EditLabel(ApplicationManager* pApp);
+	virtual ~EditLabel();
 
 	virtual void ReadActionParameters();
 

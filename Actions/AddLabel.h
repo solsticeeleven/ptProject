@@ -9,7 +9,6 @@
 
 class AddLabel : public Action {
 private:
-	int x, y;
 	Component* selectedComponent;
 	string labelText;
 public:

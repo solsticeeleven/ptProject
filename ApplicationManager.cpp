@@ -40,9 +40,10 @@ Component* ApplicationManager::GetSelectedComponent() const
 
 ////////////////////////////////////////////////////////////////////
 
-void ApplicationManager::SetSelectedComponent(Component* pComp)
+Component* ApplicationManager::SetSelectedComponent(Component* pComp)
 {
 	selectedComponent = pComp;
+	return selectedComponent;
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -88,6 +89,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 		case ADD_Label:
 			pAct = new AddLabel(this);
+			break;
+		case EDIT_Label:
+			pAct = new EditLabel(this);
 			break;
 		case SELECT:
 			pAct = new Select(this);

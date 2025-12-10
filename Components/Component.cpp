@@ -2,6 +2,7 @@
 
 Component::Component(const GraphicsInfo &r_GfxInfo): isSelected(false)
 {
+	m_Label = "";
 	m_GfxInfo = r_GfxInfo;	
 }
 
@@ -15,7 +16,7 @@ void Component::setSelected(bool s) {
 }
 
 void Component::setLabel(string label) {
-	m_Label = label;
+	m_Label = (label.empty()) ? "" : label;
 }
 
 string Component::getLabel() const {

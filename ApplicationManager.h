@@ -18,6 +18,7 @@
 #include "Actions\AddNANDgate2.h"
 #include "Actions\Select.h"
 #include "Actions\AddLabel.h"
+#include "Actions\EditLabel.h"
 
 //Main class that manages everything in the application.
 class ApplicationManager
@@ -53,7 +54,7 @@ public:
 	void RemoveComponent(Component* pComp);
 
 	Component* GetSelectedComponent() const;
-	void SetSelectedComponent(Component* pComp);
+	Component* SetSelectedComponent(Component* pComp);
 
 	int GetComponentCount(); //get the number of components
 	Component* GetComponent(int n) const;
