@@ -176,8 +176,21 @@
     <ClCompile Include="Components\BUFF.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="Components\INV.cpp" />
-    <ClCompile Include="Components\XNOR2.cpp" />
+    <ClCompile Include="Components\INV.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\XNOR2.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\AddBUFFgate.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\AddINVgate.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\AddXNORgate2.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -321,6 +334,15 @@
     </ClInclude>
     <ClInclude Include="Components\XNOR2.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddBUFFgate.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddINVgate.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddXNORgate2.h">
+      <Filter>Actions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
