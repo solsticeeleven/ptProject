@@ -164,22 +164,20 @@
     <ClCompile Include="Actions\AddXORgate2.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\AddNANDgate2.cpp" />
     <ClCompile Include="Actions\AddLabel.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
     <ClCompile Include="Actions\EditLabel.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
-    <ClCompile Include="XNOR2.cpp">
+    <ClCompile Include="Actions\AddNANDgate2.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\BUFF.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="BUFF.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="INV.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
+    <ClCompile Include="Components\INV.cpp" />
+    <ClCompile Include="Components\XNOR2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -315,13 +313,13 @@
     <ClInclude Include="Actions\EditLabel.h">
       <Filter>Actions</Filter>
     </ClInclude>
-    <ClInclude Include="XNOR2.h">
+    <ClInclude Include="Components\BUFF.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="BUFF.h">
+    <ClInclude Include="Components\INV.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="INV.h">
+    <ClInclude Include="Components\XNOR2.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
