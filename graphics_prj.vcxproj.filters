@@ -171,6 +171,15 @@
     <ClCompile Include="Actions\EditLabel.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
+    <ClCompile Include="XNOR2.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="BUFF.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="INV.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -305,6 +314,15 @@
     </ClInclude>
     <ClInclude Include="Actions\EditLabel.h">
       <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="XNOR2.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BUFF.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="INV.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
