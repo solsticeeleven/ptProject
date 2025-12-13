@@ -47,7 +47,15 @@ struct UI_Info	//User Interface Info.
 						SWITCH_Width = 50,
 						SWITCH_Height = 50,
 						LED_Width = 50,
-						LED_Height = 50;
+						LED_Height = 50,
+
+						// 3-input gates - added so AddNORgate3 / AddANDgate3 can compile
+						AND3_Width = 50,
+						AND3_Height = 50,
+						NOR3_Width = 50,
+						NOR3_Height = 50,
+						XOR3_Width = 50,
+						XOR3_Height = 50;
 }UI;	//create a single global object UI
 
 #endif
