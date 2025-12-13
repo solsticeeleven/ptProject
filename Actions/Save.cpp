@@ -1,4 +1,5 @@
 #include "Save.h"
+#include "..\ApplicationManager.h" // make ApplicationManager complete for pManager usage
 
 #include <fstream>
 #include <vector>
@@ -12,10 +13,10 @@
 #include "..\Components\NOR3.h"
 #include "..\Components\XOR2.h"
 #include "..\Components\XOR3.h"
-#include "..\Components\NAND2.h"
 #include "..\Components\XNOR2.h"
 #include "..\Components\BUFF.h"
 #include "..\Components\INV.h"
+#include "..\Components\NAND2.h"
 
 Save::Save(ApplicationManager* pApp) : Action(pApp)
 {
@@ -88,10 +89,10 @@ void Save::Execute()
 		else if (dynamic_cast<NOR3*>(c)) type = "NOR3";
 		else if (dynamic_cast<XOR2*>(c)) type = "XOR2";
 		else if (dynamic_cast<XOR3*>(c)) type = "XOR3";
-		else if (dynamic_cast<NAND2*>(c)) type = "NAND2";
 		else if (dynamic_cast<XNOR2*>(c)) type = "XNOR2";
 		else if (dynamic_cast<BUFF*>(c)) type = "BUFF";
 		else if (dynamic_cast<INV*>(c)) type = "INV";
+		else if (dynamic_cast<NAND2*>(c)) type = "NAND2";
 		// if you have SWITCH/LED classes, add here similarly
 
 		// write: TYPE ID x1 y1 x2 y2 [label optional]
