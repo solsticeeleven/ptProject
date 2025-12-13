@@ -16,9 +16,14 @@
 #include "Actions\AddNORgate2.h"
 #include "Actions\AddXORgate2.h"
 #include "Actions\AddNANDgate2.h"
+#include "Actions\AddBUFFgate.h"
+#include "Actions\AddINVgate.h"
+#include "Actions\AddANDgate3.h"
+#include "Actions\AddNORgate3.h"
 #include "Actions\Select.h"
 #include "Actions\AddLabel.h"
 #include "Actions\EditLabel.h"
+
 
 //Main class that manages everything in the application.
 class ApplicationManager

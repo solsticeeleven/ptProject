@@ -55,7 +55,12 @@ struct UI_Info	//User Interface Info.
 						NOR3_Width = 50,
 						NOR3_Height = 50,
 						XOR3_Width = 50,
-						XOR3_Height = 50;
+						XOR3_Height = 50,
+
+						INV_Width = 50,
+						INV_Height = 50,
+						BUFF_Width = 50,
+						BUFF_Height = 50;
 }UI;	//create a single global object UI
 
 #endif
