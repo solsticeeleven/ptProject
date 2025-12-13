@@ -102,6 +102,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case ADD_NOR_GATE_3:
 			pAct = new AddNORgate3(this);
 			break;
+		case SAVE:
+			pAct = new Save(this);
+			break;
 		case ADD_CONNECTION:
 			//TODO: Create AddConection Action here
 			break;
@@ -133,7 +136,6 @@ void ApplicationManager::UpdateInterface()
 			CompList[i]->Draw(OutputInterface);
 
 }
-
 ////////////////////////////////////////////////////////////////////
 Input* ApplicationManager::GetInput()
 {

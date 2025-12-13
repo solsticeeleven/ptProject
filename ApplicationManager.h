@@ -20,7 +20,8 @@
 #include "Actions\AddINVgate.h"
 #include "Actions\AddANDgate3.h"
 #include "Actions\AddNORgate3.h"
-#include "Actions\AddXORgate3.h"   // added
+#include "Actions\AddXORgate3.h"
+#include "Actions\Save.h"        // added Save action
 #include "Actions\Select.h"
 #include "Actions\AddLabel.h"
 #include "Actions\EditLabel.h"
