@@ -73,7 +73,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	switch (ActType)
 	{
 		case ADD_AND_GATE_2:
-			pAct= new AddANDgate2(this);	
+			pAct = new AddANDgate2(this);
 			break;
 		case ADD_OR_GATE_2:
 			pAct = new AddORgate2(this);
@@ -93,9 +93,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case ADD_Buff:
 			pAct = new AddBUFFgate(this);
 			break;
-		//case ADD_AND_GATE_3:
-		//	pAct = new AddANDgate3(this);
-		//	break;
+		case ADD_AND_GATE_3:
+			pAct = new AddANDgate3(this);
+			break;
+		case ADD_XOR_GATE_3:
+			pAct = new AddXORgate3(this);
+			break;
 		case ADD_NOR_GATE_3:
 			pAct = new AddNORgate3(this);
 			break;

@@ -1,21 +1,21 @@
-#include "AddANDgate3.h"
+#include "AddXORgate3.h"
 
-AddANDgate3::AddANDgate3(ApplicationManager *pApp) : Action(pApp)
+AddXORgate3::AddXORgate3(ApplicationManager *pApp) : Action(pApp)
 {
 }
 
-AddANDgate3::~AddANDgate3(void)
+AddXORgate3::~AddXORgate3(void)
 {
 }
 
-void AddANDgate3::ReadActionParameters()
+void AddXORgate3::ReadActionParameters()
 {
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
 	//Print Action Message
-	pOut->PrintMsg("3-Input AND Gate: Click to add the gate");
+	pOut->PrintMsg("3-Input XOR Gate: Click to add the gate");
 
 	//Wait for User Input
 	pIn->GetPointClicked(Cx, Cy);
@@ -31,16 +31,16 @@ void AddANDgate3::ReadActionParameters()
 	pOut->ClearStatusBar();
 }
 
-void AddANDgate3::Execute()
+void AddXORgate3::Execute()
 {
 	//Get Center point of the Gate
 	ReadActionParameters();
 
 	//Calculate the rectangle Corners
-	int Len = UI.AND3_Width;
-	int Wdth = UI.AND3_Height;
+	int Len = UI.XOR3_Width;
+	int Wdth = UI.XOR3_Height;
 
-	GraphicsInfo GInfo; //Gfx info to be used to construct the AND3 gate
+	GraphicsInfo GInfo; //Gfx info to be used to construct the XOR3 gate
 
 	GInfo.x1 = Cx - Len / 2;
 	GInfo.x2 = Cx + Len / 2;
@@ -57,12 +57,12 @@ void AddANDgate3::Execute()
 		}
 	}
 
-	AND3 *pA = new AND3(GInfo, AND3_FANOUT);
+	XOR3 *pA = new XOR3(GInfo, XOR3_FANOUT);
 	pManager->AddComponent(pA);
 }
 
-void AddANDgate3::Undo()
+void AddXORgate3::Undo()
 {}
 
-void AddANDgate3::Redo()
+void AddXORgate3::Redo()
 {}

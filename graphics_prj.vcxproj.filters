@@ -203,6 +203,8 @@
     <ClCompile Include="Actions\AddNORgate3.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
+    <ClCompile Include="Components\XOR3.cpp" />
+    <ClCompile Include="Actions\AddXORgate3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -368,6 +370,8 @@
     <ClInclude Include="Actions\AddNORgate3.h">
       <Filter>Actions</Filter>
     </ClInclude>
+    <ClInclude Include="Components\XOR3.h" />
+    <ClInclude Include="Actions\AddXORgate3.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
