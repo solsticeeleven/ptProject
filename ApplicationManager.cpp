@@ -105,6 +105,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case SAVE:
 			pAct = new Save(this);
 			break;
+		case LOAD:
+			pAct = new Load(this);
+			break;
 		case ADD_CONNECTION:
 			//TODO: Create AddConection Action here
 			break;

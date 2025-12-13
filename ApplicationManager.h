@@ -22,6 +22,7 @@
 #include "Actions\AddNORgate3.h"
 #include "Actions\AddXORgate3.h"
 #include "Actions\Save.h"        // added Save action
+#include "Actions\Load.h"        // added Load action
 #include "Actions\Select.h"
 #include "Actions\AddLabel.h"
 #include "Actions\EditLabel.h"
@@ -61,7 +62,7 @@ public:
 	void RemoveComponent(Component* pComp);
 
 	Component* GetSelectedComponent() const;
-	Component* SetSelectedComponent(Component* pComp);
+		Component* SetSelectedComponent(Component* pComp);
 
 	int GetComponentCount(); //get the number of components
 	Component* GetComponent(int n) const;

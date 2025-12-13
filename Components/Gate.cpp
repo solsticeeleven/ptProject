@@ -28,3 +28,10 @@ int Gate::GetInputPinIndex(InputPin* p)
 	}
 	return -1;
 }
+
+InputPin* Gate::GetInputPin(int index)
+{
+	// index is 1-based
+	if (index < 1 || index > m_Inputs) return nullptr;
+	return &m_InputPins[index - 1];
+}

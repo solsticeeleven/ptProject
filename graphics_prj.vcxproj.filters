@@ -212,6 +212,7 @@
     <ClCompile Include="Actions\Save.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
+    <ClCompile Include="Actions\Load.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -386,6 +387,7 @@
     <ClInclude Include="Actions\Save.h">
       <Filter>Actions</Filter>
     </ClInclude>
+    <ClInclude Include="Actions\Load.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

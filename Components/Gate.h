@@ -24,6 +24,9 @@ public:
 	// Expose accessors needed for serialization (Save/Load)
 	OutputPin* GetOutputPin();
 	int GetInputPinIndex(InputPin* p);
+
+	// Return pointer to input pin by 1-based index (needed by Load)
+	InputPin* GetInputPin(int index);
 };
 
 #endif // _GATE_H
