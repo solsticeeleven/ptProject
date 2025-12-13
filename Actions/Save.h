@@ -4,6 +4,8 @@
 #include "Action.h"
 #include <string>
 
+class ApplicationManager;
+
 class Save : public Action
 {
 private:
@@ -18,4 +20,4 @@ public:
 	virtual void Redo();
 };
 
-#endif
+#endif // _SAVE_ACTION_H

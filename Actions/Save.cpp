@@ -91,8 +91,7 @@ void Save::Execute()
 		else if (dynamic_cast<XOR3*>(c)) type = "XOR3";
 		else if (dynamic_cast<XNOR2*>(c)) type = "XNOR2";
 		else if (dynamic_cast<BUFF*>(c)) type = "BUFF";
-		else if (dynamic_cast<INV*>(c)) type = "INV";
-		else if (dynamic_cast<NAND2*>(c)) type = "NAND2";
+		else if (dynamic_cast<INV*>(c)) type = "INV"; //CANT INCLUDE NAND2
 		// if you have SWITCH/LED classes, add here similarly
 
 		// write: TYPE ID x1 y1 x2 y2 [label optional]

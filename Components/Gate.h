@@ -8,12 +8,11 @@
   - Each gate has n inputs pins and one output pin
 */
 
-
 #include "InputPin.h"
 #include "OutputPin.h"
 #include "Component.h"
 
-class Gate:public Component
+class Gate : public Component
 {
 protected:
 	InputPin* m_InputPins;	//Array of input pins of the Gate
@@ -27,4 +26,4 @@ public:
 	int GetInputPinIndex(InputPin* p);
 };
 
-#endif
+#endif // _GATE_H
