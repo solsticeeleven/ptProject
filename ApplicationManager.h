@@ -10,7 +10,7 @@
 #include "GUI\Input.h"
 #include "Actions\Action.h"
 #include "Components\Component.h"
-
+#include "Components\Connection.h"
 #include "Actions\AddANDgate2.h"
 #include "Actions\AddORgate2.h"
 #include "Actions\AddNORgate2.h"
@@ -66,6 +66,9 @@ public:
 
 	int GetComponentCount(); //get the number of components
 	Component* GetComponent(int n) const;
+
+	// delete all components (connections first, then others) and reset selection
+	void ClearAllComponents(); 
 
 	//destructor
 	~ApplicationManager();

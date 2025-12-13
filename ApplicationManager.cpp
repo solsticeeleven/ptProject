@@ -1,5 +1,4 @@
 #include "ApplicationManager.h"
-
 ApplicationManager::ApplicationManager()
 {
 	CompCount = 0;
@@ -162,4 +161,33 @@ ApplicationManager::~ApplicationManager()
 	delete OutputInterface;
 	delete InputInterface;
 	
+}
+
+void ApplicationManager::ClearAllComponents()
+{
+	// First delete all Connection objects to avoid leaving connections
+	// that reference gates/pins that will be destroyed.
+	for (int i = 0; i < CompCount; /*increment handled below*/) {
+		Connection* conn = dynamic_cast<Connection*>(CompList[i]);
+		if (conn) {
+			delete CompList[i];
+			// replace current slot with last and shrink list
+			CompList[i] = CompList[CompCount - 1];
+			CompList[CompCount - 1] = nullptr;
+			--CompCount;
+		}
+		else {
+			++i;
+		}
+	}
+
+	// Now delete remaining components (gates, switches, LEDs, ...)
+	for (int i = 0; i < CompCount; ++i) {
+		delete CompList[i];
+		CompList[i] = nullptr;
+	}
+	CompCount = 0;
+
+	// Clear selection
+	selectedComponent = nullptr;
 }
