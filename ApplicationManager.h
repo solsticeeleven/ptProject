@@ -23,6 +23,7 @@
 #include "Actions\Select.h"
 #include "Actions\AddLabel.h"
 #include "Actions\EditLabel.h"
+#include "Actions\Delete.h"
 
 
 //Main class that manages everything in the application.

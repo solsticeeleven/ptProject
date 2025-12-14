@@ -10,9 +10,6 @@ AddLabel::~AddLabel()
 }
 
 void AddLabel::ReadActionParameters() {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-
 	selectedComponent = pManager->GetSelectedComponent();
 }
 

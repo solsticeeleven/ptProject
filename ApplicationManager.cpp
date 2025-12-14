@@ -99,6 +99,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case ADD_NOR_GATE_3:
 			pAct = new AddNORgate3(this);
 			break;
+		case DEL:
+			pAct = new Delete(this);
+			break;
 		case ADD_CONNECTION:
 			//TODO: Create AddConection Action here
 			break;
