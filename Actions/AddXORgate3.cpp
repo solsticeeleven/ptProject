@@ -1,6 +1,6 @@
 #include "AddXORgate3.h"
 
-AddXORgate3::AddXORgate3(ApplicationManager *pApp) : Action(pApp)
+AddXORgate3::AddXORgate3(ApplicationManager* pApp) : Action(pApp)
 {
 }
 
@@ -57,12 +57,14 @@ void AddXORgate3::Execute()
 		}
 	}
 
-	XOR3 *pA = new XOR3(GInfo, XOR3_FANOUT);
+	XOR3* pA = new XOR3(GInfo, XOR3_FANOUT);
 	pManager->AddComponent(pA);
 }
 
 void AddXORgate3::Undo()
-{}
+{
+}
 
 void AddXORgate3::Redo()
-{}
+{
+}

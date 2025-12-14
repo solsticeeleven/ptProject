@@ -1,22 +1,7 @@
 #include "Save.h"
-#include "..\ApplicationManager.h" // make ApplicationManager complete for pManager usage
-
-#include <fstream>
-#include <vector>
-#include <unordered_map>
-
-#include "..\Components\Connection.h"
-#include "..\Components\AND2.h"
-#include "..\Components\AND3.h"
-#include "..\Components\OR2.h"
-#include "..\Components\NOR2.h"
-#include "..\Components\NOR3.h"
-#include "..\Components\XOR2.h"
-#include "..\Components\XOR3.h"
-#include "..\Components\XNOR2.h"
-#include "..\Components\BUFF.h"
-#include "..\Components\INV.h"
+#include "..\ApplicationManager.h"
 #include "..\Components\NAND2.h"
+
 
 Save::Save(ApplicationManager* pApp) : Action(pApp)
 {
@@ -33,8 +18,6 @@ void Save::ReadActionParameters()
 
 	pOut->PrintMsg("Enter filename to save (e.g. circuit.txt): ");
 	filename = pIn->GetString(pOut);
-
-	// basic validation
 	while (filename.empty()) {
 		pOut->PrintMsg("Filename cannot be empty. Enter filename: ");
 		filename = pIn->GetString(pOut);
@@ -55,7 +38,6 @@ void Save::Execute()
 		return;
 	}
 
-	// Separate components and connections (we save components first)
 	std::vector<Component*> comps;
 	std::vector<Connection*> conns;
 
@@ -91,8 +73,7 @@ void Save::Execute()
 		else if (dynamic_cast<XOR3*>(c)) type = "XOR3";
 		else if (dynamic_cast<XNOR2*>(c)) type = "XNOR2";
 		else if (dynamic_cast<BUFF*>(c)) type = "BUFF";
-		else if (dynamic_cast<INV*>(c)) type = "INV"; //CANT INCLUDE NAND2
-		// if you have SWITCH/LED classes, add here similarly
+		else if (dynamic_cast<INV*>(c)) type = "INV"; 
 
 		// write: TYPE ID x1 y1 x2 y2 [label optional]
 		fout << type << " " << idMap[c] << " "

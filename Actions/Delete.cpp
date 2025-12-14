@@ -3,7 +3,6 @@
 
 Delete::Delete(ApplicationManager* pApp) : Action(pApp)
 {
-	selectedComponent = nullptr;
 }
 
 Delete::~Delete()

@@ -20,6 +20,10 @@ void ApplicationManager::AddComponent(Component* pComp)
 void ApplicationManager::RemoveComponent(Component* pComp) {
 	for (int i = 0; i < CompCount; i++) {
 		if (CompList[i] == pComp) {
+
+			GraphicsInfo gfx = CompList[i]->GetGraphicsInfo();
+			OutputInterface->ClearComponentArea(gfx);
+
 			Component* temp = CompList[CompCount - 1];
 			delete CompList[i];
 			CompList[i] = temp;
@@ -113,6 +117,15 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case SELECT:
 			pAct = new Select(this);
 			break;
+		case DEL:
+			pAct = new Delete(this);
+			break;
+		case SAVE:
+			pAct = new Save(this);
+			break;
+		case LOAD:
+			pAct = new Load(this);
+			break;
 		case EXIT:
 			///TODO: create ExitAction here
 			break;
@@ -159,13 +172,12 @@ ApplicationManager::~ApplicationManager()
 
 void ApplicationManager::ClearAllComponents()
 {
-	// First delete all Connection objects to avoid leaving connections
-	// that reference gates/pins that will be destroyed.
-	for (int i = 0; i < CompCount; /*increment handled below*/) {
+
+	for (int i = 0; i < CompCount; ) {
 		Connection* conn = dynamic_cast<Connection*>(CompList[i]);
 		if (conn) {
 			delete CompList[i];
-			// replace current slot with last and shrink list
+
 			CompList[i] = CompList[CompCount - 1];
 			CompList[CompCount - 1] = nullptr;
 			--CompCount;
@@ -181,6 +193,7 @@ void ApplicationManager::ClearAllComponents()
 		CompList[i] = nullptr;
 	}
 	CompCount = 0;
+	OutputInterface->ClearDrawingArea();
 
 	// Clear selection
 	selectedComponent = nullptr;

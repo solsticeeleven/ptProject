@@ -4,11 +4,12 @@
 
 #include "Gate.h"
 
-class NAND2 :public Gate {
+class NAND2 : public Gate {
 public:
 	NAND2(const GraphicsInfo& r_GfxInfo, int r_Fanout);
-	
+
 	virtual void Operate();
+
 	virtual void Draw(Output* pOut);
 
 	virtual int GetOutPinStatus();

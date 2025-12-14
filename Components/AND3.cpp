@@ -11,7 +11,6 @@ AND3::AND3(const GraphicsInfo &r_GfxInfo, int r_FanOut) : Gate(3, r_FanOut)
 
 void AND3::Operate()
 {
-	// Output HIGH only if all three inputs are HIGH
 	if (m_InputPins[0].getStatus() == HIGH &&
 		m_InputPins[1].getStatus() == HIGH &&
 		m_InputPins[2].getStatus() == HIGH)
@@ -25,7 +24,6 @@ void AND3::Operate()
 
 void AND3::Draw(Output* pOut)
 {
-	// Use Output's DrawAND3 implementation
 	pOut->DrawAND3(m_GfxInfo, isSelected);
 }
 
@@ -36,7 +34,7 @@ int AND3::GetOutPinStatus()
 
 int AND3::GetInputPinStatus(int n)
 {
-	return m_InputPins[n - 1].getStatus();	// n starts from 1
+	return m_InputPins[n - 1].getStatus();
 }
 
 void AND3::setInputPinStatus(int n, STATUS s)

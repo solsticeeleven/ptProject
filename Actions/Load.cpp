@@ -104,6 +104,7 @@ void Load::Execute()
 		}
 		else if (type == "AND3") {
 			created = new AND3(g, AND3_FANOUT);
+
 		}
 		else if (type == "OR2") {
 			created = new OR2(g, OR2_FANOUT);
@@ -137,6 +138,7 @@ void Load::Execute()
 		if (created) {
 			if (!label.empty())
 				created->setLabel(label);
+			created->setSelected(false);
 			pManager->AddComponent(created);
 			idMap[savedId] = created;
 		}

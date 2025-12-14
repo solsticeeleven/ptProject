@@ -26,6 +26,6 @@ string Component::getLabel() const {
 Component::Component()
 {}
 
-Component::~Component()
-{}
+Component::~Component() {
+}
 
