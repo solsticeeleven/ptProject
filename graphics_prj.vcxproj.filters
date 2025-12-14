@@ -221,6 +221,8 @@
     <ClCompile Include="Actions\Move.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
+    <ClCompile Include="Actions\Copy.cpp" />
+    <ClCompile Include="Actions\Paste.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -402,6 +404,12 @@
       <Filter>Actions</Filter>
     </ClInclude>
     <ClInclude Include="Actions\Move.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\Copy.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\Paste.h">
       <Filter>Actions</Filter>
     </ClInclude>
   </ItemGroup>

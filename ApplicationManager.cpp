@@ -2,6 +2,7 @@
 ApplicationManager::ApplicationManager()
 {
 	CompCount = 0;
+	clipboardComponent = nullptr;
 
 	for(int i=0; i<MaxCompCount; i++)
 		CompList[i] = nullptr;
@@ -58,6 +59,8 @@ void ApplicationManager::RemoveSelectedComponent(Component* pComp)
 	selectedComponents.erase(std::remove(selectedComponents.begin(), selectedComponents.end(), pComp), selectedComponents.end());
 }
 
+////////////////////////////////////////////////////////////////////
+
 void ApplicationManager::ClearSelectedComponents()
 {
 	for (Component* comp : selectedComponents) {
@@ -66,6 +69,20 @@ void ApplicationManager::ClearSelectedComponents()
 		}
 	}
 	selectedComponents.clear();
+}
+
+////////////////////////////////////////////////////////////////////
+
+Component* ApplicationManager::GetClipboardComponent() const
+{
+	return clipboardComponent;
+}
+
+////////////////////////////////////////////////////////////////////
+
+void ApplicationManager::SetClipboardComponent(Component* pComp)
+{
+	clipboardComponent = pComp;
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -81,6 +98,7 @@ int ApplicationManager::GetComponentCount()
 {
 	return CompCount;
 }
+
 ////////////////////////////////////////////////////////////////////
 Component* ApplicationManager::GetComponent(int n) const
 {
@@ -144,6 +162,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 		case MOVE:
 			pAct = new Move(this);
+			break;
+		case COPY:
+			pAct = new Copy(this);
+			break;
+		case PASTE:
+			pAct = new Paste(this);
 			break;
 		case SAVE:
 			pAct = new Save(this);

@@ -1,7 +1,5 @@
 #include "Select.h"
 
-#include <iostream>
-
 Select::Select(ApplicationManager* pApp) : Action(pApp)
 {
 }
@@ -28,7 +26,6 @@ void Select::Execute() {
 		GraphicsInfo gfx = comp->GetGraphicsInfo();
 		if (x >= gfx.x1 && x <= gfx.x2 && y >= gfx.y1 && y <= gfx.y2) {
 			selectedComp = comp;
-			cout << "found the component" << endl;
 			break;
 		}
 	}
@@ -44,8 +41,6 @@ void Select::Execute() {
 		if (comp == selectedComp) {
 			comp->setSelected(false);
 			pManager->RemoveSelectedComponent(selectedComp);
-			cout << "Size: " << selectedComps.size() << endl;
-			cout << "deselected the component" << endl;
 			pOut->PrintMsg("Component Deselected");
 			return;
 		}
