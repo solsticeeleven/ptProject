@@ -44,8 +44,9 @@ void AddINVgate::Execute()
         }
     }
 
-    INV* pINV = new INV(GInfo, INV_FANOUT);
-    pManager->AddComponent(pINV);
+    INV* pA = new INV(GInfo, INV_FANOUT);
+    pA->setSelected(false);
+    pManager->AddComponent(pA);
 }
 
 void AddINVgate::Undo() {}

@@ -141,6 +141,9 @@ void Output::CreateDesignToolBar() const
 	MenuItemImages[ITM_EDIT] = "images\\Menu\\Menu_Edit.jpg";
 	MenuItemImages[ITM_DEL] = "images\\Menu\\Menu_Del.jpg";
 	MenuItemImages[ITM_MOVE] = "images\\Menu\\Menu_Move.jpg";
+	MenuItemImages[ITM_COPY] = "images\\Menu\\Menu_COPY.jpg";
+	MenuItemImages[ITM_PASTE] = "images\\Menu\\Menu_PASTE.jpg";
+
 	MenuItemImages[ITM_SAVE] = "images\\Menu\\Menu_Save.jpg";
 	MenuItemImages[ITM_LOAD] = "images\\Menu\\Menu_Load.jpg";
 	MenuItemImages[ITM_SIM_MODE] = "images\\Menu\\Menu_SIM_MODE.jpg";

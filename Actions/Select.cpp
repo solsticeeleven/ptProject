@@ -1,5 +1,7 @@
 #include "Select.h"
 
+#include <iostream>
+
 Select::Select(ApplicationManager* pApp) : Action(pApp)
 {
 }
@@ -20,28 +22,41 @@ void Select::Execute() {
 	Output* pOut = pManager->GetOutput();
 	ReadActionParameters();
 
-	pManager->SetSelectedComponent(nullptr);
+	Component* selectedComp = nullptr;
 	for (int i = 0; i < pManager->GetComponentCount(); i++) {
-		Component* currentComp = pManager->GetComponent(i);
-		GraphicsInfo gfxInfo = currentComp->GetGraphicsInfo();
-		if (x >= gfxInfo.x1 && x <= gfxInfo.x2 && y >= gfxInfo.y1 && y <= gfxInfo.y2) {
-			pManager->SetSelectedComponent(currentComp);
-		} else {
-			currentComp->setSelected(false);
+		Component* comp = pManager->GetComponent(i);
+		GraphicsInfo gfx = comp->GetGraphicsInfo();
+		if (x >= gfx.x1 && x <= gfx.x2 && y >= gfx.y1 && y <= gfx.y2) {
+			selectedComp = comp;
+			cout << "found the component" << endl;
+			break;
 		}
 	}
-	if (pManager->GetSelectedComponent()) {
-		pManager->GetSelectedComponent()->setSelected(true);
 
-		if (pManager->GetSelectedComponent()->getLabel().empty()) {
-			pOut->PrintMsg("Component selected with no label");
-			return;
-		}
-		pOut->PrintMsg(pManager->GetSelectedComponent()->getLabel());
+	if (selectedComp == nullptr) {
+		pManager->ClearSelectedComponents();
+		pOut->PrintMsg("No Component Selected");
 		return;
 	}
-	pManager->SetSelectedComponent(nullptr);
-	pOut->PrintMsg("No component selected");
+
+	vector<Component*> selectedComps = pManager->GetSelectedComponents();
+	for (Component* comp : selectedComps) {
+		if (comp == selectedComp) {
+			comp->setSelected(false);
+			pManager->RemoveSelectedComponent(selectedComp);
+			cout << "Size: " << selectedComps.size() << endl;
+			cout << "deselected the component" << endl;
+			pOut->PrintMsg("Component Deselected");
+			return;
+		}
+	}
+	selectedComp->setSelected(true);
+	pManager->AddSelectedComponent(selectedComp);
+	if (selectedComp->getLabel().empty()) {
+		pOut->PrintMsg("Component Selected Label: N/A" );
+		return;
+	}
+	pOut->PrintMsg("Component Selected Label: " + selectedComp->getLabel());
 }
 
 void Select::Undo()

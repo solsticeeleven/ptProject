@@ -113,6 +113,8 @@ ActionType Input::GetUserAction() const
 				case ITM_EDIT: return EDIT_Label;
 				case ITM_DEL: return DEL;
 				case ITM_MOVE: return MOVE;
+				case ITM_COPY: return COPY;
+				case ITM_PASTE: return PASTE;
 				case ITM_SAVE: return SAVE;
 				case ITM_LOAD: return LOAD;
 				case ITM_SIM_MODE: return SIM_MODE;

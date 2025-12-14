@@ -1,6 +1,8 @@
 #ifndef _SELECT_H
 #define _SELECT_H
 
+#include <vector>
+
 #include "Action.h"
 #include "../Components/Component.h"
 #include "..\ApplicationManager.h"

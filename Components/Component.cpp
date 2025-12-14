@@ -11,6 +11,10 @@ GraphicsInfo Component::GetGraphicsInfo() const
 	return m_GfxInfo;
 }
 
+void Component::UpdateGraphicsInfo(GraphicsInfo r_GfxInfo) {
+	m_GfxInfo = r_GfxInfo;
+}
+
 void Component::setSelected(bool s) {
 	isSelected = s;
 }

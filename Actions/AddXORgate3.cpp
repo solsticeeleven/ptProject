@@ -58,6 +58,7 @@ void AddXORgate3::Execute()
 	}
 
 	XOR3* pA = new XOR3(GInfo, XOR3_FANOUT);
+	pA->setSelected(false);
 	pManager->AddComponent(pA);
 }
 

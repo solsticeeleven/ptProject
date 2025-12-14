@@ -48,7 +48,7 @@ void Load::Execute()
 	}
 
 	// Clear existing components
-	pManager->SetSelectedComponent(nullptr);
+	pManager->ClearSelectedComponents();
 	pManager->ClearAllComponents();
 
 	std::string line;

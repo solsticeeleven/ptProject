@@ -4,6 +4,7 @@
 #define APPLICATION_MANAGER_H
 
 #include <iostream>
+#include <vector>
 
 #include "Defs.h"
 #include "GUI\Output.h"
@@ -21,13 +22,15 @@
 #include "Actions\AddANDgate3.h"
 #include "Actions\AddNORgate3.h"
 #include "Actions\AddXORgate3.h"
+#include "Actions\AddXNORgate2.h"
 
 #include "Actions\Save.h"        
 #include "Actions\Load.h"       
 #include "Actions\Select.h"
 #include "Actions\AddLabel.h"
 #include "Actions\EditLabel.h"
-#include "Actions\Delete.h"
+#include "Actions\Delete.h"	
+#include "Actions\Move.h"
 
 
 //Main class that manages everything in the application.
@@ -39,7 +42,7 @@ class ApplicationManager
 private:
 	int CompCount;		//Actual number of Components
 	Component* CompList[MaxCompCount];	//List of all Components (Array of pointers)
-	Component* selectedComponent; //pointer to the selected component
+	vector<Component*> selectedComponents; //vector of selected components
 
 	Output* OutputInterface; //pointer to the Output Clase Interface
 	Input* InputInterface; //pointer to the Input Clase Interface
@@ -63,8 +66,11 @@ public:
 	void AddComponent(Component* pComp);
 	void RemoveComponent(Component* pComp);
 
-	Component* GetSelectedComponent() const;
-		Component* SetSelectedComponent(Component* pComp);
+	vector<Component*> GetSelectedComponents() const;
+
+	vector<Component*> AddSelectedComponent(Component* pComp);
+	void RemoveSelectedComponent(Component* pComp);
+	void ClearSelectedComponents();
 
 	int GetComponentCount(); //get the number of components
 	Component* GetComponent(int n) const;

@@ -3,6 +3,8 @@
 #ifndef _DELETE_H_
 #define _DELETE_H_
 
+#include <vector>
+
 #include "Action.h"
 #include "../Components/Component.h"
 #include "../ApplicationManager.h"
@@ -10,7 +12,7 @@
 class Delete : public Action
 {
 private:
-	Component* selectedComponent;
+	vector<Component*> selectedComponent;
 public:
 	Delete(ApplicationManager* pApp);
 	virtual ~Delete();

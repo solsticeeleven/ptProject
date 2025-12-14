@@ -46,6 +46,7 @@ void AddNORgate2::Execute() {
 	}
 
 	NOR2* pA = new NOR2(GInfo, NOR2_FANOUT);
+	pA->setSelected(false);
 	pManager->AddComponent(pA);
 }
 

@@ -1,13 +1,15 @@
 #ifndef _EDIT_LABEL_H
 #define _EDIT_LABEL_H
 
+#include <vector>
+
 #include "Action.h"
 #include "../Components/Component.h"
 #include "..\ApplicationManager.h"
 
 class EditLabel : public Action {
 private:
-	Component* selectedComponent;
+	vector<Component*> selectedComponent;
 	string labelText;
 public:
 	EditLabel(ApplicationManager* pApp);

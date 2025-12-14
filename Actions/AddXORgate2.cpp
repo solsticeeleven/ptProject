@@ -44,6 +44,7 @@ void AddXORgate2::Execute() {
 	}
 
 	XOR2* pA = new XOR2(GInfo, XOR2_FANOUT);
+	pA->setSelected(false);
 	pManager->AddComponent(pA);
 }
 

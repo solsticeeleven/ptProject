@@ -44,8 +44,9 @@ void AddBUFFgate::Execute()
         }
     }
 
-    BUFF* pBUFF = new BUFF(GInfo, BUFF_FANOUT);
-    pManager->AddComponent(pBUFF);
+    BUFF* pA = new BUFF(GInfo, BUFF_FANOUT);
+    pA->setSelected(false);
+    pManager->AddComponent(pA);
 }
 
 void AddBUFFgate::Undo() {}

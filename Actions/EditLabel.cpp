@@ -2,7 +2,6 @@
 
 EditLabel::EditLabel(ApplicationManager* pApp) : Action(pApp)
 {
-	selectedComponent = nullptr;
 }
 
 EditLabel::~EditLabel()
@@ -13,8 +12,7 @@ void EditLabel::ReadActionParameters() {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
-	selectedComponent = pManager->GetSelectedComponent();
-	labelText = (selectedComponent != nullptr) ? selectedComponent->getLabel() : "";
+	selectedComponent = pManager->GetSelectedComponents();
 }
 
 void EditLabel::Execute() {
@@ -23,22 +21,28 @@ void EditLabel::Execute() {
 
 	ReadActionParameters();
 
-	if (selectedComponent == nullptr) {
-		pOut->PrintMsg("No component selected. Invalid label edit");
+	if (selectedComponent.size() != 1) {
+		pOut->PrintMsg("Error: Please select exactly one component to edit its label.");
 		return;
 	}
-	else if (selectedComponent->getLabel().empty()) {
-		pOut->PrintMsg("No label has been added please add one");
+	else if (selectedComponent.empty()) {
+		pOut->PrintMsg("Error: No component selected.");
+		return;
+	}
+	else if (selectedComponent[0]->getLabel().empty()) {
+		pOut->PrintMsg("Error: The selected component has no label to edit.");
 		return;
 	}
 
 	pOut->PrintMsg("Current label: " + labelText);
+
 	labelText = pIn->GetString(pOut);
 	while (labelText.empty()) {
 		pOut->PrintMsg("Label cannot be empty. Please enter valid label text: ");
 		labelText = pIn->GetString(pOut);
 	}
-	selectedComponent->setLabel(labelText);
+
+	selectedComponent[0]->setLabel(labelText);
 	pOut->PrintMsg("Label updated successfully to: " + labelText);
 }
 

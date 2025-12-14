@@ -59,6 +59,7 @@ void AddNORgate3::Execute()
 	}
 
 	NOR3 *pA = new NOR3(GInfo, NOR3_FANOUT);
+	pA->setSelected(false);
 	pManager->AddComponent(pA);
 }
 

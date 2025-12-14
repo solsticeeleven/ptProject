@@ -33,6 +33,8 @@ enum ActionType
 	SELECT,		//Select a Component, a Connection
 	DEL,		//Delete a Component, a Connection
 	MOVE,		//Move a Component, a Connection
+	COPY,		//Copy a Component, a Connection
+	PASTE,		//Paste a Component, a Connection
 
 	SAVE,		//Save the whole Circuit to a file
 	LOAD,		//Load a Circuit from a file
@@ -88,6 +90,8 @@ enum DsgnMenuItem //The items of the design menu (you should add more items)
 	ITM_EDIT,		//Edit label
 	ITM_DEL,		//Delete component
 	ITM_MOVE,		//Move component
+	ITM_COPY,		//Copy component
+	ITM_PASTE,		//Paste component
 
 	ITM_SAVE,		//Save circuit
 	ITM_LOAD,		//Load circuit

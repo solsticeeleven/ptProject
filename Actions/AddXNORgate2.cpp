@@ -44,8 +44,9 @@ void AddXNORgate2::Execute()
         }
     }
 
-    XNOR2* pXNOR = new XNOR2(GInfo, XNOR2_FANOUT);
-    pManager->AddComponent(pXNOR);
+    XNOR2* pA = new XNOR2(GInfo, XNOR2_FANOUT);
+    pA->setSelected(false);
+    pManager->AddComponent(pA);
 }
 
 void AddXNORgate2::Undo() {}

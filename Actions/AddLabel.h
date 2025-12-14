@@ -3,13 +3,15 @@
 #ifndef _ADD_LABEL_H
 #define _ADD_LABEL_H
 
+#include <vector>
+
 #include "Action.h"
 #include "../Components/Component.h"
 #include "..\ApplicationManager.h"
 
 class AddLabel : public Action {
 private:
-	Component* selectedComponent;
+	vector<Component*> selectedComponent;
 	string labelText;
 public:
 	AddLabel(ApplicationManager* pApp);

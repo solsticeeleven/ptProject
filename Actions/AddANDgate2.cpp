@@ -59,6 +59,7 @@ void AddANDgate2::Execute()
 	}
 
 	AND2 *pA=new AND2(GInfo, AND2_FANOUT); 
+	pA->setSelected(false);
 	pManager->AddComponent(pA);
 }
 

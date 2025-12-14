@@ -11,7 +11,7 @@ Delete::~Delete()
 
 void Delete::ReadActionParameters()
 {
-	selectedComponent = pManager->GetSelectedComponent();
+	selectedComponent = pManager->GetSelectedComponents();
 }
 
 void Delete::Execute()
@@ -19,23 +19,22 @@ void Delete::Execute()
 	Output* pOut = pManager->GetOutput();
 	ReadActionParameters();
 
-	if (selectedComponent == nullptr) {
-		pOut->PrintMsg("No component selected. Invalid delete.");
+	if (selectedComponent.empty()) {
+		pOut->PrintMsg("No component selected to delete.");
 		return;
 	}
-	pManager->RemoveComponent(selectedComponent);
-	pManager->SetSelectedComponent(nullptr);
-	pOut->PrintMsg("Component deleted successfully.");
+
+	for (Component* comp : selectedComponent) {
+		pManager->RemoveComponent(comp);
+	}
+
+	pManager->ClearSelectedComponents();
 }
 
 void Delete::Undo()
 {
-	pManager->AddComponent(selectedComponent);
-	pManager->UpdateInterface();
 }
 
 void Delete::Redo()
 {
-	pManager->RemoveComponent(selectedComponent);
-	pManager->UpdateInterface();
 }

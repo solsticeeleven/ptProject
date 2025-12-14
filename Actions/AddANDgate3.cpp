@@ -58,6 +58,7 @@ void AddANDgate3::Execute()
 	}
 
 	AND3 *pA = new AND3(GInfo, AND3_FANOUT);
+	pA->setSelected(false);
 	pManager->AddComponent(pA);
 }
 

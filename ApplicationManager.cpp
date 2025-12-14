@@ -36,17 +36,36 @@ void ApplicationManager::RemoveComponent(Component* pComp) {
 
 ////////////////////////////////////////////////////////////////////
 
-Component* ApplicationManager::GetSelectedComponent() const
+vector<Component*> ApplicationManager::GetSelectedComponents() const
 {
-	return selectedComponent;
+	return selectedComponents;
 }
 
 ////////////////////////////////////////////////////////////////////
 
-Component* ApplicationManager::SetSelectedComponent(Component* pComp)
+vector<Component*> ApplicationManager::AddSelectedComponent(Component* pComp)
 {
-	selectedComponent = pComp;
-	return selectedComponent;
+	if (pComp != nullptr) {
+		selectedComponents.push_back(pComp);
+	}
+	return selectedComponents;
+}
+
+////////////////////////////////////////////////////////////////////
+
+void ApplicationManager::RemoveSelectedComponent(Component* pComp)
+{
+	selectedComponents.erase(std::remove(selectedComponents.begin(), selectedComponents.end(), pComp), selectedComponents.end());
+}
+
+void ApplicationManager::ClearSelectedComponents()
+{
+	for (Component* comp : selectedComponents) {
+		if (comp != nullptr) {
+			comp->setSelected(false);
+		}
+	}
+	selectedComponents.clear();
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -90,6 +109,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case ADD_NAND_GATE_2:
 			pAct = new AddNANDgate2(this);
 			break;
+		case ADD_XNOR_GATE_2:
+			pAct = new AddXNORgate2(this);
+			break;
 		case ADD_INV:
 			pAct = new AddINVgate(this);
 			break;
@@ -119,6 +141,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 		case DEL:
 			pAct = new Delete(this);
+			break;
+		case MOVE:
+			pAct = new Move(this);
 			break;
 		case SAVE:
 			pAct = new Save(this);
@@ -196,5 +221,5 @@ void ApplicationManager::ClearAllComponents()
 	OutputInterface->ClearDrawingArea();
 
 	// Clear selection
-	selectedComponent = nullptr;
+	ClearSelectedComponents();
 }

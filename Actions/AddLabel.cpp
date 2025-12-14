@@ -2,7 +2,6 @@
 
 AddLabel::AddLabel(ApplicationManager* pApp) : Action(pApp)
 {
-	selectedComponent = nullptr;
 }
 
 AddLabel::~AddLabel()
@@ -10,7 +9,7 @@ AddLabel::~AddLabel()
 }
 
 void AddLabel::ReadActionParameters() {
-	selectedComponent = pManager->GetSelectedComponent();
+	selectedComponent = pManager->GetSelectedComponents();
 }
 
 void AddLabel::Execute() {
@@ -18,10 +17,18 @@ void AddLabel::Execute() {
 	Input* pIn = pManager->GetInput();
 	ReadActionParameters();
 
-	if (selectedComponent == nullptr) {
-		pOut->PrintMsg("No component selected. Invalid label");
+	if (selectedComponent.size() != 1) {
+		pOut->PrintMsg("Error: Please select exactly one component to add a label.");
 		return;
 	}
+	else if (!selectedComponent[0]->getLabel().empty()) {
+		pOut->PrintMsg("Error: The selected component already has a label.");
+		return;
+	} else if (selectedComponent.empty()) {
+		pOut->PrintMsg("Error: No component selected.");
+		return;
+	}
+
 	pOut->PrintMsg("Enter label text: ");
 	labelText = pIn->GetString(pOut);
 
@@ -30,7 +37,7 @@ void AddLabel::Execute() {
 		labelText = pIn->GetString(pOut);
 	}
 
-	selectedComponent->setLabel(labelText);
+	selectedComponent[0]->setLabel(labelText);
 	pManager->UpdateInterface();
 
 	pOut->PrintMsg("Successfully added the label: " + labelText);

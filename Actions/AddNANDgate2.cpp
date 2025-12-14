@@ -43,6 +43,7 @@ void AddNANDgate2::Execute() {
 	}
 
 	NAND2* pA = new NAND2(GInfo, NAND2_FANOUT);
+	pA->setSelected(false);
 	pManager->AddComponent(pA);
 }
 
