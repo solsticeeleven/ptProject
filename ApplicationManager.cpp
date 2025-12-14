@@ -1,5 +1,4 @@
 #include "ApplicationManager.h"
-
 ApplicationManager::ApplicationManager()
 {
 	CompCount = 0;
@@ -73,7 +72,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	switch (ActType)
 	{
 		case ADD_AND_GATE_2:
-			pAct= new AddANDgate2(this);	
+			pAct = new AddANDgate2(this);
 			break;
 		case ADD_OR_GATE_2:
 			pAct = new AddORgate2(this);
@@ -93,14 +92,14 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case ADD_Buff:
 			pAct = new AddBUFFgate(this);
 			break;
-		//case ADD_AND_GATE_3:
-		//	pAct = new AddANDgate3(this);
-		//	break;
+		case ADD_AND_GATE_3:
+			pAct = new AddANDgate3(this);
+			break;
+		case ADD_XOR_GATE_3:
+			pAct = new AddXORgate3(this);
+			break;
 		case ADD_NOR_GATE_3:
 			pAct = new AddNORgate3(this);
-			break;
-		case DEL:
-			pAct = new Delete(this);
 			break;
 		case ADD_CONNECTION:
 			//TODO: Create AddConection Action here
@@ -133,7 +132,6 @@ void ApplicationManager::UpdateInterface()
 			CompList[i]->Draw(OutputInterface);
 
 }
-
 ////////////////////////////////////////////////////////////////////
 Input* ApplicationManager::GetInput()
 {
@@ -157,4 +155,33 @@ ApplicationManager::~ApplicationManager()
 	delete OutputInterface;
 	delete InputInterface;
 	
+}
+
+void ApplicationManager::ClearAllComponents()
+{
+	// First delete all Connection objects to avoid leaving connections
+	// that reference gates/pins that will be destroyed.
+	for (int i = 0; i < CompCount; /*increment handled below*/) {
+		Connection* conn = dynamic_cast<Connection*>(CompList[i]);
+		if (conn) {
+			delete CompList[i];
+			// replace current slot with last and shrink list
+			CompList[i] = CompList[CompCount - 1];
+			CompList[CompCount - 1] = nullptr;
+			--CompCount;
+		}
+		else {
+			++i;
+		}
+	}
+
+	// Now delete remaining components (gates, switches, LEDs, ...)
+	for (int i = 0; i < CompCount; ++i) {
+		delete CompList[i];
+		CompList[i] = nullptr;
+	}
+	CompCount = 0;
+
+	// Clear selection
+	selectedComponent = nullptr;
 }

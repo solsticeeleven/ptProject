@@ -203,9 +203,6 @@
     <ClCompile Include="Actions\AddNORgate3.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\Delete.cpp">
-      <Filter>Actions</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -369,9 +366,6 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Actions\AddNORgate3.h">
-      <Filter>Actions</Filter>
-    </ClInclude>
-    <ClInclude Include="Actions\Delete.h">
       <Filter>Actions</Filter>
     </ClInclude>
   </ItemGroup>

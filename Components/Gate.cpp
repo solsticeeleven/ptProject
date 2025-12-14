@@ -14,3 +14,24 @@ Gate::Gate(int r_Inputs, int r_FanOut):m_OutputPin(r_FanOut)
 	for(int i=0; i<m_Inputs; i++)
 		m_InputPins[i].setComponent(this);
 }
+
+OutputPin* Gate::GetOutputPin()
+{
+	return &m_OutputPin;
+}
+
+int Gate::GetInputPinIndex(InputPin* p)
+{
+	for (int i = 0; i < m_Inputs; ++i) {
+		if (&m_InputPins[i] == p)
+			return i + 1; // 1-based index to match project usage
+	}
+	return -1;
+}
+
+InputPin* Gate::GetInputPin(int index)
+{
+	// index is 1-based
+	if (index < 1 || index > m_Inputs) return nullptr;
+	return &m_InputPins[index - 1];
+}

@@ -10,7 +10,7 @@
 #include "GUI\Input.h"
 #include "Actions\Action.h"
 #include "Components\Component.h"
-
+#include "Components\Connection.h"
 #include "Actions\AddANDgate2.h"
 #include "Actions\AddORgate2.h"
 #include "Actions\AddNORgate2.h"
@@ -20,6 +20,9 @@
 #include "Actions\AddINVgate.h"
 #include "Actions\AddANDgate3.h"
 #include "Actions\AddNORgate3.h"
+#include "Actions\AddXORgate3.h"
+#include "Actions\Save.h"        // added Save action
+#include "Actions\Load.h"        // added Load action
 #include "Actions\Select.h"
 #include "Actions\AddLabel.h"
 #include "Actions\EditLabel.h"
@@ -60,10 +63,13 @@ public:
 	void RemoveComponent(Component* pComp);
 
 	Component* GetSelectedComponent() const;
-	Component* SetSelectedComponent(Component* pComp);
+		Component* SetSelectedComponent(Component* pComp);
 
 	int GetComponentCount(); //get the number of components
 	Component* GetComponent(int n) const;
+
+	// delete all components (connections first, then others) and reset selection
+	void ClearAllComponents(); 
 
 	//destructor
 	~ApplicationManager();

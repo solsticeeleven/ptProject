@@ -12,13 +12,14 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{AA10A871-5060-4858-9CB5-CAE63E0A749B}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v145</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -137,8 +138,9 @@
     <ClCompile Include="Actions\AddORgate2.cpp" />
     <ClCompile Include="Actions\AddXNORgate2.cpp" />
     <ClCompile Include="Actions\AddXORgate2.cpp" />
-    <ClCompile Include="Actions\Delete.cpp" />
     <ClCompile Include="Actions\EditLabel.cpp" />
+    <ClCompile Include="Actions\Load.cpp" />
+    <ClCompile Include="Actions\Save.cpp" />
     <ClCompile Include="Actions\Select.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
@@ -192,6 +194,7 @@
     <ClCompile Include="ApplicationManager.cpp" />
     <ClCompile Include="Components\XNOR2.cpp" />
     <ClCompile Include="Components\XOR2.cpp" />
+    <ClCompile Include="Components\XOR3.cpp" />
     <ClCompile Include="GUI\Input.cpp" />
     <ClCompile Include="GUI\Output.cpp" />
     <ClCompile Include="main.cpp" />
@@ -209,8 +212,9 @@
     <ClInclude Include="Actions\AddORgate2.h" />
     <ClInclude Include="Actions\AddXNORgate2.h" />
     <ClInclude Include="Actions\AddXORgate2.h" />
-    <ClInclude Include="Actions\Delete.h" />
     <ClInclude Include="Actions\EditLabel.h" />
+    <ClInclude Include="Actions\Load.h" />
+    <ClInclude Include="Actions\Save.h" />
     <ClInclude Include="Actions\Select.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />
@@ -249,6 +253,7 @@
     <ClInclude Include="ApplicationManager.h" />
     <ClInclude Include="Components\XNOR2.h" />
     <ClInclude Include="Components\XOR2.h" />
+    <ClInclude Include="Components\XOR3.h" />
     <ClInclude Include="Defs.H" />
     <ClInclude Include="GUI\Input.h" />
     <ClInclude Include="GUI\Output.h" />
