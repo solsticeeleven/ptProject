@@ -37,9 +37,9 @@ int Connection::GetOutPinStatus()	//returns status of outputpin if LED, return -
 }
 
 
-int Connection::GetInputPinStatus(int n)	//returns status of Inputpin # n if SWITCH, return -1
+int Connection::GetInputPinStatus()	//returns status of Inputpin # n if SWITCH, return -1
 {
-	return SrcPin->getStatus();	//n is ignored as connection has only one input pin (src pin)	
+	return SrcPin->getStatus();	
 }
 
 void Connection::setInputPinStatus(int n, STATUS s)
