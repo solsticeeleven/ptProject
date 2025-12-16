@@ -19,7 +19,7 @@ public:
 	InputPin* getDestPin();
 
 	int GetOutPinStatus() override;	//returns status of outputpin if LED, return -1
-	int GetInputPinStatus() override;	//returns status of Inputpin # n if SWITCH, return -1
+	int GetInputPinStatus(int n) override;	//returns status of Inputpin # n if SWITCH, return -1
 
 	void setInputPinStatus(int n, STATUS s) override;	//set status of Inputpin, to be used by connection class.
 };

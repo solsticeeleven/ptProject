@@ -223,6 +223,9 @@
     </ClCompile>
     <ClCompile Include="Actions\Copy.cpp" />
     <ClCompile Include="Actions\Paste.cpp" />
+    <ClCompile Include="AddConnection.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -410,6 +413,9 @@
       <Filter>Actions</Filter>
     </ClInclude>
     <ClInclude Include="Actions\Paste.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="AddConnection.h">
       <Filter>Actions</Filter>
     </ClInclude>
   </ItemGroup>
