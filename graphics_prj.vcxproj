@@ -148,10 +148,6 @@
     <ClCompile Include="Actions\Probe.cpp" />
     <ClCompile Include="Actions\Save.cpp" />
     <ClCompile Include="Actions\Select.cpp" />
-    <ClCompile Include="Actions\Simulate.cpp" />
-    <ClCompile Include="Actions\SwitchToDesign.cpp" />
-    <ClCompile Include="Actions\SwitchToSim.cpp" />
-    <ClCompile Include="Actions\Validate.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
     <ClCompile Include="CMUgraphicsLib\image.cpp" />
@@ -232,10 +228,6 @@
     <ClInclude Include="Actions\Probe.h" />
     <ClInclude Include="Actions\Save.h" />
     <ClInclude Include="Actions\Select.h" />
-    <ClInclude Include="Actions\Simulate.h" />
-    <ClInclude Include="Actions\SwitchToDesign.h" />
-    <ClInclude Include="Actions\SwitchToSim.h" />
-    <ClInclude Include="Actions\Validate.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />
     <ClInclude Include="CMUgraphicsLib\colors.h" />
