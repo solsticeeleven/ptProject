@@ -149,6 +149,7 @@ ActionType Input::GetUserAction() const
 			case ITM_SIM: return SIMULATE;
 			case ITM_TRUTH: return Create_TruthTable;
 			case ITM_CHANGE_SWITCH: return Change_Switch;
+			case ITM_PROBE: return PROBE;
 			case ITM_DSN_MODE: return DSN_MODE;
 			case ITM_EXIT_SIM: return EXIT;
 
