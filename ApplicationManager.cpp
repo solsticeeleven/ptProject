@@ -221,29 +221,12 @@ ApplicationManager::~ApplicationManager()
 
 void ApplicationManager::ClearAllComponents()
 {
-
-	for (int i = 0; i < CompCount; ) {
-		Connection* conn = dynamic_cast<Connection*>(CompList[i]);
-		if (conn) {
-			delete CompList[i];
-
-			CompList[i] = CompList[CompCount - 1];
-			CompList[CompCount - 1] = nullptr;
-			--CompCount;
-		}
-		else {
-			++i;
-		}
-	}
-
-	// Now delete remaining components (gates, switches, LEDs, ...)
-	for (int i = 0; i < CompCount; ++i) {
+	for (int i = 0; i < CompCount; ++i)
+	{
 		delete CompList[i];
 		CompList[i] = nullptr;
 	}
 	CompCount = 0;
 	OutputInterface->ClearDrawingArea();
-
-	// Clear selection
 	ClearSelectedComponents();
 }
