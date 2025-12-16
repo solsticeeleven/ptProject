@@ -175,6 +175,7 @@ void Output::CreateSimulationToolBar() const
 	SimMenuItemImages[ITM_SIM] = "images\\Menu\\Menu_Simulate.jpg";      // Start/Run Simulation
 	SimMenuItemImages[ITM_TRUTH] = "images\\Menu\\Menu_Truth.jpg";         // Show Truth Table
 	SimMenuItemImages[ITM_CHANGE_SWITCH] = "images\\Menu\\Menu_ChangeSwitch.jpg";  // Toggle Switch Status
+	SimMenuItemImages[ITM_PROBE] = "images\\Menu\\Menu_Probe.jpg"; 
 	SimMenuItemImages[ITM_DSN_MODE] = "images\\Menu\\Menu_Design.jpg";        // Return to Design Mode
 	SimMenuItemImages[ITM_EXIT_SIM] = "images\\Menu\\Menu_Exit.jpg";          // Exit Application
 
@@ -184,6 +185,8 @@ void Output::CreateSimulationToolBar() const
 
 	pWind->SetPen(RED, 3);
 	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
+
+	}
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 //======================================================================================//
