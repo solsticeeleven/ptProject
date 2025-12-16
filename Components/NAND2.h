@@ -1,4 +1,5 @@
 #pragma once
+
 #ifndef _NAND2_H
 #define _NAND2_H
 

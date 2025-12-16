@@ -1,7 +1,7 @@
 #pragma once
 
 #ifndef _XOR2_H
-#define _NAND2_H
+#define _XOR2_H
 
 #include "Gate.h"
 

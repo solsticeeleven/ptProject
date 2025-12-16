@@ -31,6 +31,8 @@
 #include "Actions\EditLabel.h"
 #include "Actions\Delete.h"	
 #include "Actions\Move.h"
+#include "Actions\Copy.h"
+#include "Actions\Paste.h"
 
 
 //Main class that manages everything in the application.
@@ -42,20 +44,22 @@ class ApplicationManager
 private:
 	int CompCount;		//Actual number of Components
 	Component* CompList[MaxCompCount];	//List of all Components (Array of pointers)
+
 	vector<Component*> selectedComponents; //vector of selected components
+	Component* clipboardComponent; //pointer to the copied/cut component
 
 	Output* OutputInterface; //pointer to the Output Clase Interface
 	Input* InputInterface; //pointer to the Input Clase Interface
 
-public:	
+public:
 	ApplicationManager(); //constructor
 
 	//Reads the required action from the user and returns the corresponding action type
 	ActionType GetUserAction();
-	
+
 	//Creates an action and executes it
 	void ExecuteAction(ActionType);
-	
+
 	void UpdateInterface();	//Redraws all the drawing window
 
 	//Gets a pointer to Input / Output Object
@@ -67,10 +71,13 @@ public:
 	void RemoveComponent(Component* pComp);
 
 	vector<Component*> GetSelectedComponents() const;
-
 	vector<Component*> AddSelectedComponent(Component* pComp);
+
 	void RemoveSelectedComponent(Component* pComp);
 	void ClearSelectedComponents();
+
+	Component* GetClipboardComponent() const;
+	void SetClipboardComponent(Component* pComp);
 
 	int GetComponentCount(); //get the number of components
 	Component* GetComponent(int n) const;
