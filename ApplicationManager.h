@@ -23,7 +23,7 @@
 #include "Actions\AddNORgate3.h"
 #include "Actions\AddXORgate3.h"
 #include "Actions\AddXNORgate2.h"
-#include "Actions\AddConnection.h"
+#include "AddConnection.h"
 
 #include "Actions\Save.h"        
 #include "Actions\Load.h"       

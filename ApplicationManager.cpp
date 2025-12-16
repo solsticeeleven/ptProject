@@ -146,7 +146,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new AddNORgate3(this);
 			break;
 		case ADD_CONNECTION:
-			pACT = new AddConnection(this); //TODO: Create AddConection Action here
+			pAct = new AddConnection(this); //TODO: Create AddConection Action here
 			break;
 		case ADD_Label:
 			pAct = new AddLabel(this);

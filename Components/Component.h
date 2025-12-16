@@ -22,7 +22,7 @@ public:
 
 	virtual int GetOutPinStatus()=0;	//returns status of outputpin if LED, return -1
 	virtual int GetInputPinStatus(int n)=0;	//returns status of Inputpin # n if SWITCH, return -1
-
+	
 	virtual void UpdateGraphicsInfo(GraphicsInfo r_GfxInfo); //Updates the graphics info of the component
 
 	virtual void setInputPinStatus(int n, STATUS s)=0;	//set status of Inputpin # n, to be used by connection class.
