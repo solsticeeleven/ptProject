@@ -66,9 +66,9 @@ void image::Open(const char *cpFileName, imagetype itThisType) {
 	unsigned char *ucpTmp;
 	int iErrorCode;
 	
-	if(cpFileName == NULL || cpFileName[0] == '\0') {
-		throw FILE_NOT_FOUND;
-	}
+	if(cpFileName == NULL) {
+      throw FILE_NOT_FOUND;
+    }
     
     itType = itThisType;
 

@@ -1,10 +1,9 @@
 #ifndef CONST_H
 #define CONST_H
-#pragma once
 //This header file contains some defenitions to be used all over the application
 
 //All possible actions
-enum ActionType 
+enum ActionType
 {
 	ADD_Buff,			//Add 1-input Buffer gate
 	ADD_INV,			//Add 1-input Inverter gate
@@ -34,6 +33,8 @@ enum ActionType
 	SELECT,		//Select a Component, a Connection
 	DEL,		//Delete a Component, a Connection
 	MOVE,		//Move a Component, a Connection
+	COPY,		//Copy a Component, a Connection
+	PASTE,		//Paste a Component, a Connection
 
 	SAVE,		//Save the whole Circuit to a file
 	LOAD,		//Load a Circuit from a file
@@ -89,17 +90,19 @@ enum DsgnMenuItem //The items of the design menu (you should add more items)
 	ITM_EDIT,		//Edit label
 	ITM_DEL,		//Delete component
 	ITM_MOVE,		//Move component
+	ITM_COPY,		//Copy component
+	ITM_PASTE,		//Paste component
 
 	ITM_SAVE,		//Save circuit
 	ITM_LOAD,		//Load circuit
 
 	ITM_SIM_MODE,	//Switch to Simulation Mode
-	
+
 	ITM_EXIT,		//Exit item
 	//TODO: Add more items names here doneeeeee
-	
+
 	ITM_DSN_CNT		//no. of design menu items ==> This should be the last line in this enum
-	
+
 };
 
 
@@ -112,9 +115,9 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 	ITM_DSN_MODE,		//Return to Design mode
 	ITM_EXIT_SIM,		//Exit application
 	//TODO:Add more items names here doneeeeeeeeeee
-	
+
 	ITM_SIM_CNT		//no. of simulation menu items ==> This should be the last line in this enum
-	
+
 };
 
 //Maximum number of input pins that can be connected to any output pin
@@ -123,7 +126,17 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 //assume fan out is 5 for now it can be read from the user or can be predefined as const
 enum FANOUT
 {
-	AND2_FANOUT = 5	//Default fan out of 2-input AND gate
+	AND2_FANOUT = 5,	//Default fan out of 2-input AND gate
+	OR2_FANOUT = 5,
+	NAND2_FANOUT = 5,
+	NOR2_FANOUT = 5,
+	XOR2_FANOUT = 5,
+	XNOR2_FANOUT = 5,
+	AND3_FANOUT = 5,
+	NOR3_FANOUT = 5,
+	XOR3_FANOUT = 5,
+	BUFF_FANOUT = 5,
+	INV_FANOUT = 5
 };
 
 //A structure to contain drawing parameters for each component
@@ -131,7 +144,7 @@ enum FANOUT
 //this structure can be extended if desired
 struct GraphicsInfo
 {
-	int x1,y1, x2, y2;
+	int x1, y1, x2, y2;
 };
 
 #ifndef NULL

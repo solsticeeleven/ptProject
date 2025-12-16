@@ -7,15 +7,21 @@ Input::Input(window* pW)
 	pWind = pW; //point to the passed window
 }
 
+void Input::GetCurrentPointClicked(int &x, int &y)
+{
+	pWind->GetMouseCoord(x, y);	//Get current mouse coordinates
+}
+
 void Input::GetPointClicked(int &x, int &y)
 {
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
 
-string Input::GetSrting(Output *pOut)
+string Input::GetString(Output *pOut)
 {
 	string str="";
 	char key='\0';
+
 	while (true)
 	{
 		pWind->WaitKeyPress(key);
@@ -107,6 +113,8 @@ ActionType Input::GetUserAction() const
 				case ITM_EDIT: return EDIT_Label;
 				case ITM_DEL: return DEL;
 				case ITM_MOVE: return MOVE;
+				case ITM_COPY: return COPY;
+				case ITM_PASTE: return PASTE;
 				case ITM_SAVE: return SAVE;
 				case ITM_LOAD: return LOAD;
 				case ITM_SIM_MODE: return SIM_MODE;
@@ -157,7 +165,6 @@ ActionType Input::GetUserAction() const
 		//[3] User clicks on the status bar
 		return STATUS_BAR;
 	}
-
 }
 
 Input::~Input()

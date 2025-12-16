@@ -101,6 +101,13 @@ void Output::ClearDrawingArea() const
 	pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width, UI.height - UI.StatusBarHeight);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
+void Output::ClearComponentArea(GraphicsInfo gfxInfo) const
+{
+	pWind->SetPen(UI.BkGrndColor);
+	pWind->SetBrush(UI.BkGrndColor);
+	pWind->DrawRectangle(gfxInfo.x1, gfxInfo.y1, gfxInfo.x2, gfxInfo.y2);
+}
+//////////////////////////////////////////////////////////////////////////////////////////
 //Draws the menu (toolbar) in the Design mode
 void Output::CreateDesignToolBar() const
 {
@@ -134,6 +141,9 @@ void Output::CreateDesignToolBar() const
 	MenuItemImages[ITM_EDIT] = "images\\Menu\\Menu_Edit.jpg";
 	MenuItemImages[ITM_DEL] = "images\\Menu\\Menu_Del.jpg";
 	MenuItemImages[ITM_MOVE] = "images\\Menu\\Menu_Move.jpg";
+	MenuItemImages[ITM_COPY] = "images\\Menu\\Menu_COPY.jpg";
+	MenuItemImages[ITM_PASTE] = "images\\Menu\\Menu_PASTE.jpg";
+
 	MenuItemImages[ITM_SAVE] = "images\\Menu\\Menu_Save.jpg";
 	MenuItemImages[ITM_LOAD] = "images\\Menu\\Menu_Load.jpg";
 	MenuItemImages[ITM_SIM_MODE] = "images\\Menu\\Menu_SIM_MODE.jpg";
