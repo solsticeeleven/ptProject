@@ -29,6 +29,7 @@
 #include "Actions/ChangeSwitch.h"
 #include "Actions/Validate.h"
 #include "Actions/CreateTruthTable.h"
+#include "Actions/Probe.h"
 
 
 ApplicationManager::ApplicationManager()
@@ -207,7 +208,6 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case LOAD:
 			pAct = new Load(this);
 			break;
-		case EXIT:
 			///TODO: create ExitAction here
 			break;
 			//SIMULATION /////////////////////////////////////////////////////////////////
@@ -229,6 +229,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case CREATE_TRUTH_TABLE:
 			pAct = new CreateTruthTable(this);
 			break;
+		case PROBE:
+			pAct = new Probe(this);
+			break
 
 		case EXIT:
 			// Handle exit... (Keep existing exit logic)
@@ -241,7 +244,19 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = NULL;
 	}
 }
+/////////////////////////////////////
 
+void ApplicationManager::ExecuteCircuit()
+{
+	for (int iter = 0; iter < 10; ++iter)
+	{
+		for (int i = 0; i < CompCount; i++)
+		{
+			if (CompList[i])
+				CompList[i]->Operate();
+		}
+	}
+}
 ////////////////////////////////////////////////////////////////////
 
 void ApplicationManager::UpdateInterface()

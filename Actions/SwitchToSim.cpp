@@ -12,7 +12,6 @@ SwitchToSim::~SwitchToSim()
 
 void SwitchToSim::ReadActionParameters()
 {
-	// No parameters needed for switching modes
 }
 
 void SwitchToSim::Execute()
@@ -22,9 +21,6 @@ void SwitchToSim::Execute()
 	pOut->CreateSimulationToolBar();
 
 	pOut->ClearStatusBar();
-
-	// 3. Create/Refresh the bottom toolbar (if consistent across modes)
-	pOut->CreateBottomToolBar();
 
 	pManager->UpdateInterface();
 

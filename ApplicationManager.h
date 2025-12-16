@@ -85,6 +85,7 @@ public:
 	// delete all components (connections first, then others) and reset selection
 	void ClearAllComponents(); 
 
+	void ExecuteCircuit(); 
 	//destructor
 	~ApplicationManager();
 };

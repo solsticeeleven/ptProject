@@ -53,8 +53,6 @@ void Simulate::Execute()
 
     pOut->CreateSimulationToolBar();
 
-    pManager->Execute();
-
     pManager->UpdateInterface(); 
 }
 
