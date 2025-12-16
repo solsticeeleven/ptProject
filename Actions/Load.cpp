@@ -1,227 +1,141 @@
 #include "Load.h"
-#include "..\ApplicationManager.h"
-#include "..\GUI\Output.h"
-#include "..\GUI\Input.h"
+#include "../ApplicationManager.h"
 
-#include "..\Components\Connection.h"
-#include "..\Components\AND2.h"
-#include "..\Components\AND3.h"
-#include "..\Components\OR2.h"
-#include "..\Components\NOR2.h"
-#include "..\Components\NOR3.h"
-#include "..\Components\XOR2.h"
-#include "..\Components\XOR3.h"
-#include "..\Components\XNOR2.h"
-#include "..\Components\BUFF.h"
-#include "..\Components\INV.h"
-#include "..\Components\NAND2.h"
+// Include only your existing components
+#include "../Components/AND2.h"
+#include "../Components/AND3.h"
+#include "../Components/BUFF.h"
+#include "../Components/INV.h"
+#include "../Components/NAND2.h"
+#include "../Components/NOR2.h"
+#include "../Components/NOR3.h"
+#include "../Components/OR2.h"
+#include "../Components/XNOR2.h"
+#include "../Components/XOR2.h"
+#include "../Components/XOR3.h"
+#include "../Components/Connection.h"
 
 #include <fstream>
+#include <map>
 #include <sstream>
-#include <unordered_map>
+#include <limits>   // for std::numeric_limits
+#include <ios>      // for std::streamsize
 
-Load::Load(ApplicationManager* pApp) : Action(pApp), filename("") {}
 
-Load::~Load() {}
+Load::Load(ApplicationManager* pApp) : Action(pApp) {}
 
 void Load::ReadActionParameters()
 {
-	Output* out = pManager->GetOutput();
-	Input* in = pManager->GetInput();
-
-	out->PrintMsg("Enter filename to load:");
-	filename = in->GetString(out);
-	out->ClearStatusBar();
+    // Nothing to read for Load
 }
 
 void Load::Execute()
 {
-	ReadActionParameters();
+    Output* pOut = pManager->GetOutput();
+    Input* pIn = pManager->GetInput();
 
-	Output* out = pManager->GetOutput();
+    pOut->PrintMsg("Enter file name to load:");
+    std::string fileName = pIn->GetString(pOut) + ".txt";
 
-	std::ifstream infile(filename);
-	if (!infile.is_open())
-	{
-		out->PrintMsg("Error: could not open file: " + filename);
-		return;
-	}
+    std::ifstream in(fileName);
+    if (!in)
+    {
+        pOut->PrintMsg("Error opening file");
+        return;
+    }
 
-	// Clear existing components
-	pManager->ClearSelectedComponents();
-	pManager->ClearAllComponents();
+    // 1) Clear existing components safely
+    pManager->ClearAllComponents();
 
-	std::string line;
-	// Read components header
-	if (!std::getline(infile, line)) {
-		out->PrintMsg("Load failed: empty file.");
-		return;
-	}
+    int compCount = 0;
+    in >> compCount;
+    in.ignore(10000, '\n'); // skip up to 10,000 chars to next line
 
-	std::istringstream headerIss(line);
-	std::string headerType;
-	int compCount = 0;
-	headerIss >> headerType >> compCount;
-	if (headerType != "COMPONENTS") {
-		out->PrintMsg("Load failed: invalid file format (missing COMPONENTS).");
-		return;
-	}
 
-	// Map saved id -> created Component*
-	std::unordered_map<int, Component*> idMap;
-	for (int i = 0; i < compCount; ++i) {
-		// read next non-empty line
-		do {
-			if (!std::getline(infile, line)) {
-				out->PrintMsg("Load failed: unexpected end of components section.");
-				return;
-			}
-		} while (line.size() == 0);
+    std::map<int, Component*> idToComp;
 
-		std::istringstream iss(line);
-		std::string type;
-		int savedId;
-		int x1, y1, x2, y2;
-		if (!(iss >> type >> savedId >> x1 >> y1 >> x2 >> y2)) {
-			out->PrintMsg("Load failed: malformed component line.");
-			return;
-		}
+    // 2) Load components
+    for (int i = 0; i < compCount; ++i)
+    {
+        std::string line;
+        std::getline(in, line);
+        if (line.empty()) { --i; continue; } // skip empty lines
 
-		std::string label;
-		// read the rest of the line as label (may contain spaces)
-		std::getline(iss, label);
-		// trim leading spaces
-		if (!label.empty() && label.front() == ' ')
-			label.erase(0, label.find_first_not_of(' '));
+        std::istringstream iss(line);
+        std::string type, label;
+        int id, x1, y1;
 
-		GraphicsInfo g;
-		g.x1 = x1; g.y1 = y1; g.x2 = x2; g.y2 = y2;
+        if (!(iss >> type >> id >> label >> x1 >> y1)) continue;
+        if (label == "NOLABEL") label = "";
 
-		Component* created = nullptr;
+        Component* comp = nullptr;
+        GraphicsInfo g{ x1, y1 };
 
-		if (type == "AND2") {
-			created = new AND2(g, AND2_FANOUT);
-		}
-		else if (type == "AND3") {
-			created = new AND3(g, AND3_FANOUT);
+        if (type == "AND2") comp = new AND2(g, 5);
+        else if (type == "AND3") comp = new AND3(g, 5);
+        else if (type == "BUFF") comp = new BUFF(g, 5);
+        else if (type == "INV") comp = new INV(g, 5);
+        else if (type == "NAND2") comp = new NAND2(g, 5);
+        else if (type == "NOR2") comp = new NOR2(g, 5);
+        else if (type == "NOR3") comp = new NOR3(g, 5);
+        else if (type == "OR2") comp = new OR2(g, 5);
+        else if (type == "XNOR2") comp = new XNOR2(g, 5);
+        else if (type == "XOR2") comp = new XOR2(g, 5);
+        else if (type == "XOR3") comp = new XOR3(g, 5);
 
-		}
-		else if (type == "OR2") {
-			created = new OR2(g, OR2_FANOUT);
-		}
-		else if (type == "NOR2") {
-			created = new NOR2(g, NOR2_FANOUT);
-		}
-		else if (type == "NOR3") {
-			created = new NOR3(g, NOR3_FANOUT);
-		}
-		else if (type == "XOR2") {
-			created = new XOR2(g, XOR2_FANOUT);
-		}
-		else if (type == "XOR3") {
-			created = new XOR3(g, XOR3_FANOUT);
-		}
-		else if (type == "XNOR2") {
-			created = new XNOR2(g, XNOR2_FANOUT);
-		}
-		else if (type == "BUFF") {
-			created = new BUFF(g, BUFF_FANOUT);
-		}
-		else if (type == "INV") {
-			created = new INV(g, INV_FANOUT);
-		}
-		else {
-			// Unknown type -> skip
-			continue;
-		}
+        if (!comp) continue;
 
-		if (created) {
-			if (!label.empty())
-				created->setLabel(label);
-			created->setSelected(false);
-			pManager->AddComponent(created);
-			idMap[savedId] = created;
-		}
-	}
+        comp->setLabel(label);
+        pManager->AddComponent(comp);
+        idToComp[id] = comp;
+    }
 
-	// Read connections header
-	do {
-		if (!std::getline(infile, line)) {
-			// No connections section; finish loading
-			out->PrintMsg("Loaded " + filename);
-			return;
-		}
-	} while (line.size() == 0);
+    // 3) Load connections
+    std::string line;
+    std::getline(in, line); // should be "Connections"
 
-	std::istringstream connHeaderIss(line);
-	std::string connHeader;
-	int connCount = 0;
-	connHeaderIss >> connHeader >> connCount;
-	if (connHeader != "CONNECTIONS") {
-		out->PrintMsg("Load failed: invalid file format (missing CONNECTIONS).");
-		return;
-	}
+    while (std::getline(in, line))
+    {
+        if (line.empty()) continue;
+        std::istringstream iss(line);
 
-	for (int i = 0; i < connCount; ++i) {
-		// read next non-empty line
-		do {
-			if (!std::getline(infile, line)) {
-				out->PrintMsg("Load failed: unexpected end of connections section.");
-				return;
-			}
-		} while (line.size() == 0);
+        int srcID;
+        iss >> srcID;
+        if (srcID == -1) break;
 
-		std::istringstream iss(line);
-		int srcId, dstId, dstPinIndex;
-		int x1, y1, x2, y2;
-		if (!(iss >> srcId >> dstId >> dstPinIndex >> x1 >> y1 >> x2 >> y2)) {
-			out->PrintMsg("Load failed: malformed connection line.");
-			return;
-		}
+        int dstID, pinIndex;
+        if (!(iss >> dstID >> pinIndex)) continue;
 
-		auto srcIt = idMap.find(srcId);
-		auto dstIt = idMap.find(dstId);
-		if (srcIt == idMap.end() || dstIt == idMap.end()) {
-			// missing component referenced; skip this connection
-			continue;
-		}
+        Component* srcComp = idToComp[srcID];
+        Component* dstComp = idToComp[dstID];
 
-		Component* srcCmp = srcIt->second;
-		Component* dstCmp = dstIt->second;
+        if (!srcComp || !dstComp) continue;
 
-		Gate* srcGate = dynamic_cast<Gate*>(srcCmp);
-		Gate* dstGate = dynamic_cast<Gate*>(dstCmp);
-		if (!srcGate || !dstGate) {
-			// invalid connection endpoints
-			continue;
-		}
+        Gate* srcGate = dynamic_cast<Gate*>(srcComp);
+        Gate* dstGate = dynamic_cast<Gate*>(dstComp);
+        if (!srcGate || !dstGate) continue;
 
-		OutputPin* sPin = srcGate->GetOutputPin();
-		InputPin* dPin = dstGate->GetInputPin(dstPinIndex); // 1-based index as saved
+        InputPin* dstPin = dstGate->GetInputPin(pinIndex);
+        if (!dstPin) continue;
 
-		if (!sPin || !dPin) continue;
+        // Connection graphics info (just for drawing)
+        GraphicsInfo g;
+        g.x1 = srcGate->GetGraphicsInfo().x1;
+        g.y1 = srcGate->GetGraphicsInfo().y1;
+        g.x2 = dstGate->GetGraphicsInfo().x1;
+        g.y2 = dstGate->GetGraphicsInfo().y1;
 
-		GraphicsInfo gg;
-		gg.x1 = x1; gg.y1 = y1; gg.x2 = x2; gg.y2 = y2;
+        Connection* conn = new Connection(g, srcGate->GetOutputPin(), dstPin);
+        srcGate->GetOutputPin()->ConnectTo(conn);
+        pManager->AddComponent(conn);
+    }
 
-		Connection* conn = new Connection(gg, sPin, dPin);
-		// Constructor should set pins, but ensure they are linked
-		conn->setSourcePin(sPin);
-		conn->setDestPin(dPin);
+    in.close();
 
-		pManager->AddComponent(conn);
-	}
-
-	infile.close();
-	out->PrintMsg("Loaded " + filename);
+    // 4) Redraw interface
+    pManager->UpdateInterface();
+    pOut->PrintMsg("Circuit loaded successfully");
 }
 
-void Load::Undo()
-{
-	// Not implemented
-}
-
-void Load::Redo()
-{
-	// Not implemented
-}
+void Load::Undo() {}
+void Load::Redo() {}

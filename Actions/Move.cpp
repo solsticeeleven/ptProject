@@ -36,11 +36,7 @@ void Move::Execute()
 		int x, y;
 		pIn->GetPointClicked(x, y);
 
-		while (y < UI.ToolBarHeight || y > UI.height - UI.StatusBarHeight || x < 0 || x > UI.width)
-		{
-			pOut->PrintMsg("Invalid Location! Click to move the component within the drawing area");
-			pIn->GetPointClicked(x, y);
-		}
+	
 		int width = oldGfxInfo.at(index).x2 - oldGfxInfo.at(index).x1;
 		int height = oldGfxInfo.at(index).y2 - oldGfxInfo.at(index).y1;
 

@@ -1,23 +1,14 @@
-#ifndef _LOAD_ACTION_H
-#define _LOAD_ACTION_H
-
+#pragma once
 #include "Action.h"
 #include <string>
 
-class ApplicationManager;
-
 class Load : public Action
 {
-private:
-    std::string filename;
 public:
     Load(ApplicationManager* pApp);
-    virtual ~Load();
 
-    virtual void ReadActionParameters();
-    virtual void Execute();
-    virtual void Undo();
-    virtual void Redo();
+    virtual void ReadActionParameters() override;
+    virtual void Execute() override;
+    virtual void Undo() override;
+    virtual void Redo() override;
 };
-
-#endif // _LOAD_ACTION_H

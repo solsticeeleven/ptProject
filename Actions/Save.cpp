@@ -1,134 +1,131 @@
 #include "Save.h"
-#include "..\ApplicationManager.h"
-#include "..\Components\NAND2.h"
+#include "../ApplicationManager.h"
 
+// Include all your components
+#include "../Components/AND2.h"
+#include "../Components/AND3.h"
+#include "../Components/BUFF.h"
+#include "../Components/INV.h"
+#include "../Components/NAND2.h"
+#include "../Components/NOR2.h"
+#include "../Components/NOR3.h"
+#include "../Components/OR2.h"
+#include "../Components/XNOR2.h"
+#include "../Components/XOR2.h"
+#include "../Components/XOR3.h"
+#include "../Components/Connection.h"
+#include "../Components/Gate.h"
 
-Save::Save(ApplicationManager* pApp) : Action(pApp)
-{
-}
+#include <fstream>
+#include <map>
+#include <string>
+using namespace std;
 
-Save::~Save()
-{
-}
-
-void Save::ReadActionParameters()
-{
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-
-	pOut->PrintMsg("Enter filename to save (e.g. circuit.txt): ");
-	filename = pIn->GetString(pOut);
-	while (filename.empty()) {
-		pOut->PrintMsg("Filename cannot be empty. Enter filename: ");
-		filename = pIn->GetString(pOut);
-	}
-
-	pOut->ClearStatusBar();
-}
+Save::Save(ApplicationManager* pApp) : Action(pApp) {}
 
 void Save::Execute()
 {
-	ReadActionParameters();
+    Output* pOut = pManager->GetOutput();
+    Input* pIn = pManager->GetInput();
 
-	std::ofstream fout(filename);
-	Output* pOut = pManager->GetOutput();
+    pOut->PrintMsg("Enter file name:");
+    string fileName = pIn->GetString(pOut) + ".txt";
 
-	if (!fout.is_open()) {
-		pOut->PrintMsg("Error: Cannot open file for writing.");
-		return;
-	}
+    ofstream out(fileName);
+    if (!out)
+    {
+        pOut->PrintMsg("Error opening file");
+        return;
+    }
 
-	std::vector<Component*> comps;
-	std::vector<Connection*> conns;
+    // --------------------------------------------------
+    // 1) Assign IDs to NON-connection components
+    // --------------------------------------------------
+    map<Component*, int> compID;
+    int id = 1;
 
-	int total = pManager->GetComponentCount();
-	for (int i = 0; i < total; ++i) {
-		Component* c = pManager->GetComponent(i);
-		Connection* conn = dynamic_cast<Connection*>(c);
-		if (conn)
-			conns.push_back(conn);
-		else
-			comps.push_back(c);
-	}
+    int compCount = 0;
+    for (int i = 0; i < pManager->GetComponentCount(); i++)
+        if (!dynamic_cast<Connection*>(pManager->GetComponent(i)))
+            compCount++;
 
-	// Assign ids to components (1-based)
-	std::unordered_map<Component*, int> idMap;
-	for (size_t i = 0; i < comps.size(); ++i) {
-		idMap[comps[i]] = static_cast<int>(i) + 1;
-	}
+    out << compCount << endl;
 
-	// Write components header
-	fout << "COMPONENTS " << comps.size() << "\n";
-	for (size_t i = 0; i < comps.size(); ++i) {
-		Component* c = comps[i];
-		GraphicsInfo g = c->GetGraphicsInfo();
-		std::string type = "UNKNOWN";
+    for (int i = 0; i < pManager->GetComponentCount(); i++)
+    {
+        Component* c = pManager->GetComponent(i);
+        if (dynamic_cast<Connection*>(c)) continue;
 
-		if (dynamic_cast<AND2*>(c)) type = "AND2";
-		else if (dynamic_cast<AND3*>(c)) type = "AND3";
-		else if (dynamic_cast<OR2*>(c)) type = "OR2";
-		else if (dynamic_cast<NOR2*>(c)) type = "NOR2";
-		else if (dynamic_cast<NOR3*>(c)) type = "NOR3";
-		else if (dynamic_cast<XOR2*>(c)) type = "XOR2";
-		else if (dynamic_cast<XOR3*>(c)) type = "XOR3";
-		else if (dynamic_cast<XNOR2*>(c)) type = "XNOR2";
-		else if (dynamic_cast<BUFF*>(c)) type = "BUFF";
-		else if (dynamic_cast<INV*>(c)) type = "INV"; 
+        compID[c] = id;
 
-		// write: TYPE ID x1 y1 x2 y2 [label optional]
-		fout << type << " " << idMap[c] << " "
-			<< g.x1 << " " << g.y1 << " " << g.x2 << " " << g.y2;
+        GraphicsInfo g = c->GetGraphicsInfo();
+        string label = c->getLabel();
 
-		std::string lbl = c->getLabel();
-		if (!lbl.empty()) {
-			// write label after a space. labels can contain spaces; write the rest of line as label.
-			fout << " " << lbl;
-		}
-		fout << "\n";
-	}
+        // ---- component type ----
+        if (dynamic_cast<AND2*>(c))       out << "AND2 ";
+        else if (dynamic_cast<AND3*>(c))  out << "AND3 ";
+        else if (dynamic_cast<BUFF*>(c))  out << "BUFF ";
+        else if (dynamic_cast<INV*>(c))   out << "INV ";
+        else if (dynamic_cast<NAND2*>(c)) out << "NAND2 ";
+        else if (dynamic_cast<NOR2*>(c))  out << "NOR2 ";
+        else if (dynamic_cast<NOR3*>(c))  out << "NOR3 ";
+        else if (dynamic_cast<OR2*>(c))   out << "OR2 ";
+        else if (dynamic_cast<XNOR2*>(c)) out << "XNOR2 ";
+        else if (dynamic_cast<XOR2*>(c))  out << "XOR2 ";
+        else if (dynamic_cast<XOR3*>(c))  out << "XOR3 ";
 
-	// Write connections
-	fout << "CONNECTIONS " << conns.size() << "\n";
-	for (size_t i = 0; i < conns.size(); ++i) {
-		Connection* conn = conns[i];
-		OutputPin* sPin = conn->getSourcePin();
-		InputPin* dPin = conn->getDestPin();
-		Component* dstCmp = dPin->getComponent();
+        out << id << " "
+            << (label.empty() ? "NOLABEL" : label) << " "
+            << g.x1 << " " << g.y1 << endl;
 
-		// find source component by comparing output pin addresses
-		Component* srcCmp = nullptr;
-		for (auto &entry : idMap) {
-			Component* cand = entry.first;
-			Gate* g = dynamic_cast<Gate*>(cand);
-			if (g && g->GetOutputPin() == sPin) {
-				srcCmp = cand;
-				break;
-			}
-		}
+        id++;
+    }
 
-		if (!srcCmp) {
-			// source might be a component not in comps (unlikely), skip with message
-			continue;
-		}
+    // --------------------------------------------------
+    // 2) Save connections
+    // --------------------------------------------------
+    out << "Connections" << endl;
 
-		int srcId = idMap[srcCmp];
-		int dstId = -1;
-		auto it = idMap.find(dstCmp);
-		if (it != idMap.end()) dstId = it->second;
+    for (int i = 0; i < pManager->GetComponentCount(); i++)
+    {
+        Connection* conn = dynamic_cast<Connection*>(pManager->GetComponent(i));
+        if (!conn) continue;
 
-		int dstPinIndex = -1;
-		Gate* dstGate = dynamic_cast<Gate*>(dstCmp);
-		if (dstGate) dstPinIndex = dstGate->GetInputPinIndex(dPin);
+        OutputPin* srcPin = conn->getSourcePin();
+        InputPin* dstPin = conn->getDestPin();
 
-		GraphicsInfo gg = conn->GetGraphicsInfo();
+        if (!srcPin || !dstPin) continue;
 
-		fout << srcId << " " << dstId << " " << dstPinIndex << " "
-			<< gg.x1 << " " << gg.y1 << " " << gg.x2 << " " << gg.y2 << "\n";
-	}
+        Component* srcComp = nullptr;
+        Component* dstComp = dstPin->getComponent();
 
-	fout.close();
-	pOut->PrintMsg("Saved to " + filename);
+        // Find source component
+        for (int j = 0; j < pManager->GetComponentCount(); j++)
+        {
+            Gate* g = dynamic_cast<Gate*>(pManager->GetComponent(j));
+            if (g && g->GetOutputPin() == srcPin)
+            {
+                srcComp = g;
+                break;
+            }
+        }
+
+        if (!srcComp || !dstComp) continue;
+
+        Gate* dstGate = dynamic_cast<Gate*>(dstComp);
+        int pinIndex = dstGate->GetInputPinIndex(dstPin);
+
+        out << compID[srcComp] << " "
+            << compID[dstComp] << " "
+            << pinIndex << endl;
+    }
+
+    out << "-1" << endl;
+    out.close();
+
+    pOut->PrintMsg("Circuit saved successfully");
 }
 
+void Save::ReadActionParameters() {}
 void Save::Undo() {}
 void Save::Redo() {}

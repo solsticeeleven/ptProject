@@ -145,9 +145,9 @@
     <ClCompile Include="Actions\Load.cpp" />
     <ClCompile Include="Actions\Move.cpp" />
     <ClCompile Include="Actions\Paste.cpp" />
+    <ClCompile Include="Actions\Probe.cpp" />
     <ClCompile Include="Actions\Save.cpp" />
     <ClCompile Include="Actions\Select.cpp" />
-    <ClCompile Include="AddConnection.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
     <ClCompile Include="CMUgraphicsLib\image.cpp" />
@@ -225,9 +225,9 @@
     <ClInclude Include="Actions\Load.h" />
     <ClInclude Include="Actions\Move.h" />
     <ClInclude Include="Actions\Paste.h" />
+    <ClInclude Include="Actions\Probe.h" />
     <ClInclude Include="Actions\Save.h" />
     <ClInclude Include="Actions\Select.h" />
-    <ClInclude Include="AddConnection.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />
     <ClInclude Include="CMUgraphicsLib\colors.h" />
