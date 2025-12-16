@@ -167,26 +167,66 @@
     <ClCompile Include="Components\XOR3.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\Copy.cpp" />
-    <ClCompile Include="Actions\Paste.cpp" />
-    <ClCompile Include="Actions\AddANDgate2.cpp" />
-    <ClCompile Include="Actions\AddANDgate3.cpp" />
-    <ClCompile Include="Actions\AddBUFFgate.cpp" />
-    <ClCompile Include="Actions\AddINVgate.cpp" />
-    <ClCompile Include="Actions\AddLabel.cpp" />
-    <ClCompile Include="Actions\AddNANDgate2.cpp" />
-    <ClCompile Include="Actions\AddNORgate2.cpp" />
-    <ClCompile Include="Actions\AddNORgate3.cpp" />
-    <ClCompile Include="Actions\AddORgate2.cpp" />
-    <ClCompile Include="Actions\AddXNORgate2.cpp" />
-    <ClCompile Include="Actions\AddXORgate2.cpp" />
-    <ClCompile Include="Actions\AddXORgate3.cpp" />
-    <ClCompile Include="Actions\Delete.cpp" />
-    <ClCompile Include="Actions\EditLabel.cpp" />
-    <ClCompile Include="Actions\Load.cpp" />
-    <ClCompile Include="Actions\Move.cpp" />
-    <ClCompile Include="Actions\Save.cpp" />
-    <ClCompile Include="Actions\Select.cpp" />
+    <ClCompile Include="Actions\AddANDgate2.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\AddANDgate3.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\AddBUFFgate.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\AddINVgate.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\AddLabel.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\AddNANDgate2.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\AddNORgate2.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\AddNORgate3.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\AddORgate2.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\AddXNORgate2.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\AddXORgate2.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\AddXORgate3.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\Copy.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\Delete.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\EditLabel.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\Load.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\Move.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\Paste.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\Save.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\Select.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -313,27 +353,69 @@
     <ClInclude Include="Components\XOR3.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="Actions\Action.h" />
-    <ClInclude Include="Actions\AddANDgate2.h" />
-    <ClInclude Include="Actions\AddANDgate3.h" />
-    <ClInclude Include="Actions\AddBUFFgate.h" />
-    <ClInclude Include="Actions\AddINVgate.h" />
-    <ClInclude Include="Actions\AddLabel.h" />
-    <ClInclude Include="Actions\AddNANDgate2.h" />
-    <ClInclude Include="Actions\AddNORgate2.h" />
-    <ClInclude Include="Actions\AddNORgate3.h" />
-    <ClInclude Include="Actions\AddORgate2.h" />
-    <ClInclude Include="Actions\AddXNORgate2.h" />
-    <ClInclude Include="Actions\AddXORgate2.h" />
-    <ClInclude Include="Actions\AddXORgate3.h" />
-    <ClInclude Include="Actions\Copy.h" />
-    <ClInclude Include="Actions\Delete.h" />
-    <ClInclude Include="Actions\EditLabel.h" />
-    <ClInclude Include="Actions\Load.h" />
-    <ClInclude Include="Actions\Move.h" />
-    <ClInclude Include="Actions\Paste.h" />
-    <ClInclude Include="Actions\Save.h" />
-    <ClInclude Include="Actions\Select.h" />
+    <ClInclude Include="Actions\Action.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddANDgate2.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddANDgate3.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddBUFFgate.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddINVgate.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddLabel.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddNANDgate2.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddNORgate2.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddNORgate3.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddORgate2.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddXNORgate2.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddXORgate2.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddXORgate3.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\Copy.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\Delete.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\EditLabel.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\Load.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\Move.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\Paste.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\Save.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\Select.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GUI">
@@ -350,6 +432,9 @@
     </Filter>
     <Filter Include="CMUgraphics Library">
       <UniqueIdentifier>{d63335de-3852-47e7-9b12-ce7902be525e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actions">
+      <UniqueIdentifier>{256bb46e-2ea7-4207-9893-5285164435c7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
