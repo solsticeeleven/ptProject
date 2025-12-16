@@ -34,6 +34,14 @@
 #include "Actions\Copy.h"
 #include "Actions\Paste.h"
 
+// SIMULATION
+#include "Actions/SwitchToSim.h"
+#include "Actions/SwitchToDesign.h"
+#include "Actions/Simulate.h"
+#include "Actions/ChangeSwitch.h"
+#include "Actions/Validate.h"
+#include "Actions/CreateTruthTable.h"
+#include "Actions/Probe.h"
 
 //Main class that manages everything in the application.
 class ApplicationManager
