@@ -221,12 +221,8 @@
     <ClCompile Include="Actions\Move.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\Paste.cpp">
-      <Filter>Actions</Filter>
-    </ClCompile>
-    <ClCompile Include="Actions\Copy.cpp">
-      <Filter>Actions</Filter>
-    </ClCompile>
+    <ClCompile Include="Actions\Copy.cpp" />
+    <ClCompile Include="Actions\Paste.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -418,12 +414,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Actions">
-      <UniqueIdentifier>{61ecbe41-f437-4e4b-9178-88ac0a5bf06d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GUI">
       <UniqueIdentifier>{e9b7c77c-4258-4c7f-a59e-a041dec06954}</UniqueIdentifier>
     </Filter>
