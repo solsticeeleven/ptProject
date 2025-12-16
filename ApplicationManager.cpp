@@ -1,4 +1,36 @@
 #include "ApplicationManager.h"
+
+//jana
+// GATES
+#include "Actions/AddANDgate2.h"
+#include "Actions/AddANDgate3.h"
+#include "Actions/AddBUFFgate.h"
+#include "Actions/AddINVgate.h"
+#include "Actions/AddNANDgate2.h"
+#include "Actions/AddNORgate2.h"
+#include "Actions/AddNORgate3.h"
+#include "Actions/AddORgate2.h"
+#include "Actions/AddXNORgate2.h"
+#include "Actions/AddXORgate2.h"
+#include "Actions/AddXORgate3.h"
+
+#include "Actions/Delete.h"
+#include "Actions/EditLabel.h"
+#include "Actions/Load.h"
+#include "Actions/Move.h"
+#include "Actions/Save.h"
+#include "Actions/Select.h"
+
+
+// SIMULATION
+#include "Actions/SwitchToSim.h"
+#include "Actions/SwitchToDesign.h"
+#include "Actions/Simulate.h"
+#include "Actions/ChangeSwitch.h"
+#include "Actions/Validate.h"
+#include "Actions/CreateTruthTable.h"
+
+
 ApplicationManager::ApplicationManager()
 {
 	CompCount = 0;
@@ -154,6 +186,29 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case EXIT:
 			///TODO: create ExitAction here
 			break;
+			//SIMULATION /////////////////////////////////////////////////////////////////
+		case SIM_MODE:
+			pAct = new SwitchToSim(this);
+			break;
+		case DSN_MODE:
+			pAct = new SwitchToDesign(this);
+			break;
+		case SIMULATE:
+			pAct = new Simulate(this);
+			break;
+		case CHANGE_SWITCH:
+			pAct = new ChangeSwitch(this);
+			break;
+		case VALIDATE:
+			pAct = new Validate(this);
+			break;
+		case CREATE_TRUTH_TABLE:
+			pAct = new CreateTruthTable(this);
+			break;
+
+		case EXIT:
+			// Handle exit... (Keep existing exit logic)
+			break;
 	}
 	if(pAct)
 	{
@@ -162,6 +217,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = NULL;
 	}
 }
+
 ////////////////////////////////////////////////////////////////////
 
 void ApplicationManager::UpdateInterface()
