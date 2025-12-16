@@ -185,8 +185,6 @@ void Output::CreateSimulationToolBar() const
 
 	pWind->SetPen(RED, 3);
 	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
-
-	}
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 //======================================================================================//
