@@ -1,13 +1,12 @@
 #pragma once
 
-#include "..\ApplicationManager.h"
 #include "Actions/Action.h"
 #include "Components\Connection.h"
 class AddConnection : public Action
 {
 private: 
 	int x1, y1, x2, y2;
-
+	Connection* pConn;
 public:
 	AddConnection(ApplicationManager *pApp);
 	virtual ~AddConnection(void);
