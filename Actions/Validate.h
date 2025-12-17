@@ -1,11 +1,14 @@
 #pragma once
 #include "Action.h"
-class ApplicationManager;
 
 class Validate : public Action
 {
 public:
-    Validate(ApplicationManager* pApp);
+	Validate(ApplicationManager* pApp);
+	virtual ~Validate();
 
-    virtual void Execute();
+	virtual void ReadActionParameters();
+	virtual void Execute();
+	virtual void Undo();
+	virtual void Redo();
 };

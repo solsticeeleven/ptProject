@@ -229,6 +229,13 @@
     </ClCompile>
     <ClCompile Include="Actions\Copy.cpp" />
     <ClCompile Include="Actions\Paste.cpp" />
+    <ClCompile Include="Actions\Probe.cpp" />
+    <ClCompile Include="Actions\CreateTruthTable.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\Validate.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -418,7 +425,11 @@
     <ClInclude Include="Actions\Select.h">
       <Filter>Actions</Filter>
     </ClInclude>
-    <ClInclude Include="AddConnection.h">
+    <ClInclude Include="Actions\Probe.h" />
+    <ClInclude Include="Actions\CreateTruthTable.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\Validate.h">
       <Filter>Actions</Filter>
     </ClInclude>
   </ItemGroup>
