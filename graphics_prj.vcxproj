@@ -145,6 +145,7 @@
     <ClCompile Include="Actions\CreateTruthTable.cpp" />
     <ClCompile Include="Actions\Delete.cpp" />
     <ClCompile Include="Actions\EditLabel.cpp" />
+    <ClCompile Include="Actions\AddLED.cpp" />
     <ClCompile Include="Actions\Load.cpp" />
     <ClCompile Include="Actions\Move.cpp" />
     <ClCompile Include="Actions\Paste.cpp" />
