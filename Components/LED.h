@@ -7,7 +7,7 @@
 
 #include "InputPin.h"
 #include "Component.h"
-#include "Gate.h"
+
 
 class LED : public Component
 {
@@ -29,6 +29,8 @@ public:
 	virtual InputPin* GetInputPin(int n);
 
 	virtual void setInputPinStatus(int n, STATUS s);	//set status of Inputpin # n, to be used by connection class.
+
+	virtual ~LED();
 };
 
 #endif

@@ -1,7 +1,9 @@
 #pragma once
 #include "Action.h"
 #include "..\Components\LED.h"
-#include "..\ApplicationManager.h"
+#include "..\ApplicationManager.h"\
+#include "..\Actions\AddConnection.h"
+
 class AddLED : public Action
 {
 	private:

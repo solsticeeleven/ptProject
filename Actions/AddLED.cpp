@@ -2,6 +2,8 @@
 #include "..\ApplicationManager.h"
 #include "..\Components\LED.h"
 #include "..\GUI\Output.h"
+#include "..\GUI\Input.h"
+
 AddLED::AddLED(ApplicationManager* pApp) : Action(pApp)
 {
 }
@@ -16,6 +18,10 @@ void AddLED::ReadActionParameters() {
 		pIn->GetPointClicked(Cx, Cy);
 	}
 	pOut->ClearStatusBar();
+
+
+
+
 }
 void AddLED::Execute() {
 	ReadActionParameters();
