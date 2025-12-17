@@ -136,6 +136,7 @@
     <ClCompile Include="Actions\AddNORgate2.cpp" />
     <ClCompile Include="Actions\AddNORgate3.cpp" />
     <ClCompile Include="Actions\AddORgate2.cpp" />
+    <ClCompile Include="Actions\AddSwitch.cpp" />
     <ClCompile Include="Actions\AddXNORgate2.cpp" />
     <ClCompile Include="Actions\AddXORgate2.cpp" />
     <ClCompile Include="Actions\AddXORgate3.cpp" />
@@ -221,6 +222,7 @@
     <ClInclude Include="Actions\AddNORgate2.h" />
     <ClInclude Include="Actions\AddNORgate3.h" />
     <ClInclude Include="Actions\AddORgate2.h" />
+    <ClInclude Include="Actions\AddSwitch.h" />
     <ClInclude Include="Actions\AddXNORgate2.h" />
     <ClInclude Include="Actions\AddXORgate2.h" />
     <ClInclude Include="Actions\AddXORgate3.h" />
