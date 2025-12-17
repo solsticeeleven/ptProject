@@ -1,7 +1,9 @@
 #pragma once
 #include <vector>
-#include "Actions/Action.h"
-#include "Components\Connection.h"
+#include "Action.h"
+#include "..\Components\Component.h"
+#include "..\Components\Connection.h"
+
 class AddConnection : public Action
 {
 private: 

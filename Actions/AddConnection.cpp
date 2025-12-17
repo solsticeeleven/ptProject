@@ -1,6 +1,6 @@
 #include "AddConnection.h"
-#include "ApplicationManager.h"
-#include "Components/Gate.h"
+#include "..\ApplicationManager.h"
+#include "..\Components\Gate.h"
 
 AddConnection::AddConnection(ApplicationManager* pApp) : Action(pApp)
 {
