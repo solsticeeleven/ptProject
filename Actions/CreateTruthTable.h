@@ -1,11 +1,22 @@
 #pragma once
 #include "Action.h"
-class ApplicationManager;
+#include "..\Components\Component.h"
 
 class CreateTruthTable : public Action
 {
-public:
-    CreateTruthTable(ApplicationManager* pApp);
+private:
+	Component** m_SwitchList;
+	Component** m_LEDList;
 
-    virtual void Execute();
+	int m_NumSwitches;
+	int m_NumLEDs;
+
+public:
+	CreateTruthTable(ApplicationManager* pApp);
+	virtual ~CreateTruthTable();
+
+	virtual void ReadActionParameters();
+	virtual void Execute();
+	virtual void Undo();
+	virtual void Redo();
 };

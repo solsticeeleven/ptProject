@@ -28,6 +28,8 @@ public:
 
 	// Return pointer to input pin by 1-based index (needed by Load)
 	InputPin* GetInputPin(int index);
+
+	int GetNumInputs() const { return m_Inputs; }
 };
 
 #endif // _GATE_H
