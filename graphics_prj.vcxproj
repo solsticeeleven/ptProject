@@ -197,6 +197,7 @@
     <ClCompile Include="Components\Gate.cpp" />
     <ClCompile Include="Components\InputPin.cpp" />
     <ClCompile Include="Components\INV.cpp" />
+    <ClCompile Include="Components\LED.cpp" />
     <ClCompile Include="Components\NAND2.cpp" />
     <ClCompile Include="Components\NOR2.cpp" />
     <ClCompile Include="Components\NOR3.cpp" />
@@ -232,6 +233,7 @@
     <ClInclude Include="Actions\CreateTruthTable.h" />
     <ClInclude Include="Actions\Delete.h" />
     <ClInclude Include="Actions\EditLabel.h" />
+    <ClInclude Include="Actions\AddLED.h" />
     <ClInclude Include="Actions\Load.h" />
     <ClInclude Include="Actions\Move.h" />
     <ClInclude Include="Actions\Paste.h" />
@@ -269,6 +271,7 @@
     <ClInclude Include="Components\Gate.h" />
     <ClInclude Include="Components\InputPin.h" />
     <ClInclude Include="Components\INV.h" />
+    <ClInclude Include="Components\LED.h" />
     <ClInclude Include="Components\NAND2.h" />
     <ClInclude Include="Components\NOR2.h" />
     <ClInclude Include="Components\NOR3.h" />
