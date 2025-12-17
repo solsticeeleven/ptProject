@@ -8,9 +8,9 @@ AddSwitch::AddSwitch(ApplicationManager* pApp) : Action(pApp)
 void AddSwitch::ReadActionParameters() {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-	pOut->PrintMsg("2-Input NAND Gate: Click to add the switch");
+	pOut->PrintMsg("2-Input Switch: Click to add the switch");
 	pIn->GetPointClicked(Cx, Cy);
-	while (Cy < UI.ToolBarHeight || Cy > UI.height - UI.StatusBarHeight || Cx < 0 || Cx > UI.width)
+	while (Cy < UI.ToolBarHeight || Cy > UI.SWITCH_Height - UI.StatusBarHeight || Cx < 0 || Cx > UI.SWITCH_Width)
 	{
 		pOut->PrintMsg("Invalid Location! Click to add the switch within the drawing area");
 		pIn->GetPointClicked(Cx, Cy);
@@ -49,5 +49,9 @@ void AddSwitch::Undo()
 }
 
 void AddSwitch::Redo()
+{
+}
+
+AddSwitch::~AddSwitch()
 {
 }
