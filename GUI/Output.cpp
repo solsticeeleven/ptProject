@@ -1,4 +1,4 @@
-#include "Output.h"
+﻿#include "Output.h"
 #include <windows.h>
 #include <string>
 
@@ -329,136 +329,58 @@ void Output::DrawSWITCH(GraphicsInfo r_GfxInfo, bool selected) const
 
 void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected) const
 {
-	// Choose color depending on whether it's selected or not
+	// Choose color
 	color ConnColor = selected ? UI.SelectColor : UI.ConnColor;
 
-	// Raw coordinates from caller
+	// Raw coordinates
 	int x1 = r_GfxInfo.x1;
 	int y1 = r_GfxInfo.y1;
 	int x2 = r_GfxInfo.x2;
 	int y2 = r_GfxInfo.y2;
 
-	// Drawable bounds (avoid toolbar/statusbar)
+	// Drawing bounds
 	const int minX = 0;
 	const int maxX = UI.width - 1;
 	const int minY = UI.ToolBarHeight;
 	const int maxY = UI.height - UI.StatusBarHeight - 1;
 
-	auto clamp = [](int v, int lo, int hi) -> int {
-		if (v < lo) return lo;
-		if (v > hi) return hi;
-		return v;
-	};
+	auto clamp = [](int v, int lo, int hi) {
+		return (v < lo) ? lo : (v > hi) ? hi : v;
+		};
 
-	// Clamp coordinates into a safe drawing region to avoid GDI errors (this prevents MoveToEx/LineTo failures)
+	// Clamp points
 	int cx1 = clamp(x1, minX, maxX);
 	int cy1 = clamp(y1, minY, maxY);
 	int cx2 = clamp(x2, minX, maxX);
 	int cy2 = clamp(y2, minY, maxY);
 
-	// If the endpoints collapse to a single point after clamping, nothing to draw
+	// Nothing to draw
 	if (cx1 == cx2 && cy1 == cy2)
 		return;
 
-	const int offsetStep = 6; // spacing between stacked lines
-	const int kinkSize = 8;   // size of the 90-degree kink
+	pWind->SetPen(ConnColor, 3);
 
-	int dx = cx2 - cx1;
-	int dy = cy2 - cy1;
+	int dx = abs(cx2 - cx1);
+	int dy = abs(cy2 - cy1);
 
-	// Horizontal-dominant connection: draw horizontal stacked lines
-	if (abs(dx) >= abs(dy)) {
-		int y_base = cy1;
-
-		// Prefer placing stacked lines below the base; if not enough space, place above; otherwise clamp
-		int need = 2 * offsetStep + kinkSize;
-		int spaceBelow = maxY - y_base;
-		int spaceAbove = y_base - minY;
-
-		int y_grey, y_broken;
-		if (spaceBelow >= need) {
-			y_grey = y_base + offsetStep;
-			y_broken = y_base + 2 * offsetStep;
-		} else if (spaceAbove >= need) {
-			y_grey = y_base - offsetStep;
-			y_broken = y_base - 2 * offsetStep;
-		} else {
-			// fallback: try below and clamp into bounds; if that collapses, try above
-			y_grey = clamp(y_base + offsetStep, minY, maxY);
-			y_broken = clamp(y_base + 2 * offsetStep, minY, maxY);
-			if (y_broken == y_base) {
-				y_grey = clamp(y_base - offsetStep, minY, maxY);
-				y_broken = clamp(y_base - 2 * offsetStep, minY, maxY);
-			}
-		}
-
-		// 1) Grey line (same length as main)
-		pWind->SetPen(color(150, 150, 150), 3);
-		pWind->DrawLine(cx1, y_grey, cx2, y_grey);
-
-		// 2) Main straight line
-		pWind->SetPen(ConnColor, 3);
-		pWind->DrawLine(cx1, y_base, cx2, y_base);
-
-		// 3) Broken line (horizontal -> vertical kink -> horizontal)
-		pWind->SetPen(ConnColor, 3);
+	// Horizontal dominant → L-shaped wire
+	if (dx >= dy)
+	{
 		int midX = (cx1 + cx2) / 2;
-		int kinkDir = (y_broken > y_base) ? 1 : -1;
-		int y_kink_end = y_broken + kinkDir * kinkSize;
-
-		// left horizontal to mid
-		pWind->DrawLine(cx1, y_broken, midX, y_broken);
-		// vertical kink
-		pWind->DrawLine(midX, y_broken, midX, y_kink_end);
-		// right horizontal continuing from kink
-		pWind->DrawLine(midX, y_kink_end, cx2, y_kink_end);
+		pWind->DrawLine(cx1, cy1, midX, cy1);
+		pWind->DrawLine(midX, cy1, midX, cy2);
+		pWind->DrawLine(midX, cy2, cx2, cy2);
 	}
-	else {
-		// Vertical-dominant connection: mirror logic (stack horizontally)
-		int x_base = cx1;
-
-		int need = 2 * offsetStep + kinkSize;
-		int spaceRight = maxX - x_base;
-		int spaceLeft = x_base - minX;
-
-		int x_grey, x_broken;
-		if (spaceRight >= need) {
-			x_grey = x_base + offsetStep;
-			x_broken = x_base + 2 * offsetStep;
-		} else if (spaceLeft >= need) {
-			x_grey = x_base - offsetStep;
-			x_broken = x_base - 2 * offsetStep;
-		} else {
-			x_grey = clamp(x_base + offsetStep, minX, maxX);
-			x_broken = clamp(x_base + 2 * offsetStep, minX, maxX);
-			if (x_broken == x_base) {
-				x_grey = clamp(x_base - offsetStep, minX, maxX);
-				x_broken = clamp(x_base - 2 * offsetStep, minX, maxX);
-			}
-		}
-
-		// 1) Grey vertical line
-		pWind->SetPen(color(150, 150, 150), 3);
-		pWind->DrawLine(x_grey, cy1, x_grey, cy2);
-
-		// 2) Main straight vertical line
-		pWind->SetPen(ConnColor, 3);
-		pWind->DrawLine(x_base, cy1, x_base, cy2);
-
-		// 3) Broken vertical line (vertical -> horizontal kink -> vertical)
-		pWind->SetPen(ConnColor, 3);
+	// Vertical dominant → inverted L
+	else
+	{
 		int midY = (cy1 + cy2) / 2;
-		int kinkDir = (x_broken > x_base) ? 1 : -1;
-		int x_kink_end = x_broken + kinkDir * kinkSize;
-
-		// top vertical to mid
-		pWind->DrawLine(x_broken, cy1, x_broken, midY);
-		// horizontal kink
-		pWind->DrawLine(x_broken, midY, x_kink_end, midY);
-		// bottom vertical continuing from kink
-		pWind->DrawLine(x_kink_end, midY, x_kink_end, cy2);
+		pWind->DrawLine(cx1, cy1, cx1, midY);
+		pWind->DrawLine(cx1, midY, cx2, midY);
+		pWind->DrawLine(cx2, midY, cx2, cy2);
 	}
 }
+
 
 
 
