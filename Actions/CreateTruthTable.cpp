@@ -6,6 +6,7 @@
 #include "..\CMUgraphicsLib\CMUgraphics.h"
 #include <iomanip>
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -31,17 +32,15 @@ void CreateTruthTable::Execute()
 {
 	Output* pOut = pManager->GetOutput();
 
-	
-
+	// Initialize and count components
 	if (m_SwitchList) { delete[] m_SwitchList; m_SwitchList = NULL; }
 	if (m_LEDList) { delete[] m_LEDList; m_LEDList = NULL; }
 	m_NumSwitches = 0;
 	m_NumLEDs = 0;
 
-	int compCount = pManager->GetComponentCount();
+	int totalComps = pManager->GetComponentCount();
 
-	// Count Switches and LEDs
-	for (int i = 0; i < compCount; ++i)
+	for (int i = 0; i < totalComps; ++i)
 	{
 		Component* pComp = pManager->GetComponent(i);
 		if (!pComp) continue;
@@ -52,34 +51,38 @@ void CreateTruthTable::Execute()
 			m_NumLEDs++;
 	}
 
+	// Basic validation
 	if (m_NumSwitches == 0)
 	{
-		pOut->PrintMsg("Error. No Switches ");
-		return;
-	}
-	if (m_NumSwitches > 5) 
-	{
-		pOut->PrintMsg("Error. Too many switches. ");
+		pOut->PrintMsg("Operation Aborted: The circuit must contain at least one Switch.");
 		return;
 	}
 
-	
+	if (m_NumSwitches > 5)
+	{
+		pOut->PrintMsg("Complexity Alert: Cannot generate table for >5 switches.");
+		return;
+	}
+
+	// Populate lists
 	m_SwitchList = new Component * [m_NumSwitches];
 	m_LEDList = new Component * [m_NumLEDs];
 
-	int sIdx = 0, lIdx = 0;
-	for (int i = 0; i < compCount; ++i)
+	int swCount = 0;
+	int ledCount = 0;
+
+	for (int i = 0; i < totalComps; ++i)
 	{
 		Component* pComp = pManager->GetComponent(i);
 		if (!pComp) continue;
 
 		if (dynamic_cast<Switch*>(pComp))
-			m_SwitchList[sIdx++] = pComp;
+			m_SwitchList[swCount++] = pComp;
 		else if (dynamic_cast<LED*>(pComp))
-			m_LEDList[lIdx++] = pComp;
+			m_LEDList[ledCount++] = pComp;
 	}
 
-	
+	// Sort switches (Left -> Right)
 	for (int i = 0; i < m_NumSwitches - 1; i++)
 	{
 		for (int j = 0; j < m_NumSwitches - i - 1; j++)
@@ -93,115 +96,105 @@ void CreateTruthTable::Execute()
 		}
 	}
 
-	
-	// Calculate Dimensions
-	int numRows = 1 << m_NumSwitches; 
+	// Create Window
+	int numRows = 1 << m_NumSwitches;
 	int numCols = m_NumSwitches + m_NumLEDs;
 
-	int colWidth = 50;
-	int rowHeight = 25;
-	int headerHeight = 30;
+	int colW = 50;
+	int rowH = 25;
+	int headH = 30;
 
-	int winWidth = (numCols * colWidth) + 20;
-	int winHeight = (numRows * rowHeight) + headerHeight + 20;
+	int wW = (numCols * colW) + 20;
+	int wH = (numRows * rowH) + headH + 20;
 
-	if (winWidth < 200) winWidth = 200; // Min
+	if (wW < 250) wW = 250;
 
-	window* pTTWind = new window(winWidth, winHeight, 200, 100);
-	pTTWind->ChangeTitle("Truth Table");
+	window* pTTWin = new window(wW, wH, 200, 100);
+	pTTWin->ChangeTitle("Truth Table");
 
-	// Draw Headers
-	int currentX = 10;
-	int currentY = 5;
+	int curX = 10;
+	int curY = 5;
 
-	pTTWind->SetPen(BLACK, 2);
-	pTTWind->SetFont(20, BOLD, BY_NAME, "Arial");
+	pTTWin->SetPen(BLACK, 2);
+	pTTWin->SetFont(20, BOLD, BY_NAME, "Arial");
 
-	// Draw Switch Headers (S0, S1...)
+	// Draw headers for Switches
 	for (int i = 0; i < m_NumSwitches; ++i)
 	{
-		string label = "S" + to_string(i);
-		pTTWind->DrawString(currentX, currentY, label);
-		currentX += colWidth;
+		string lbl = m_SwitchList[i]->getLabel();
+		if (lbl == "" || lbl == "Switch") lbl = "S" + to_string(i);
+
+		pTTWin->DrawString(curX, curY, lbl);
+		curX += colW;
 	}
 
-	// Draw Separator
-	pTTWind->DrawLine(currentX - 10, 0, currentX - 10, winHeight);
+	pTTWin->DrawLine(curX - 10, 0, curX - 10, wH);
 
-	// Draw LED Headers (L0, L1...)
+	// Draw headers for LEDs
 	for (int i = 0; i < m_NumLEDs; ++i)
 	{
-		string label = "L" + to_string(i);
-		pTTWind->DrawString(currentX, currentY, label);
-		currentX += colWidth;
+		string lbl = m_LEDList[i]->getLabel();
+		if (lbl == "" || lbl == "LED") lbl = "L" + to_string(i);
+
+		pTTWin->DrawString(curX, curY, lbl);
+		curX += colW;
 	}
 
-	pTTWind->DrawLine(0, headerHeight, winWidth, headerHeight);
+	pTTWin->DrawLine(0, headH, wW, headH);
 
+	// Simulate and fill table
+	curY = headH + 5;
 
-	currentY = headerHeight + 5;
-
-	for (int i = 0; i < numRows; ++i)
+	for (int r = 0; r < numRows; ++r)
 	{
-		currentX = 10;
+		curX = 10;
 
-		//  INPUT
-		for (int j = 0; j < m_NumSwitches; ++j)
+		// Set inputs based on row bits
+		for (int s = 0; s < m_NumSwitches; ++s)
 		{
-			int bit = (i >> (m_NumSwitches - 1 - j)) & 1;
+			int val = (r >> (m_NumSwitches - 1 - s)) & 1;
+			Switch* pSw = (Switch*)m_SwitchList[s];
 
-			Switch* pSwitch = (Switch*)m_SwitchList[j];
+			pSw->GetOutputPin()->setStatus(val ? HIGH : LOW);
 
-			pSwitch->GetOutputPin()->setStatus(bit ? HIGH : LOW);
-
-			//  Input Value (0 or 1)
-			pTTWind->DrawString(currentX, currentY, to_string(bit));
-			currentX += colWidth;
+			pTTWin->DrawString(curX, curY, to_string(val));
+			curX += colW;
 		}
 
-		// run the circuit logic MULTIPLE TIMES to ensure signals flow 
-		// from Switches -> Gates -> Connections -> Gates -> LEDs
-
-		int maxPropagations = compCount * 2; 
-		for (int iter = 0; iter < maxPropagations; ++iter)
+		// Propagate logic
+		int maxIter = totalComps + 10;
+		for (int k = 0; k < maxIter; ++k)
 		{
-			for (int k = 0; k < compCount; ++k)
+			for (int c = 0; c < totalComps; ++c)
 			{
-				Component* pComp = pManager->GetComponent(k);
+				Component* pComp = pManager->GetComponent(c);
 				if (!pComp) continue;
 
-				if (dynamic_cast<Switch*>(pComp) == NULL)
+				if (!dynamic_cast<Switch*>(pComp))
 				{
 					pComp->Operate();
 				}
 			}
 		}
 
-		//  OUTPUT
-		for (int k = 0; k < m_NumLEDs; ++k)
+		// Read and draw outputs
+		for (int l = 0; l < m_NumLEDs; ++l)
 		{
-			LED* pLED = (LED*)m_LEDList[k];
+			LED* pLed = (LED*)m_LEDList[l];
 
-			int status = LOW;
-			if (pLED->GetInputPin(0))
-				status = pLED->GetInputPin(0)->getStatus();
+			// Use 1-based index (standard for this project)
+			int status = pLed->GetInputPinStatus(1);
 
-			//  Output Value (0 or 1)
-			pTTWind->DrawString(currentX, currentY, to_string(status == HIGH ? 1 : 0));
-			currentX += colWidth;
+			pTTWin->DrawString(curX, curY, to_string(status == HIGH ? 1 : 0));
+			curX += colW;
 		}
 
-		currentY += rowHeight;
+		curY += rowH;
 	}
 
-	pTTWind->WaitMouseClick(currentX, currentY);
-	delete pTTWind;
+	pTTWin->WaitMouseClick(curX, curY);
+	delete pTTWin;
 }
 
-void CreateTruthTable::Undo()
-{
-}
-
-void CreateTruthTable::Redo()
-{
-}
+void CreateTruthTable::Undo() {}
+void CreateTruthTable::Redo() {}

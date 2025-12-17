@@ -8,11 +8,11 @@ class Simulate : public Action
 
 private:
 
-    double timeStep;
+    double time_Step;
 
-    double totalTime;
+    double total;
 
-    double currentTime;
+    double current;
 
 public:
 

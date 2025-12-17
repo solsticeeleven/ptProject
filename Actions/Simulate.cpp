@@ -10,11 +10,11 @@ Simulate::Simulate(ApplicationManager* pApp) : Action(pApp)
     cout << "Initializing Simulation Parameters" << endl;
 
 
-    timeStep = 0.1;
-    totalTime = 10.0;
-    currentTime = 0.0;
+    time_Step = 0.1;
+    total = 10.0;
+    current = 0.0;
 
-    cout << "Simulation Initialized with time step: " << timeStep << " and total time: " << totalTime << endl;
+    cout << "Simulation Initialized with time step: " << time_Step << " & total time: " << total << endl;
 }
 
 Simulate::~Simulate() {
@@ -25,19 +25,19 @@ void Simulate::initialize() {
 }
 
 void Simulate::update() {
-    currentTime += timeStep;
+    current += time_Step;
 }
 
 void Simulate::run() {
     initialize();
-    while (currentTime < totalTime) {
+    while (current < total) {
         update();
     }
     finalize();
 }
 
 void Simulate::finalize() {
-    cout << "Simulation Complete at t=   " << currentTime << endl;
+    cout << "Simulation Complete at t=   " << current << endl;
 }
 
 void Simulate::ReadActionParameters()
@@ -49,7 +49,7 @@ void Simulate::Execute()
 {
     Output* pOut = pManager->GetOutput();
 
-    pOut->PrintMsg("Simulation Mode: Click switches to toggle, or click Truth Table.");
+    pOut->PrintMsg("Click switches to toggle, or click Truth Table.");
 
     pOut->CreateSimulationToolBar();
 

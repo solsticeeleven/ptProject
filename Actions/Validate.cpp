@@ -20,7 +20,7 @@ void Validate::Execute()
 {
 	Output* pOut = pManager->GetOutput();
 
-	// CHECK IF CIRCUIT IS EMPTY
+	// check if circuit is empty
 	if (pManager->GetComponentCount() == 0)
 	{
 		pOut->PrintMsg("Operation Failed: The circuit is empty. Add components first.");
@@ -46,7 +46,6 @@ void Validate::Execute()
 		if (pGate)
 		{
 			// Loop through all input pins of this gate
-			// NOTE: Ensure you added GetNumInputs() to Gate.h as requested
 			for (int j = 0; j < pGate->GetNumInputs(); ++j)
 			{
 				InputPin* pGateInput = pGate->GetInputPin(j);
@@ -79,8 +78,6 @@ void Validate::Execute()
 		LED* pLED = dynamic_cast<LED*>(pComp);
 		if (pLED)
 		{
-			// Assuming LED has GetInputPin() with no index or index 0
-			// Adjust based on your LED class definition
 			InputPin* pLedInput = pLED->GetInputPin(0);
 			bool pinConnected = false;
 

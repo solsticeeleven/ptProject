@@ -116,6 +116,7 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 	ITM_EXIT_SIM,		//Exit application
 	//TODO:Add more items names here doneeeeeeeeeee
 	ITM_SIMULATE, 
+	ITM_VALIDATE, 
 	ITM_PROBE, 
 	ITM_SIM_CNT		//no. of simulation menu items ==> This should be the last line in this enum
 

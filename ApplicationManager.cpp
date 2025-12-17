@@ -182,22 +182,22 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case SIM_MODE:
 			pAct = new SwitchToSim(this);
 			break;
-		case DSN_MODE:
-			pAct = new SwitchToDesign(this);
+		case TRUTH:
+			pAct = new CreateTruthTable(this);
 			break;
-		//case SIMULATE:
-		//	pAct = new Simulate(this);
-		//	break;
 		//case CHANGE_SWITCH:
 		//	pAct = new ChangeSwitch(this);
 		//	break;
-		//case VALIDATE:
-		//	pAct = new Validate(this);
-		//	break;
-		//case CREATE_TRUTH_TABLE:
-		//	pAct = new CreateTruthTable(this);
-		//	break;
-		//case PROBE:
+		case DSN_MODE:
+			pAct = new SwitchToDesign(this);
+			break;
+		case SIMULATE:
+			pAct = new Simulate(this);
+			break;
+		case VALIDATE:
+			pAct = new Validate(this);
+			break;
+		case PROBE:
 			pAct = new Probe(this);
 			break;
 		case EXIT:

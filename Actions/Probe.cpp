@@ -36,30 +36,21 @@ void Probe::Execute()
         GraphicsInfo gfx = pComp->GetGraphicsInfo();
 
         // Check if point is inside the component's area
-        // For Connections, this bounding box might be large, but it works for basic hit-testing
         if (x >= gfx.x1 && x <= gfx.x2 && y >= gfx.y1 && y <= gfx.y2)
         {
             found = true;
             int status = -1;
 
             // Check if it is a Connection (Special handling if needed, or just use GetOutPinStatus)
-            // Connection::GetOutPinStatus returns the destination pin status, which is effectively the wire's value.
             status = pComp->GetOutPinStatus();
 
-            // Note: If pComp is an LED, GetOutPinStatus might return -1 or undefined depending on your implementation.
-            // If so, you might need to check:
-            /*
-            if (dynamic_cast<LED*>(pComp)) {
-                 status = pComp->GetInputPinStatus(0); // Check the input pin for LED
-            }
-            */
 
             string state = (status == HIGH) ? "HIGH (1)" : "LOW (0)";
             string label = pComp->getLabel();
             if (label == "") label = "Component";
 
             pOut->PrintMsg("Probe Result: " + label + " is " + state);
-            return; // Exit after finding the first valid component
+            return; 
         }
     }
 
